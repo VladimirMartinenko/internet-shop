@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ProductInfo.init({
-    productId: DataTypes.INTEGER,
+    // productId: DataTypes.INTEGER,
     title:{
       allowNull: false,
       type: DataTypes.TEXT,
