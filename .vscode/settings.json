@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "internet_shop_db",
+      "database": "internet_shop_db",
+      "username": "postgres",
+      "password": "postgres"
+    }
+  ]
+}
