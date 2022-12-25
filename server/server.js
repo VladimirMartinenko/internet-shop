@@ -1,9 +1,8 @@
 require("dotenv").config();
-const express = require("express");
-const router = require("./routers");
+const http = require('http');
 
-const app = express();
-app.use(router);
+const app = require('../server/app');
+const server = http.createServer(app);
 
 const PORT = process.env.PORT || 9999;
 app.listen(PORT, () => {
