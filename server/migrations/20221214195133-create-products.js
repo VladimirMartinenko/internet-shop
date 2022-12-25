@@ -15,7 +15,7 @@ module.exports = {
       },
       price: {
         allowNull: false,
-        type: Sequelize.NUMBER
+        type: Sequelize.DECIMAL(12,2),
       },
       quantity: {
         allowNull: false,

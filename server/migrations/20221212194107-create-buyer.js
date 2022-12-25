@@ -27,7 +27,7 @@ module.exports = {
       phone: {
         allowNull: false,
         unique: true,
-        type: Sequelize.NUMBER
+        type: Sequelize.TEXT
       },
       createdAt: {
         field: 'created_at',
