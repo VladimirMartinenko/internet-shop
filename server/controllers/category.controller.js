@@ -15,6 +15,8 @@ module.exports.createCategory = async (req, res, next) => {
 module.exports.findAllCategory = async (req, res, next) => {
   try {
     const category = await Category.findAll();
+    const err = createError(404, "cant find category");
+      return next(err);
     res.send({ data: category });
   } catch (error) {
     next(error);

@@ -1,16 +1,16 @@
 const { User } = require("../db/models");
 const createError = require('http-errors');
 
-module.exports.createUser = async (req, res, next) => {
-  try {
-    const { body } = req;
-    const user = await User.create(body);
-    user.password = undefined;
-    res.send({ data: user });
-  } catch (error) {
-    next(error);
-  }
-};
+// module.exports.createUser = async (req, res, next) => {
+//   try {
+//     const { body } = req;
+//     const user = await User.create(body);
+//     user.password = undefined;
+//     res.send({ data: user });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 module.exports.findUser = async (req, res, next) => {
   try {
     const { query: {limit, offset}} =req;
@@ -19,6 +19,10 @@ module.exports.findUser = async (req, res, next) => {
     // const users = await User.findAll({
     //   attributes: ['email', 'firstName', 'lastName']
     // });
+    if (!user) {
+      const err = createError(404, 'User not found');
+      return next(err);
+    }
 
     res.send({ data: user, limit, offset });
   } catch (error) {
@@ -35,11 +39,9 @@ module.exports.findUserById = async (req, res, next) => {
     const user = await User.findByPk(id);
 
     if (!user) {
-      // throw new Error('404. User not found');
-      // throw createError(404, 'User not found');
       const err = createError(404, 'User not found');
       return next(err);
-    }
+    };
 
     res.send({ data: user });
   } catch (error) {

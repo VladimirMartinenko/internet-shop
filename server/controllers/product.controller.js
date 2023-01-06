@@ -3,8 +3,9 @@ const { Product } = require("../db/models");
 
 module.exports.createProduct = async (req, res, next) => {
   try {
-    const { body } = req;
-    const product = await Product.create(body);
+    const {file: {filename},body:{name,price,quantity,categoryId,brand} }=req;
+    console.log(filename);
+    const product = await Product.create({name,price,quantity,brand,categoryId,img:filename});
     res.send({ data: product });
   } catch (error) {
     next(error);
@@ -17,6 +18,10 @@ module.exports.findAllProduct = async (req, res, next) => {
       query: { limit, offset },
     } = req;
     const products = await Product.findAll();
+    if (!products) {
+      const err = createError(404, "cant find product");
+      return next(err);
+    }
     res.send({ data: products, limit, offset });
   } catch (error) {
     next(error);
@@ -29,7 +34,7 @@ module.exports.findProductbyId = async (req, res, next) => {
       params: { id },
     } = req;
     const product = await Product.findByPk(id);
-    if (!user) {
+    if (!product) {
       const err = createError(404, "Product not found");
       return next(err);
     }
@@ -68,7 +73,6 @@ module.exports.deleteProduct = async (req, res, next) => {
     if (deleteRows != 1) {
       const err = createError(404, "cant delete product");
       return next(err);
-      
     }
 
     res.send({ data: { id } });

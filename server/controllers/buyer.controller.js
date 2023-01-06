@@ -22,6 +22,13 @@ module.exports.findBuyers = async (req, res, next) => {
     // const users = await User.findAll({
     //   attributes: ['email', 'firstName', 'lastName']
     // });
+    if (!buyer) {
+      // throw new Error('404. User not found');
+      // throw createError(404, 'User not found');
+      const err = createError(404, 'Buyer not found');
+      return next(err);
+    }
+
 
     res.send({ data: buyer, limit, offset });
   } catch (error) {

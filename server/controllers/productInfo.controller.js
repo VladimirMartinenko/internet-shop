@@ -5,6 +5,12 @@ module.exports.createProductInfo = async (req, res, next) => {
   try {
     const { product: { id: productId },body } = req;
     const productInfo = await ProductInfo.create({productId},body);
+
+    if (!productInfo) {
+      const err = createHttpError(404, 'ProductInfo not found');
+      return next(err);
+    }
+
     res.send({ data: productInfo });
   } catch (error) {
     next(error);
@@ -21,8 +27,6 @@ module.exports.findProductInfoById = async (req, res, next) => {
     const productInfo = await ProductInfo.findOne({where:{id,productId}});
 
     if (!productInfo) {
-      // throw new Error('404. User not found');
-      // throw createError(404, 'User not found');
       const err = createHttpError(404, 'ProductInfo not found');
       return next(err);
     }
