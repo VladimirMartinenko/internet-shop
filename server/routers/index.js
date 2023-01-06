@@ -7,9 +7,11 @@ const orderRouter = require('./order.router');
 const productRouter = require('./product.router');
 const productInfoRouter = require('./productInfo.router');
 const productToOrderRouter = require('./productToOrde.router');
+const authRouter = require('./auth.router');
 // const authRouter = require('./user.router');
 
-router.use('/auth', userRouter);
+router.use('/user', userRouter);
+router.use('/auth', authRouter);
 router.use('/buyer', buyerRouter);
 router.use('/category', categoryRouter);
 router.use('/order', orderRouter);

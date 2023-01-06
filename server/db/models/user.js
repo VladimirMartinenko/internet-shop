@@ -1,5 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
+const { ADMIN,USER} = require("../../constants");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -7,9 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({Order}) {
+    static associate({ Order, RefreshToken }) {
       // define association here
-      User.hasMany(Order,{foreignkey:'userId'});
+      User.hasMany(Order, { foreignkey: "userId" });
+      User.hasMany(RefreshToken, { foreignKey: "userId" });
     }
   }
   User.init(
@@ -46,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true,
         },
       },
-      phone:{
+      phone: {
         allowNull: false,
         type: DataTypes.STRING(256),
         validate: {
@@ -64,17 +66,20 @@ module.exports = (sequelize, DataTypes) => {
           notNull: true,
         },
       },
-      role:{allowNull: false,
-      type: DataTypes.STRING(128),
-      validate: {
-        notEmpty: true,
-        notNull: true,}
-    },},
+      role: {
+        allowNull: false,
+        type: DataTypes.ENUM(USER, ADMIN),
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
+      },
+    },
     {
       sequelize,
-      modelName: 'User',
+      modelName: "User",
       underscored: true,
-      tableName: 'users',
+      tableName: "users",
     }
   );
   return User;

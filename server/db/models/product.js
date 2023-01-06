@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING(128),
       validate: {
-        isAlpha: true,
+        // isAlpha: true,
         notEmpty: true,
         notNull: true,
         len: [1, 128],
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     price:{
       allowNull: false,
-      type: DataTypes.NUMBER,
+      type: DataTypes.DECIMAL(12,2),
       validate: {
         notEmpty: true,
         notNull: true,
@@ -42,18 +42,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     quantity: {
       allowNull: false,
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       validate: {
         notEmpty: true,
         notNull: true,
       },
     },
-    // categoryId: DataTypes.INTEGER,
+    categoryId: DataTypes.INTEGER,
     brand:{
       allowNull: false,
       type: DataTypes.STRING(128),
       validate: {
-        isAlpha: true,
+        // isAlpha: true,
         notEmpty: true,
         notNull: true,
         len: [1, 128],
