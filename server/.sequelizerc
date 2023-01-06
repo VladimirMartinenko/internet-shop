@@ -1,0 +1,8 @@
+const {configPath,migrationsPath,modelsPath,seedersPath} = require('./constants');
+
+module.exports = {
+  'config': configPath,
+  'models-path': modelsPath,
+  'seeders-path': seedersPath,
+  'migrations-path': migrationsPath,
+  };
