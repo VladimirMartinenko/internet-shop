@@ -34,5 +34,7 @@ module.exports.generateTokenPair = async(payload) => ({
 module.exports.verifyAccessToken = async (token) =>
   verifyToken(token, JWT_ACCESS_SECRET);
 
-module.exports.verifyRefreshToken = async (token) =>
-  verifyToken(token, JWT_REFRESH_SECRET);
+module.exports.verifyRefreshToken = async (refreshToken) =>
+  verifyToken(refreshToken, JWT_REFRESH_SECRET);
+
+

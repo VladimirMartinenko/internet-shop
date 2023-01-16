@@ -23,7 +23,9 @@ module.exports.login = async (req, res, next) => {
     const {
       body: { email, password },
     } = req;
-    const user = await User.findOne({ email });
+    console.log(email);
+    const user = await User.findOne({where: { email } });
+    console.log(user);
 
     if (!user) {
       return next(createHttpError(401, "invalid data"));
@@ -42,6 +44,7 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.refresh = async (req, res, next) => {
   const { refreshTokenInstance } = req;
+  // console.log(refreshTokenInstance);
   const sessionData = await AuthService.refreshSession(refreshTokenInstance);
   res.status(200).send({ data: sessionData });
 };

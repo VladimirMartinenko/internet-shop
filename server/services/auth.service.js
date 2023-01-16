@@ -7,6 +7,7 @@ module.exports.createSession = async (user) => {
   const tokenPair = await jwtService.generateTokenPair({
     userId: user.id,
     email: user.email,
+    role: user.role
   });
   // console.log(tokenPair);
   await RefreshToken.create({
@@ -21,19 +22,22 @@ module.exports.createSession = async (user) => {
 };
 
 module.exports.refreshSession = async (refreshTokenInstance) => {
-  const user = await User.findById(refreshTokenInstance.userId);
+  const user = await User.findOne({where:{id:refreshTokenInstance.userId}});
+  // console.log(user);
 
   if (!user) {
     throw new createHttpError(404, "User not found");
   }
   const tokenPair = await jwtService.generateTokenPair({
-    userId: user._id,
+    userId: user.id,
     email: user.email,
+    role: user.role
   });
+  console.log(refreshTokenInstance.token);
 
-  await RefreshToken.findOneAndUpdate(
-    { token: refreshTokenInstance.token },
-    { token: tokenPair.refreshToken }
+  await RefreshToken.update({ token: tokenPair.refreshToken },{where:
+    { token: refreshTokenInstance.token }}
+    
   );
 
   return {
