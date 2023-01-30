@@ -28,7 +28,7 @@ module.exports.findAllProduct = async (req, res, next) => {
       query: { limit, page,categoryId },
     } = req;
     
-   console.log(categoryId);
+   console.log(req.query);
     
     // page= 0;
     // // offset= 0;
@@ -41,7 +41,8 @@ module.exports.findAllProduct = async (req, res, next) => {
     let products;
     // products = await Product.findAll({limit,offset});
     if (!categoryId) {
-      products = await Product.findAll({limit,offset});
+      // products = await Product.findAll({limit,offset});
+      products = await Product.findAll();
       if (!products) {
         const err = createError(404, "cant find product");
         return next(err);
@@ -49,7 +50,8 @@ module.exports.findAllProduct = async (req, res, next) => {
       }
     if (categoryId) {
       // console.log(categoryId,limit,offset);
-      products = await Product.findAll({where:{categoryId},limit,offset});
+      // products = await Product.findAll({where:{categoryId},limit,offset});
+      products = await Product.findAll({where:{categoryId}});
     console.log(products);
     if (!products,products.length == 0) {
       const err = createError(404, "cant find product");
