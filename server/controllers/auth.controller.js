@@ -23,7 +23,8 @@ module.exports.login = async (req, res, next) => {
     const {
       body: { email, password },
     } = req;
-    console.log(email);
+    console.log(req.body);
+    // console.log(email);
     const user = await User.findOne({where: { email } });
     console.log(user);
 
