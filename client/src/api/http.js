@@ -27,7 +27,6 @@ httpClient.interceptors.response.use(
     return response;
   },
   async function (error) {
-    console.log(error);
     const refreshTokenFromLS = localStorage.getItem(CONSTANTS.REFRESH_TOKEN);
 
     const {
@@ -55,9 +54,16 @@ httpClient.interceptors.response.use(
   }
 );
 
-export const login = (userData) => httpClient.post(`auth/login`, userData);
+export const login = (userData) => httpClient.post(`auth/login`, userData ,console.log(userData));
 export const refresh = (refreshToken) =>
   httpClient.post(`auth/refresh`, { refreshToken });
 export const signup = (userData) => httpClient.post(`auth/register`, userData);
 
 export const test = () => httpClient.get('tekt');
+export const categoryGet = () => httpClient.get(`category`);
+export const categoryCreate = (values) => httpClient.post(`category`,values);
+
+export const productGet = (categoryId) => httpClient.get(`product?categoryId=${categoryId}`); 
+
+export const productCreate = (values) => httpClient.post(`category`,values);
+

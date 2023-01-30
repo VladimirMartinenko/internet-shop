@@ -12,7 +12,7 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const onSubmit = (values, utils) => {
     dispatch(AuthActionCreators.loginRequest(values));
-    // console.log(values);
+    console.log(values);
   };
   return (
     <div>
