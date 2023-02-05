@@ -11,6 +11,7 @@ export default function productReducer(state = initialState, action) {
   // console.log(action);
   switch (action.type) {
     case ACTION_TYPES.PRODUCT_GET_REQUEST:
+    case ACTION_TYPES.PRODUCT_GET_BY_ID_REQUEST:
     case ACTION_TYPES.PRODUCT_CREATE_REQUEST:
       return produce(state, (draftState) => {
         draftState.isLoading = true;
@@ -20,12 +21,18 @@ export default function productReducer(state = initialState, action) {
         draftState.isLoading = false;
         draftState.product=(action.payload.values);
       });
+    case ACTION_TYPES.PRODUCT_GET_BY_ID_SUCCESS:
+      return produce(state, (draftState) => {
+        draftState.isLoading = false;
+        draftState.product.push(action.payload.values);
+      });
     case ACTION_TYPES.PRODUCT_CREATE_SUCCESS:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.product.push(action.payload.values);
       });
     case ACTION_TYPES.PRODUCT_GET_ERROR:
+    case ACTION_TYPES.PRODUCT_GET_BY_ID_ERROR:
     case ACTION_TYPES.PRODUCT_CREATE_ERROR:
       return produce(state, (draftState) => {
         draftState.isLoading = false;

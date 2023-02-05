@@ -63,7 +63,9 @@ export const test = () => httpClient.get('tekt');
 export const categoryGet = () => httpClient.get(`category`);
 export const categoryCreate = (values) => httpClient.post(`category`,values);
 
-export const productGet = (categoryId) => httpClient.get(`product?categoryId=${categoryId}`); 
+export const productGet = (categoryId) => httpClient.get(`product?categoryId=${categoryId}`);
+
+export const productGetById = (id) => httpClient.get(`product/${id}`); 
 
 export const productCreate = (values) => httpClient.post(`category`,values);
 

@@ -12,6 +12,18 @@ export const productGetError = (error) => ({
   type: ACTION_TYPES.CATEGORY_GET_ERROR,
   payload: { error },
 });
+export const productGetByIdRequest = (id) => ({
+  type: ACTION_TYPES.PRODUCT_GET_BY_ID_REQUEST,
+  payload: {values: id}
+});
+export const productGetByIdSucces = (product) => ({
+  type: ACTION_TYPES.PRODUCT_GET_BY_ID_SUCCESS,
+  payload: { values: product },
+  });
+export const productGetByIdError = (error) => ({
+  type: ACTION_TYPES.PRODUCT_GET_BY_ID_ERROR,
+  payload: { error },
+});
 export const productCreateRequest = (product) => ({
   type: ACTION_TYPES.PRODUCT_CREATE_REQUEST,
   payload: { values: product},

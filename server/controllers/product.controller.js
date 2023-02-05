@@ -3,12 +3,13 @@ const { Product , ProductInfo } = require("../db/models");
 
 module.exports.createProduct = async (req, res, next) => {
   try {
-    const {file: {filename},body:{name,price,quantity,categoryId,brand,info} }=req;
+    let {file: {filename},body:{name,price,quantity,categoryId,brand,info} }=req;
     console.log(filename);
     const product = await Product.create({name,price,quantity,brand,categoryId,img:filename});
-    
+    console.log(info);
     if (info) {
       info = JSON.parse(info);
+      console.log(info);
       info.forEach(i =>
         ProductInfo.create({
           title: i.title,

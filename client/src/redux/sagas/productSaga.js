@@ -17,6 +17,20 @@ function* productGetSaga(action) {
     yield put(productGetError(error.response.data.error));
   }
  }
+
+function* productGetByIdSaga(action) {
+  console.log(action.payload.values);
+  try {
+    const {
+      data: { data: product },
+    } = yield API.productGetById(action.payload.values);
+   
+
+    yield put(productGetSucces(product));
+  } catch (error) {
+    yield put(productGetError(error.response.data.error));
+  }
+ }
 function* productCreateSaga(action) {
   try {
     const {
@@ -34,4 +48,5 @@ function* productCreateSaga(action) {
 export default function* productSagas() {
   yield takeEvery(ACTION_TYPES.PRODUCT_GET_REQUEST, productGetSaga);
   yield takeEvery(ACTION_TYPES.PRODUCT_CREATE_REQUEST, productCreateSaga);
+  yield takeEvery(ACTION_TYPES.PRODUCT_GET_BY_ID_REQUEST, productGetByIdSaga);
 }
