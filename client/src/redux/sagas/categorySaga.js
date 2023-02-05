@@ -19,7 +19,7 @@ function* categoryCreateSaga(action) {
   try {
     const {
       data: { data: category },
-    } = yield API.categoryCreate();
+    } = yield API.categoryCreate(action.payload.values);
    
     
 

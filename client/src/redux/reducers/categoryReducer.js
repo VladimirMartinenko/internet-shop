@@ -21,6 +21,7 @@ export default function categoryReducer(state = initialState, action) {
         draftState.category.push(...action.payload.values);
       });
     case ACTION_TYPES.CATEGORY_CREATE_SUCCESS:
+      console.log(action.payload.values);
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.category.push(action.payload.values);
