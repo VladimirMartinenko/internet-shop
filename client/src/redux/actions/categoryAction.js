@@ -23,3 +23,27 @@ export const categoryCreateError = (error) => ({
   type: ACTION_TYPES.CATEGORY_CREATE_ERROR,
   payload: { error },
 });
+export const categoryDeleteRequest = (categoryId) => ({
+  type: ACTION_TYPES.CATEGORY_DELETE_REQUEST,
+  payload: { values: categoryId},
+});
+export const categoryDeleteSucces = (categoryId) => ({
+  type: ACTION_TYPES.CATEGORY_DELETE_SUCCESS,
+  payload: { values: categoryId },
+  });
+export const categoryDeleteError = (error) => ({
+  type: ACTION_TYPES.CATEGORY_DELETE_ERROR,
+  payload: { error },
+});
+export const categoryUpdateRequest = (categoryId) => ({
+  type: ACTION_TYPES.CATEGORY_UPDATE_REQUEST,
+  payload: { values: categoryId},
+});
+export const categoryUpdateSucces = (categoryId) => ({
+  type: ACTION_TYPES.CATEGORY_UPDATE_SUCCESS,
+  payload: { values: categoryId },
+  });
+export const categoryUpdateError = (error) => ({
+  type: ACTION_TYPES.CATEGORY_UPDATE_ERROR,
+  payload: { error },
+});

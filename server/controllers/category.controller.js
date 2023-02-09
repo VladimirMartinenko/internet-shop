@@ -42,3 +42,24 @@ module.exports.deleteCategory = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.updateCategory = async (req, res, next) => {
+  try {
+    const {
+      params: { id },
+      body,
+    } = req;
+    const [rowsUpdatet, [updateCategory]] = await Category.update(body, {
+      where: { id },
+      returning: true,
+    });
+    if (rowsUpdatet != 1) {
+      const err = createError(404, "cant update product");
+      return next(err);
+    }
+
+    res.send({ data: updateCategory });
+  } catch (error) {
+    next(error);
+  }
+};

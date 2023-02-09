@@ -1,5 +1,7 @@
 import React from 'react';
 import CreateCategory from '../components/CreateCategory/CreateCategory';
+import DeleteCategory from '../components/DeleteCategory/DeleteCategory';
+import UpdateCategory from '../components/UpdateCategory/UpdateCategory';
 
 const AdminPage = () => {
   return (
@@ -8,6 +10,8 @@ const AdminPage = () => {
       AdminPage
     </div>
     <CreateCategory/>
+    <DeleteCategory/>
+    <UpdateCategory/>
     </div>
     
   );
