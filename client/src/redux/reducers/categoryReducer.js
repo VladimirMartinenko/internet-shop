@@ -35,11 +35,11 @@ export default function categoryReducer(state = initialState, action) {
         draftState.category= draftState.category.filter((categorys)=> categorys.id !== Number(action.payload.values) );
       });
     case ACTION_TYPES.CATEGORY_UPDATE_SUCCESS:
-      // console.log(action.payload.values);
+      console.log(action.payload.values.id);
       return produce(state, (draftState) => {
         draftState.isLoading = false;
-        draftState.category = draftState.category.map((categorys)=> {if(categorys.id === Number(action.payload.values)){
-categorys.name = action.payload.values.name
+        draftState.category = draftState.category.map((categorys)=> {if(categorys.id === Number(action.payload.values.id)){
+          return action.payload.values;
         }return categorys} );
       });
     case ACTION_TYPES.CATEGORY_GET_ERROR:

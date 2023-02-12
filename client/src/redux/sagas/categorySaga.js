@@ -48,7 +48,7 @@ function* categoryUpdateSaga(action) {
   try {
     const {
       data: { data: category },
-    } = yield API.categoryUpdate(action.payload.values.categoryId);
+    } = yield API.categoryUpdate(action.payload.values);
    
     
 
