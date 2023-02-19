@@ -13,6 +13,7 @@ export default function productReducer(state = initialState, action) {
     case ACTION_TYPES.PRODUCT_GET_REQUEST:
     case ACTION_TYPES.PRODUCT_GET_BY_ID_REQUEST:
     case ACTION_TYPES.PRODUCT_CREATE_REQUEST:
+    case ACTION_TYPES.PRODUCT_DELETE_REQUEST:
       return produce(state, (draftState) => {
         draftState.isLoading = true;
       });
@@ -31,9 +32,15 @@ export default function productReducer(state = initialState, action) {
         draftState.isLoading = false;
         draftState.product.push(action.payload.values);
       });
+    case ACTION_TYPES.PRODUCT_DELETE_SUCCESS:
+      return produce(state, (draftState) => {
+        draftState.isLoading = false;
+        draftState.category= draftState.product.filter((products)=> products.id !== Number(action.payload.values) );
+      });
     case ACTION_TYPES.PRODUCT_GET_ERROR:
     case ACTION_TYPES.PRODUCT_GET_BY_ID_ERROR:
     case ACTION_TYPES.PRODUCT_CREATE_ERROR:
+    case ACTION_TYPES.PRODUCT_DELETE_ERROR:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = action.payload.values;

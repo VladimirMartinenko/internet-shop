@@ -27,7 +27,7 @@ const Product = () => {
   // console.log(product.ProductInfos[0]);
   let info = product.product.ProductInfos;
  
-console.log(product);
+// console.log(product);
  
 
   
@@ -35,7 +35,7 @@ console.log(product);
 
 // console.log(product);
 
-console.log(info);
+// console.log(info);
   return (
     
     < >

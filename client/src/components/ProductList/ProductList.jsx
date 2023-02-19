@@ -8,29 +8,30 @@ import {useHistory} from 'react-router-dom'
 
 const ProductList = () => {
   const history = useHistory();
-  const { product, isLoading, error } = useSelector(state => state.product)
+  const { product, isLoading, error } = useSelector(state => state.product);
+  console.log(history);
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
   // console.log(product)
-  useEffect(() => {
-    requestProducts();
-    requestIdProduct();
-  }, [])
+  // useEffect(() => {
+  //   // requestProducts();
+  //   requestIdProduct();
+  // }, [])
 
-  const requestProducts = options => dispatch(productGetRequest(options));
-  const requestIdProduct = options => dispatch(productGetByIdRequest(options));
-  // console.log(product)
+  // // const requestProducts = options => dispatch(productGetRequest(options));
+  // const requestIdProduct = options => dispatch(productGetByIdRequest(options));
+  // // console.log(product)
   return (
     <div >
       {isLoading && <div>Loading</div>}
       {error && <div>{error.message}</div>}
       {/* <button onClick={() => requestCategorys()}>Load More</button> */}
-      {product.map(product => (
+      {product && product.map(product => (
         <div key={product.id} onClick={()=> history.push('/product/'+ product.id)}>
           <img
             src={CONSTANTS.HTTP_SERVER_URL_images+product.img}
             alt={product.name}
-            onClick={() => requestIdProduct(product.id)}
+            // onClick={() => requestIdProduct(product.id)}
           ></img>
           <div>{product.name}</div>
         </div>
@@ -39,8 +40,9 @@ const ProductList = () => {
   )
 }
 // export default Category
-const mStP = state => state.category
-const mDtP = dispatch => ({
-  requestWorkers: () => dispatch(productGetRequest(),productGetByIdRequest())
-})
-export default connect(mStP, mDtP)(ProductList)
+// const mStP = state => state.category
+// const mDtP = dispatch => ({
+//   requestWorkers: () => dispatch(productGetRequest(),productGetByIdRequest())
+// })
+// export default connect(mStP, mDtP)(ProductList)
+export default ProductList;

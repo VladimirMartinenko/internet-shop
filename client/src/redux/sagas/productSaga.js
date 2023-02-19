@@ -1,5 +1,5 @@
 import {put, takeEvery} from 'redux-saga/effects'
-import {productGetError,productGetSucces,productCreateSucces,productCreateError} from '../actions/productActionCreators'
+import {productGetError,productGetSucces,productCreateSucces,productCreateError,productDeleteSucces,productDeleteError,productDeleteRequest} from '../actions/productActionCreators'
 import ACTION_TYPES from '../actions/types'
 import * as API from '../../api/http'
 
@@ -32,10 +32,11 @@ function* productGetByIdSaga(action) {
   }
  }
 function* productCreateSaga(action) {
+  console.log(action);
   try {
     const {
       data: { data: product },
-    } = yield API.productCreate();
+    } = yield API.productCreate(action.payload.values);
    
     
 
@@ -44,9 +45,24 @@ function* productCreateSaga(action) {
     yield put(productCreateError(error.response.data.error));
   }
  }
+function* productDeleteSaga(action) {
+  console.log(action);
+  try {
+    const {
+      data: { data: productId },
+    } = yield API.productDelete(action.payload.values);
+   
+    
+
+    yield put(productDeleteSucces(productId.id));
+  } catch (error) {
+    yield put(productDeleteError(error.response.data.error));
+  }
+ }
 
 export default function* productSagas() {
   yield takeEvery(ACTION_TYPES.PRODUCT_GET_REQUEST, productGetSaga);
   yield takeEvery(ACTION_TYPES.PRODUCT_CREATE_REQUEST, productCreateSaga);
   yield takeEvery(ACTION_TYPES.PRODUCT_GET_BY_ID_REQUEST, productGetByIdSaga);
+  yield takeEvery(ACTION_TYPES.PRODUCT_DELETE_REQUEST, productDeleteSaga);
 }
