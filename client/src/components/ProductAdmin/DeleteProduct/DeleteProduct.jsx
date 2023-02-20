@@ -38,7 +38,7 @@ console.log(values);
    
     <Field name="productId" placeholder='productId' as="select">
     {product.map((products) => (
-  <option key={products.id} value={JSON.stringify(products.id)} placeholder='productId'>{products.name}</option>))}
+  <option key={products.id} value={JSON.stringify(products.id)}>{products.name}</option>))}
     </Field>
     <button type="submit">DELETE</button>
   </Form>
