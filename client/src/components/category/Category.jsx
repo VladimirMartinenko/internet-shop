@@ -1,7 +1,7 @@
 import React, { useEffect}  from 'react';
 import { connect, useDispatch, useSelector} from 'react-redux'
 import {categoryRequest} from '../../redux/actions/categoryAction'
-import { productGetRequest } from '../../redux/actions/productActionCreators'
+import { productGetRequest,productGetByCategoryRequest } from '../../redux/actions/productActionCreators'
 import cx from "classnames";
 import classes from './category.module.scss';
 
@@ -18,7 +18,7 @@ const Category = () => {
   
   const requestCategorys = (options) => dispatch(categoryRequest(options));
   // console.log(category);
-  const requestProducts = options => dispatch(productGetRequest(options))
+  const requestProducts = options => dispatch(productGetByCategoryRequest(options))
    return (
     <div>
       {isLoading && <div>Loading</div>}
@@ -35,5 +35,5 @@ const Category = () => {
 }
 // export default Category
 const mStP= state=>state.category;
-const mDtP = (dispatch)=>({requestWorkers:()=>dispatch(productGetRequest())});
+const mDtP = (dispatch)=>({requestWorkers:()=>dispatch(productGetByCategoryRequest())});
 export default connect(mStP,mDtP)(Category);

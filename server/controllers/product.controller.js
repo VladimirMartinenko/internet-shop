@@ -23,7 +23,7 @@ module.exports.createProduct = async (req, res, next) => {
   }
 };
 
-module.exports.findAllProduct = async (req, res, next) => {
+module.exports.findProductByCategory = async (req, res, next) => {
   try {
     const {
       query: { limit, page,categoryId },
@@ -59,6 +59,43 @@ module.exports.findAllProduct = async (req, res, next) => {
       return next(err);
     };
     }
+    
+    // if (!products) {
+    //   const err = createError(404, "cant find product");
+    //   return next(err);
+    // }
+    res.send({ data:products, limit, offset });
+  } catch (error) {
+    next(error);
+  }
+};
+module.exports.findAllProduct = async (req, res, next) => {
+  try {
+    const {
+      query: { limit, page },
+    } = req;
+    
+   console.log(req.query);
+    
+    // page= 0;
+    // // offset= 0;
+    // console.log(page);
+
+    // limit : limit ? limit:9;
+    // limit = Number(limit); 
+    let offset = page * limit - limit
+    // console.log(categoryId,limit);
+    let products;
+    // products = await Product.findAll({limit,offset});
+   
+      // products = await Product.findAll({limit,offset});
+      products = await Product.findAll();
+      if (!products) {
+        const err = createError(404, "cant find product");
+        return next(err);
+      }
+      
+    
     
     // if (!products) {
     //   const err = createError(404, "cant find product");

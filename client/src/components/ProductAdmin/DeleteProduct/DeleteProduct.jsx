@@ -24,7 +24,7 @@ console.log(product)
   // const requestCategorys = (options) => dispatch(categoryRequest(options));
   const onSubmit = (values, utils) => {
     dispatch(productDeleteRequest(values));
-
+console.log(values);
 
     // console.log(values);
   };
@@ -36,9 +36,9 @@ console.log(product)
 <Formik initialValues={initialValues} onSubmit= {onSubmit}>
   <Form>
    
-    <Field name="categoryId" placeholder='categoryId' as="select">
-    {product.map((product) => (
-  <option key={product.id} value={JSON.stringify(product.id)}>{product.name}</option>))}
+    <Field name="productId" placeholder='productId' as="select">
+    {product.map((products) => (
+  <option key={products.id} value={JSON.stringify(products.id)} placeholder='productId'>{products.name}</option>))}
     </Field>
     <button type="submit">DELETE</button>
   </Form>
