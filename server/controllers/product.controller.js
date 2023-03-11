@@ -127,9 +127,20 @@ module.exports.updateProduct = async (req, res, next) => {
   try {
     const {
       params: { id },
-      body,
+     body
     } = req;
-    const [rowsUpdatet, [updateProduct]] = await Product.update(body, {
+    // console.log(body);
+
+// let updateProducts = new Object();
+// for (let key in body){
+//   // if(body[key]!==body[info]){
+//     updateProducts[key] =body[key]
+//   // }
+ 
+// }
+// console.log(updateProducts);
+
+    const [rowsUpdatet, [updateProduct]] = await Product.update(body,{
       where: { id },
       returning: true,
     });
@@ -137,7 +148,15 @@ module.exports.updateProduct = async (req, res, next) => {
       const err = createError(404, "cant update product");
       return next(err);
     }
-
+    if (body.info) {
+      info = JSON.parse(body.info);
+      console.log(info);
+      info.forEach(i=>
+        ProductInfo.update(i,{
+          where:{id:i.id},
+          returning:true
+        }))
+    }
     res.send({ data: updateProduct });
   } catch (error) {
     next(error);

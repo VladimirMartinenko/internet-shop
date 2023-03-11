@@ -9,7 +9,7 @@ const initialValues = {
 };
 
 const DeleteProduct = () => {
-  const { product } = useSelector(state => state.product);
+  const { product } = useSelector(state => state.products);
   const dispatch = useDispatch();
   
   useEffect(() => {

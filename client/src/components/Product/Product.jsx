@@ -20,14 +20,14 @@ const Product = () => {
  
   const dispatch = useDispatch();
   
-  const { product, isLoading, error } = useSelector(state => state);
+  const { product, isLoading, error } = useSelector(state => state.product);
   
   // const info = useSelector(state => state.product.product.ProductInfos);
   // const {ProductInfos} = product;
   // console.log(product.ProductInfos[0]);
-  let info = product.product.ProductInfos;
+  let info = product.ProductInfos;
  
-// console.log(product);
+console.log(product);
  
 
   
@@ -51,7 +51,7 @@ const Product = () => {
           src={CONSTANTS.HTTP_SERVER_URL_images+product.img}
           alt={product.name}></img><div>{product.ProductInfos.map(i=>(<div>{i.title}:{i.description}</div>))}</div></div>))}</div> */}
     <div><div><img
-          src={CONSTANTS.HTTP_SERVER_URL_images+product.product.img}
+          src={CONSTANTS.HTTP_SERVER_URL_images+product.img}
           alt={product.name}></img><div></div></div></div>
    
   </>
@@ -61,6 +61,6 @@ const Product = () => {
 // const vvv2 = JSON.stringify(vvv);
 // console.log(vvv2);
 // export default Product;
-const mStP= state=>state.product;
+const mStP= state=>state.products;
 const mDtP = (dispatch)=>({requestWorkers:()=>dispatch(productGetByIdRequest())});
 export default connect(mStP,mDtP)(Product);

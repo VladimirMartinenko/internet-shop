@@ -8,7 +8,7 @@ import {useHistory} from 'react-router-dom'
 
 const ProductList = () => {
   const history = useHistory();
-  const { product, isLoading, error } = useSelector(state => state.product);
+  const { product, isLoading, error } = useSelector(state => state.products);
   console.log(history);
 
   // const dispatch = useDispatch()

@@ -49,6 +49,7 @@ module.exports.updateCategory = async (req, res, next) => {
       params: { id },
       body,
     } = req;
+    console.log(req);
     const [rowsUpdatet, [updateCategory]] = await Category.update(body, {
       where: { id },
       returning: true,

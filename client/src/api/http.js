@@ -79,3 +79,5 @@ export const productCreate = (values) => httpClient.post(`product`,values, conso
 
 export const productDelete = (id) => httpClient.delete(`product/${id}`, console.log(id));
 
+export const productUpdate = (id,data) => httpClient.put(`product/${id}`,data);
+

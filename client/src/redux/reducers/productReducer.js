@@ -2,52 +2,55 @@ import produce from "immer";
 import ACTION_TYPES from "../actions/types";
 
 const initialState = {
-  product: [],
+  products: [],
   isLoading: false,
   error: null,
 };
 
 export default function productReducer(state = initialState, action) {
-  // console.log(action);
   switch (action.type) {
-    case ACTION_TYPES.PRODUCT_GET_REQUEST:
+    
     case ACTION_TYPES.PRODUCT_GET_BY_ID_REQUEST:
-    case ACTION_TYPES.PRODUCT_GET_BY_CATEGORY_REQUEST:
-    case ACTION_TYPES.PRODUCT_CREATE_REQUEST:
-    case ACTION_TYPES.PRODUCT_DELETE_REQUEST:
+    case ACTION_TYPES.PRODUCT_LOCAL_UPDATE_REQUEST:
+    case ACTION_TYPES.PRODUCT_UPDATE_REQUEST:
       return produce(state, (draftState) => {
         draftState.isLoading = true;
       });
-    case ACTION_TYPES.PRODUCT_GET_SUCCESS:
-      return produce(state, (draftState) => {
-        draftState.isLoading = false;
-        draftState.product=(action.payload.values);
-      });
-    case ACTION_TYPES.PRODUCT_GET_BY_CATEGORY_SUCCESS:
-      return produce(state, (draftState) => {
-        draftState.isLoading = false;
-        draftState.product=(action.payload.values);
-      });
-    case ACTION_TYPES.PRODUCT_GET_BY_ID_SUCCESS:
-      return produce(state, (draftState) => {
-        draftState.isLoading = false;
-        draftState.product.push(action.payload.values);
-      });
-    case ACTION_TYPES.PRODUCT_CREATE_SUCCESS:
-      return produce(state, (draftState) => {
-        draftState.isLoading = false;
-        draftState.product.push(action.payload.values);
-      });
-    case ACTION_TYPES.PRODUCT_DELETE_SUCCESS:
-      return produce(state, (draftState) => {
-        draftState.isLoading = false;
-        draftState.product= draftState.product.filter((products)=> products.id !== Number(action.payload.values) );
-      });
-    case ACTION_TYPES.PRODUCT_GET_ERROR:
+      case ACTION_TYPES.PRODUCT_GET_BY_ID_SUCCESS:
+        return produce(state, (draftState) => {
+          draftState.isLoading = false;
+          draftState.products=(action.payload.values);
+        });
+      case ACTION_TYPES.PRODUCT_UPDATE_SUCCESS:
+        return produce(state, (draftState) => {
+          draftState.isLoading = false;
+          draftState.products=(action.payload.values);
+        });
+      case ACTION_TYPES.PRODUCT_LOCAL_UPDATE_SUCCESS:
+        return produce(state, (draftState) => {
+          draftState.isLoading = false;
+          console.log(action.payload.values.value);
+          // draftState.products.name=(action.payload.values.value);
+          // draftState.products=(action.payload.values);
+          for(let key in draftState.products){
+            if(key===action.payload.values.name){
+             console.log('привет');
+             draftState.products[key]=(action.payload.values.value);
+            }
+            console.log(key + ':',draftState.products[key]) }
+        //   for (let[key,value] of draftState.products) {
+        //   //   if(key===action.payload.values.name){
+        //   //     draftState.products[key]=action.payload.values.value
+             
+        //   // }
+        //   console.log(`${key}: ${value}\n`)
+        // }
+          
+        });
+        
     case ACTION_TYPES.PRODUCT_GET_BY_ID_ERROR:
-    case ACTION_TYPES.PRODUCT_GET_BY_CATEGORY_ERROR:
-    case ACTION_TYPES.PRODUCT_CREATE_ERROR:
-    case ACTION_TYPES.PRODUCT_DELETE_ERROR:
+    case ACTION_TYPES.PRODUCT_LOCAL_UPDATE_ERROR:
+    case ACTION_TYPES.PRODUCT_UPDATE_ERROR:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = action.payload.values;
@@ -61,4 +64,5 @@ export default function productReducer(state = initialState, action) {
     default:
       return state;
   }
+    
 }
