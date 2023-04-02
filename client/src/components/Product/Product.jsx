@@ -20,14 +20,14 @@ const Product = () => {
  
   const dispatch = useDispatch();
   
-  const { product, isLoading, error } = useSelector(state => state.product);
-  
+  const { products, isLoading, error } = useSelector(state => state.product);
+  console.log(products);
   // const info = useSelector(state => state.product.product.ProductInfos);
   // const {ProductInfos} = product;
   // console.log(product.ProductInfos[0]);
-  let info = product.ProductInfos;
+  let info = products.ProductInfos;
  
-console.log(product);
+
  
 
   
@@ -39,11 +39,7 @@ console.log(product);
   return (
     
     < >
-    <div>{info && info.map(i => (
-      <div key={i.id}>
-       {i.title}:{i.description}
-      </div>
-    ))}</div> 
+   
     {isLoading && <div>Loading</div>}
     {error && <div>{error.message}</div>}
     {/* <button onClick={() => requestCategorys()}>Load More</button> */}
@@ -51,9 +47,13 @@ console.log(product);
           src={CONSTANTS.HTTP_SERVER_URL_images+product.img}
           alt={product.name}></img><div>{product.ProductInfos.map(i=>(<div>{i.title}:{i.description}</div>))}</div></div>))}</div> */}
     <div><div><img
-          src={CONSTANTS.HTTP_SERVER_URL_images+product.img}
-          alt={product.name}></img><div></div></div></div>
-   
+          src={CONSTANTS.HTTP_SERVER_URL_images+products.img}
+          alt={products.name}></img><div></div></div></div>
+    <div>{info && info.map(i => (
+      <div key={i.id}>
+       {i.title}:{i.description}
+      </div>
+    ))}</div> 
   </>
   );
 }

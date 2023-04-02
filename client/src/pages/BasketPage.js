@@ -1,9 +1,10 @@
 import React from 'react';
+import Basket from '../components/Basket/Basket';
 
 const BasketPage = () => {
   return (
     <div>
-      Order
+     <Basket/>
     </div>
   );
 }

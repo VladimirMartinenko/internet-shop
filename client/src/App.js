@@ -8,13 +8,23 @@ import AdminPage from './pages/AdminPage';
 import ShopPage from './pages/ShopPage';
 import BasketPage from './pages/BasketPage';
 import ProductPage from './pages/ProductPage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import AuthActionCreators from './redux/actions/authActionCreators';
+import {basketSumRequest} from './redux/actions/basketActionCreators';
 import CONSTANTS from './constants';
 
 function App() {
   const dispatch = useDispatch();
+  const { items } = useSelector(state => state.basket);
+  useEffect(() => {
+    window.localStorage.setItem('basket', JSON.stringify(items));
+  }, [items]);
+
+  useEffect(() => {
+   dispatch(basketSumRequest())
+  }, [items]);
+  
 
   useEffect(() => {
     const refreshToken = localStorage.getItem(CONSTANTS.REFRESH_TOKEN)
@@ -38,6 +48,9 @@ function App() {
         </li>
         <li>
           <Link to='/admin'>Admin</Link>
+        </li>
+        <li>
+          <Link to='/basket'>Basket</Link>
         </li>
       </ul>
     </nav>

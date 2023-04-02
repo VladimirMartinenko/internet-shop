@@ -1,6 +1,5 @@
-import { Formik, Field, Form, FieldArray, useField, useFormikContext } from 'formik'
-import React, { Fragment, useEffect } from 'react'
-import Select from 'react-select'
+import { Formik, Field, Form, FieldArray, useFormikContext } from 'formik'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   productUpdateRequest,
@@ -62,30 +61,28 @@ const initialValues = {
   ]
 }
 
-
-
 const UpdateProduct = () => {
   const { category } = useSelector(state => state.category)
   const { product } = useSelector(state => state.products)
   const { products } = useSelector(state => state.product)
   console.log(products)
   const AutoSubmitToken = () => {
-  const{setFieldValue}=useFormikContext()
-  useEffect(()=>{
-    setFieldValue('name',products.name);
-    setFieldValue('price',products.price);
-    setFieldValue('quantity',products.quantity);
-    setFieldValue('quantity',products.quantity);
-    setFieldValue('categoryId',products.categoryId);
-    setFieldValue('brand',products.brand);
-    products.ProductInfos?.map((info,index) =>{
-      setFieldValue(`info[${index}].title`,info.title)
-      setFieldValue(`info.${index}.description`,info.description)
-      setFieldValue(`info.${index}.id`,info.id)
-    })
-    // // changeValue(formikProps)
-  },[products])
-}
+    const { setFieldValue } = useFormikContext()
+    useEffect(() => {
+      setFieldValue('name', products.name)
+      setFieldValue('price', products.price)
+      setFieldValue('quantity', products.quantity)
+      setFieldValue('quantity', products.quantity)
+      setFieldValue('categoryId', products.categoryId)
+      setFieldValue('brand', products.brand)
+      products.ProductInfos?.map((info, index) => {
+        setFieldValue(`info[${index}].title`, info.title)
+        setFieldValue(`info.${index}.description`, info.description)
+        setFieldValue(`info.${index}.id`, info.id)
+      })
+      // // changeValue(formikProps)
+    }, [products])
+  }
   // const changeValue=(formikProps)=>{formikProps.setFieldValue('name',products.name)}
 
   // const info=[
@@ -123,12 +120,12 @@ const UpdateProduct = () => {
     data.append('quantity', `${values.quantity}`)
     data.append('categoryId', values.categoryId)
     data.append('brand', values.brand)
-    if (document.getElementsByName('img')[1].value=== '') {
+    if (document.getElementsByName('img')[1].value === '') {
       data.append('img', products.img)
     } else {
       data.append('img', document.getElementsByName('img')[1].value)
     }
-    
+
     // console.log(updateProducts);
     // console.log(updateProductss);
     data.append('info', JSON.stringify(values.info))
@@ -140,15 +137,14 @@ const UpdateProduct = () => {
     // const dispatch = useDispatch;
     dispatch(productUpdateRequest(data, values.productId))
   }
-  const handleProductChange = (values,formikProps) => {
+  const handleProductChange = (values, formikProps) => {
     console.log(values)
     // v=products.name
     //userId is the new selected userId
-    dispatch(productGetByIdRequest(values.productId));
+    dispatch(productGetByIdRequest(values.productId))
     // formikProps.setFieldValue('name',products.name);
     // formikProps.setFieldValue('price',products.price);
     // console.log(formikProps)
- 
   }
   const handlValueChanges = (value, products) => {
     // if (value.target.value === products) {value.target.value = ''}
@@ -172,10 +168,10 @@ const UpdateProduct = () => {
       <Formik initialValues={initialValues} onSubmit={addProduct}>
         {formikProps => {
           console.log(formikProps)
-          
+
           return (
             <Form>
-              <AutoSubmitToken/>
+              <AutoSubmitToken />
               {/* <pre>{JSON.stringify(props, undefined, 2)}</pre>
             <FormSelect name="productId" options={product}/> */}
               <Field
@@ -199,7 +195,7 @@ const UpdateProduct = () => {
                 value={products.name}
                 onFocus={e => handlValueChanges(e)}
                 onBlur={e => handlValueChange(e)}
-                onChange={(e) => dispatch(productLocalUpdateRequest(e.target))}
+                onChange={e => dispatch(productLocalUpdateRequest(e.target))}
                 // onClick={()=>changeValue(formikProps)}
               />
               <Field
@@ -257,7 +253,7 @@ const UpdateProduct = () => {
                         </button>
                       </div>
                     ))} */}
-                    
+
               {/* <Fragment>
         <button type="button" onClick={addInfo}>Добавить Характеристику</button>
         {initialValues.info.map((i) =>(
@@ -273,25 +269,30 @@ const UpdateProduct = () => {
                 name='info'
                 render={arrayHelpers => (
                   <div>
-                    {formikProps.values.info?.map((inf, index) => 
-                       ( products.ProductInfos.map((info) =>(
-                        
-                      <div key={index}>
-                        {/** both these conventions do the same */}
-                     {inf.title !== ''&&
-                      <div key={index+1}>
-                        <Field name={`info[${index}].title`} value={info.title}/>
-                        <Field name={`info.${index}.description`} value={info.description}/>
-                        </div>
-                }
-                        {/* <button
+                    {formikProps.values.info?.map((inf, index) =>
+                      products.ProductInfos?.map(info => (
+                        <div key={index}>
+                          {/** both these conventions do the same */}
+                          {inf.title !== '' && (
+                            <div key={index + 1}>
+                              <Field
+                                name={`info[${index}].title`}
+                                value={info.title}
+                              />
+                              <Field
+                                name={`info.${index}.description`}
+                                value={info.description}
+                              />
+                            </div>
+                          )}
+                          {/* <button
                           type='button'
                           onClick={() => arrayHelpers.remove(index)}
                         >
                           -
                         </button> */}
-                      </div>
-                       )))
+                        </div>
+                      ))
                     )}
                     {/* <button
                       type='button'
