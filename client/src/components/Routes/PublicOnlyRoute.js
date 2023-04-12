@@ -9,10 +9,10 @@ const PublicOnlyRoute = props => {
   if(isLoading) {
     return <div>LOADING ...</div>;
   }
-  if(!user) {
+  // if(!user) {
     return <Route {...props} />;
-  }
-  return < Redirect to='/'/>; 
+  // }
+  // return < Redirect to='/'/>; 
  
 }
 

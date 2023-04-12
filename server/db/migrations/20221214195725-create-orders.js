@@ -34,6 +34,10 @@ module.exports = {
         onDelete: 'cascade',
         onUpdate: 'cascade',
       },
+      sum: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         field: 'created_at',
         allowNull: false,

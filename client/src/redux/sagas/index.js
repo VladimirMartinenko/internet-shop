@@ -4,7 +4,8 @@ import categorysSagas from "./categorySaga";
 import productSagas from "./productSaga";
 import productsSagas from "./productsSaga";
 import basketSaga from "./basketSaga"
+import buyerSaga from "./buyerSaga";
 
 export default function * rootSaga (){
-  yield all ([authSagas(),categorysSagas(),productsSagas(),productSagas(),basketSaga()]);
+  yield all ([authSagas(),categorysSagas(),productsSagas(),productSagas(),basketSaga(),buyerSaga()]);
 }

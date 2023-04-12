@@ -39,10 +39,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       allowNull: false,
-      unique: true,
+      // unique: true,
       type: DataTypes.TEXT,
       validate: {
-        is:'^[A-Za-z0-9]\w{0,}@[a-z]{1,}\.[a-z]{1,}$',
+        // is:'^[A-Za-z0-9]\w{0,}@[a-z]{1,}\.[a-z]{1,}$',
         // isEmail: true,
         notNull: true,
         notEmpty: true,
@@ -53,9 +53,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(256),
       validate: {
         notEmpty: true,
-        // isAlphanumeric: true,
+        isAlphanumeric: true,
         notNull: true,
-        is:'^\+380\d{7}$',
+        // is:'^\+380\d{7}$',
       },
     },
   }, {

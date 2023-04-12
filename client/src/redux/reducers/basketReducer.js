@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   error: null,
   totalSumm: 0,
+  count:0
 };
 export default function basketReducer(state = initialState, action) {
   switch (action.type) {
@@ -57,6 +58,7 @@ export default function basketReducer(state = initialState, action) {
           (prev, { count, price }) => prev + count * Number(price),
           0
         );
+        draftState.count=state.items.length
       });
     case ACTION_TYPES.BASKET_PLUS_SUCCESS:
       return produce(state, (draftState) => {

@@ -1,9 +1,10 @@
 const createError = require('http-errors');
-const { Buyer } = require('../db/models');
+const { Buyer,Order,ProductToOrder,Product } = require('../db/models');
 
 module.exports.createBuyer = async (req, res, next) => {
   try {
     const { body } = req;
+    console.log(body);
 
     const buyer = await Buyer.create(body);
 
@@ -16,8 +17,9 @@ module.exports.createBuyer = async (req, res, next) => {
 
 module.exports.findBuyers = async (req, res, next) => {
   try {
-    const { query: {limit, offset}} =req;
-    const buyer = await Buyer.findAll();
+    // const { query: {limit, offset}} =req;
+    const buyer = await Buyer.findAll({
+      include:[{model: Order,include:[{model: Product}]}]});
 
     // const users = await User.findAll({
     //   attributes: ['email', 'firstName', 'lastName']
@@ -30,7 +32,7 @@ module.exports.findBuyers = async (req, res, next) => {
     }
 
 
-    res.send({ data: buyer, limit, offset });
+    res.send({ data: buyer });
   } catch (error) {
     next(error);
   }

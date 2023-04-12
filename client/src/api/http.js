@@ -55,8 +55,7 @@ httpClient.interceptors.response.use(
 );
 
 export const login = (userData) => httpClient.post(`auth/login`, userData );
-export const refresh = (refreshToken) =>
-  httpClient.post(`auth/refresh`, { refreshToken });
+export const refresh = (refreshToken) => httpClient.post(`auth/refresh`, { refreshToken });
 export const signup = (userData) => httpClient.post(`auth/register`, userData);
 
 export const test = () => httpClient.get('tekt');
@@ -80,4 +79,8 @@ export const productCreate = (values) => httpClient.post(`product`,values, conso
 export const productDelete = (id) => httpClient.delete(`product/${id}`, console.log(id));
 
 export const productUpdate = (id,data) => httpClient.put(`product/${id}`,data);
+
+export const buyerCreate = (value) => httpClient.post(`buyer`,value,console.log(value));
+
+export const buyerGet = () => httpClient.get(`buyer`);
 

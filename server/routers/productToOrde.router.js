@@ -2,7 +2,7 @@ const productToOrderRouter = require('express').Router();
 const productToOrderController = require('../controllers/productToOrder.controller');
 
 
-productToOrderRouter.post('/', productToOrderController.createProductToOrder);
+productToOrderRouter.post('/:orderId/:productId', productToOrderController.createProductToOrder);
 
 productToOrderRouter.get('/', productToOrderController.getProductToOrders);
 

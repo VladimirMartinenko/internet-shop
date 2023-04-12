@@ -13,8 +13,18 @@ import { useEffect } from 'react';
 import AuthActionCreators from './redux/actions/authActionCreators';
 import {basketSumRequest} from './redux/actions/basketActionCreators';
 import CONSTANTS from './constants';
+import { buyerCreateRequest } from './redux/actions/buyerActionCreators';
+import Admin from './pages/Admin';
 
 function App() {
+  // const { user } = useSelector(state => state.auth);
+  useEffect(() => {
+    const refreshToken = localStorage.getItem(CONSTANTS.REFRESH_TOKEN)
+
+    if(refreshToken) {
+      dispatch(AuthActionCreators.refreshRequest(refreshToken))
+    }
+  }, []);
   const dispatch = useDispatch();
   const { items } = useSelector(state => state.basket);
   useEffect(() => {
@@ -25,14 +35,13 @@ function App() {
    dispatch(basketSumRequest())
   }, [items]);
   
+  // const { user } = useSelector(state => state.auth);
+  // console.log(user);
+  // useEffect(() => {
+  //   dispatch(buyerCreateRequest(user));
 
-  useEffect(() => {
-    const refreshToken = localStorage.getItem(CONSTANTS.REFRESH_TOKEN)
-
-    if(refreshToken) {
-      dispatch(AuthActionCreators.refreshRequest(refreshToken))
-    }
-  }, []);
+  // }, []);
+ 
   return (
     <Router>
     <nav>
@@ -52,15 +61,19 @@ function App() {
         <li>
           <Link to='/basket'>Basket</Link>
         </li>
+        <li>
+          <Link to='/orders'>orders</Link>
+        </li>
       </ul>
     </nav>
     <Switch>
       <Route exact path='/' component={HomePage} />
       <PublicOnlyRoute exact path='/login' component={LoginPage} />
       <PublicOnlyRoute exact path='/registration' component={RegistrationPage} />
-      <PublicOnlyRoute exact path='/shop' component={ShopPage} />
-      <PublicOnlyRoute exact path='/product/:id' component={ProductPage} />
       <PublicOnlyRoute exact path='/basket' component={BasketPage} />
+      <PublicOnlyRoute exact path='/shop' component={ShopPage} />
+      <PublicOnlyRoute exact path='/orders' component={Admin} />
+      <PublicOnlyRoute exact path='/product/:id' component={ProductPage} />
       <PrivateRoute exact path='/admin' component={AdminPage} />
     </Switch>
   </Router>

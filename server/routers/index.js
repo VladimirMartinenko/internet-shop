@@ -8,6 +8,7 @@ const productRouter = require('./product.router');
 const productInfoRouter = require('./productInfo.router');
 const productToOrderRouter = require('./productToOrde.router');
 const authRouter = require('./auth.router');
+const mailerRouter = require('./mailer.router');
 // const authRouter = require('./user.router');
 
 router.use('/user', userRouter);
@@ -18,4 +19,5 @@ router.use('/order', orderRouter);
 router.use('/product', productRouter);
 router.use('/productInfo', productInfoRouter);
 router.use('/productToOrder', productToOrderRouter);
+router.use('/mailer', mailerRouter);
 module.exports = router;

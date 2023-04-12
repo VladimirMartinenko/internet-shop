@@ -4,13 +4,15 @@ const {ProductToOrder} = require('../db/models');
 module.exports.createProductToOrder = async (req, res, next) => {
   try {
     const {
-      order: { id: orderId },
-      product: {id: productId},
-      body
+      // order: { id: orderId },
+      // product: {id: productId},
+      params:{orderId,productId},
+      query:{quantity}
 
     } = req;
+    console.log(req);
 
-    const productToOrder = await ProductToOrder.create({ orderId, productId},body);
+    const productToOrder = await ProductToOrder.create({ orderId,productId,quantity});
 
     res.status(201).send({ data: productToOrder });
   } catch (error) {

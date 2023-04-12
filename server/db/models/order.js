@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   }
-  Order.init({}, {
+  Order.init({
+   
+  }, {
     sequelize,
     modelName: 'Order',
     underscored: true,

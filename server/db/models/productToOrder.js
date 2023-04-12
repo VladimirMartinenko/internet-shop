@@ -20,12 +20,12 @@ module.exports = (sequelize, DataTypes) => {
     // orderId: DataTypes.INTEGER,
     // productId: DataTypes.INTEGER,
     quantity: {
-      allowNull: false,
+      // allowNull: false,
       type: DataTypes.NUMBER,
-      validate: {
-        notEmpty: true,
-        notNull: true,
-      },
+      // validate: {
+      //   notEmpty: true,
+      //   notNull: true,
+      // },
     },
   }, {
     sequelize,

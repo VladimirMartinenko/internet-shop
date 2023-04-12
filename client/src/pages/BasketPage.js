@@ -1,11 +1,12 @@
 import React from 'react';
 import Basket from '../components/Basket/Basket';
+import { useDispatch } from 'react-redux';
 
-const BasketPage = () => {
+const BasketPage = (props) => {
   return (
-    <div>
+    <>
      <Basket/>
-    </div>
+    </>
   );
 }
 

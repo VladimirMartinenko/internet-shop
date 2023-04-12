@@ -3,7 +3,7 @@ const orderController = require('../controllers/order.controller')
 
 
 orderRouter.post('/', orderController.createOrderUser);
-orderRouter.post('/', orderController.createOrderBuyer);
+orderRouter.post('/buyer', orderController.createOrderBuyer);
 
 orderRouter.get('/', orderController.getOrdersUser);
 orderRouter.get('/', orderController.getOrdersBuyer);
