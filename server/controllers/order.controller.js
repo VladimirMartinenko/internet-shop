@@ -17,12 +17,12 @@ module.exports.createOrderUser = async (req, res, next) => {
 module.exports.createOrderBuyer = async (req, res, next) => {
   try {
     const {
-      buyer: { id: buyerId },
+      body: { id: buyerId },
     } = req;
 
     const order = await Order.create({ buyerId });
 
-    res.status(201).send({ data: order });
+    res.send({ data: order });
   } catch (error) {
     next(error);
   }
