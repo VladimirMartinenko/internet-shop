@@ -13,6 +13,19 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(128)
       },
+      sectionId: {
+        field: 'section_id',
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'sections',
+          },
+          key: 'id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
+      },
       createdAt: {
         field: 'created_at',
         allowNull: false,

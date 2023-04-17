@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Order.init({
+    sum: {
+      type: DataTypes.NUMBER,
+    },
    
   }, {
     sequelize,

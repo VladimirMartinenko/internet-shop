@@ -55,7 +55,7 @@ module.exports.updateCategory = async (req, res, next) => {
       returning: true,
     });
     if (rowsUpdatet != 1) {
-      const err = createError(404, "cant update product");
+      const err = createError(404, "cant update category");
       return next(err);
     }
 
