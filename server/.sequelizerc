@@ -1,4 +1,4 @@
-const {configPath,migrationsPath,modelsPath,seedersPath} = require('./constants');
+const {configPath,migrationsPath,modelsPath,seedersPath} = require('./src/constants');
 
 module.exports = {
   'config': configPath,
