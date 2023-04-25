@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Switch,Link } from 'react-router-dom';
 import PublicOnlyRoute from './components/Routes/PublicOnlyRoute';
 import PrivateRoute from './components/Routes/PrivateRoute'
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 import RegistrationPage from './pages/RegistrationPage';
 import LoginPage from './pages/LoginPage';
 import AdminPage from './pages/AdminPage';
@@ -44,7 +44,7 @@ function App() {
  
   return (
     <Router>
-    <nav>
+    {/* <nav>
       <ul>
         <li>
           <Link to='/'>Home</Link>
@@ -65,7 +65,7 @@ function App() {
           <Link to='/orders'>orders</Link>
         </li>
       </ul>
-    </nav>
+    </nav> */}
     <Switch>
       <Route exact path='/' component={HomePage} />
       <PublicOnlyRoute exact path='/login' component={LoginPage} />

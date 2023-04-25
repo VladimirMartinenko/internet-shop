@@ -1,13 +1,74 @@
-.header {
-  display: flex;
+@import '../../../node_modules/scss-reset/src/scss/_reset.scss';
+
+.header
+ { display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(16, 16, 61, 0.404);
+  flex-wrap: wrap;
+  background-color: black;
+  min-height: 30vh;
+  max-height: 60vh;
 }
-.btn {
-  margin-top: 10px;
-  > * {
-    margin-right: 10px;
-  }
+.text
+  {text-decoration: none;
+  font-size: 2.2em;
+  font-style: italic;
+  color: white;
+}
 
+.textPosition
+ { padding: 0 5vw;
+  text-decoration: none;
+}
+.btn
+  {font-style: italic;
+  border: 1px solid white;
+  background-color: black;
+  border-radius: 5px;
+  margin: 1em;
+  padding: 0.3em;
+  text-decoration: none;
+  font-size: 1.2em;
+  color: white;
+}
+
+.btnPosition
+ { display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.containerImg
+{
+  height: 50px;
+  width: 50px;
+  margin: 0px 30px;
+  position: relative;
+  // display: inline-block;
+}
+.position
+{
+  position: relative;
+  // display: inline-block;
+  width: 50px;
+  height: 50px;
+  margin: 0px 30px;
+}
+.numberPosition
+{
+  width: 50%;
+  height: 40%;
+  position: absolute;
+  background-color: red;
+  border-radius: 100px;
+  right: 12px;
+  top:-2px;
+  font-size: 1.2em;
+  font-style: italic;
+  color: black;
+  text-align:center;
+  font-weight: bold;
 }
