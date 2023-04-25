@@ -2,6 +2,7 @@ import React from 'react';
 import cx from "classnames";
 import classes from './SideBar.module.scss';
 import Category from '../category/Category';
+import Section from '../Section/Section';
 
 const SideBar = () => {
   return (
@@ -11,9 +12,8 @@ const SideBar = () => {
           <a href='/'className={cx(classes.link)}>Home</a>
         </li>
         <li  className={cx([classes.list,classes.listCat])}>
-          <a href="#" className={cx(classes.link)}>Categories</a>
           <ul className={cx(classes.nav2)}>
-            <Category/>
+            <Section/>
           </ul>
         </li>
         <li className={cx(classes.list)}>
