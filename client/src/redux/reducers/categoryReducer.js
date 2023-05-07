@@ -14,13 +14,19 @@ export default function categoryReducer(state = initialState, action) {
     case ACTION_TYPES.CATEGORY_CREATE_REQUEST:
     case ACTION_TYPES.CATEGORY_DELETE_REQUEST:
     case ACTION_TYPES.CATEGORY_UPDATE_REQUEST:
+    case ACTION_TYPES.CATEGORY_GET_BY_SECTION_REQUEST:
       return produce(state, (draftState) => {
         draftState.isLoading = true;
       });
+      case ACTION_TYPES.CATEGORY_GET_BY_SECTION_SUCCESS:
+        return produce(state, (draftState) => {
+          draftState.isLoading = false;
+          draftState.category=(action.payload.values);
+        });
     case ACTION_TYPES.CATEGORY_GET_SUCCESS:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
-        draftState.category.push(...action.payload.values);
+        draftState.category=(action.payload.values);
       });
     case ACTION_TYPES.CATEGORY_CREATE_SUCCESS:
       // console.log(action.payload.values);
@@ -43,6 +49,7 @@ export default function categoryReducer(state = initialState, action) {
         }return categorys} );
       });
     case ACTION_TYPES.CATEGORY_GET_ERROR:
+    case ACTION_TYPES.CATEGORY_GET_BY_SECTION_ERROR:
     case ACTION_TYPES.CATEGORY_CREATE_ERROR:
     case ACTION_TYPES.CATEGORY_DELETE_ERROR:
     case ACTION_TYPES.CATEGORY_UPDATE_ERROR:

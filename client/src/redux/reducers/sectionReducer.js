@@ -20,7 +20,7 @@ export default function sectionReducer(state = initialState, action) {
     case ACTION_TYPES.SECTION_GET_SUCCESS:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
-        draftState.section.push(...action.payload.values);
+        draftState.section=(action.payload.values);
       });
     case ACTION_TYPES.SECTION_CREATE_SUCCESS:
       // console.log(action.payload.values);

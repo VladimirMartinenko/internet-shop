@@ -7,6 +7,8 @@ import productsReducer from './productsReducer';
 import buyerReducer from './buyerReducer';
 import buyersReducer from './buyersReducer';
 import sectionReducer from './sectionReducer';
+import carouselReducer from './carouselReducer';
+import sliderReducer from './sliderReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -16,7 +18,9 @@ const rootReducer = combineReducers({
   basket:basketReducer,
   buyer:buyerReducer,
   buyers:buyersReducer,
-  section:sectionReducer
+  section:sectionReducer,
+  carousel:carouselReducer,
+  slider:sliderReducer
 });
 
 export default rootReducer;

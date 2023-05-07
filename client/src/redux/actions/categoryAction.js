@@ -11,6 +11,18 @@ export const categoryError = (error) => ({
   type: ACTION_TYPES.CATEGORY_GET_ERROR,
   payload: { error },
 });
+export const categoryGetBySectionRequest = (sectionId) => ({
+  type: ACTION_TYPES.CATEGORY_GET_BY_SECTION_REQUEST,
+  payload: {values: sectionId}
+});
+export const categoryGetBySectionSucces = (category) => ({
+  type: ACTION_TYPES.CATEGORY_GET_BY_SECTION_SUCCESS,
+  payload: { values: category },
+  });
+export const categoryGetBySectionError = (error) => ({
+  type: ACTION_TYPES.CATEGORY_GET_BY_SECTION_ERROR,
+  payload: { error },
+});
 export const categoryCreateRequest = (category) => ({
   type: ACTION_TYPES.CATEGORY_CREATE_REQUEST,
   payload: { values: category},

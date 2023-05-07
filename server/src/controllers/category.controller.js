@@ -64,3 +64,50 @@ module.exports.updateCategory = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.findCategoryBySection = async (req, res, next) => {
+  try {
+    const {
+      query: { limit, page,sectionId },
+    } = req;
+    
+   console.log(req.query);
+    
+    // page= 0;
+    // // offset= 0;
+    // console.log(page);
+
+    // limit : limit ? limit:9;
+    // limit = Number(limit); 
+    let offset = page * limit - limit
+    // console.log(categoryId,limit);
+    let category;
+    // products = await Product.findAll({limit,offset});
+    if (!sectionId) {
+      // products = await Product.findAll({limit,offset});
+      category = await Category.findAll();
+      if (!category) {
+        const err = createError(404, "cant find product");
+        return next(err);
+      }
+      }
+    if (sectionId) {
+      // console.log(categoryId,limit,offset);
+      // products = await Product.findAll({where:{categoryId},limit,offset});
+      category = await Category.findAll({where:{sectionId}});
+    console.log(category);
+    if (!category,category.length == 0) {
+      const err = createError(404, "cant find product");
+      return next(err);
+    };
+    }
+    
+    // if (!products) {
+    //   const err = createError(404, "cant find product");
+    //   return next(err);
+    // }
+    res.send({ data:category, limit, offset });
+  } catch (error) {
+    next(error);
+  }
+};

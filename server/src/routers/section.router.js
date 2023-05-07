@@ -1,9 +1,9 @@
 const sectionRouter = require('express').Router();
-const categoryController = require('../controllers/category.controller')
+const sectionController = require('../controllers/section.controller')
 
-sectionRouter.post('/',categoryController.createCategory);
-sectionRouter.get('/',categoryController.findAllCategory);
-sectionRouter.delete('/:id',categoryController.deleteCategory);
-sectionRouter.put('/:id',categoryController.updateCategory);
+sectionRouter.post('/',sectionController.createSection);
+sectionRouter.get('/',sectionController.findAllSection);
+sectionRouter.delete('/:id',sectionController.deleteSection);
+sectionRouter.put('/:id',sectionController.updateSection);
 
 module.exports = sectionRouter;

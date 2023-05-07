@@ -4,8 +4,8 @@ import { productGetRequest, productGetByIdRequest} from '../../redux/actions/pro
 import CONSTANTS from '../../constants'
 import {useHistory} from 'react-router-dom'
 import {basketCreateRequest}from '../../redux/actions/basketActionCreators'
-// import cx from "classnames";
-// import classes from './category.module.scss';
+import cx from "classnames";
+import classes from './ProductList.module.scss';
 
 const ProductList = () => {
   const history = useHistory();
@@ -25,19 +25,19 @@ const ProductList = () => {
   // let basketArrayId = [];
   // window.localStorage.setItem('basket', JSON.stringify(basketArrayId))
   return (
-    <div >
+    <div className={cx(classes.main)} >
       {isLoading && <div>Loading</div>}
-      {error && <div>{error.message}</div>}
+      {error &&error.map(error => (<div className={cx(classes.error)}>{error.message}</div>))}
       {/* <button onClick={() => requestCategorys()}>Load More</button> */}
       {product && product.map(product => (
-        <div key={product.id} >
+        <div key={product.id} className={cx(classes.box)} >
           <img onClick={()=> history.push('/product/'+ product.id)}
             src={CONSTANTS.HTTP_SERVER_URL_images+product.img}
             alt={product.name}
-            // onClick={() => requestIdProduct(product.id)}
+            className={cx(classes.img)} 
           ></img>
-          <div>{product.name}</div>
-          <button onClick={()=> dispatch(basketCreateRequest(product))}>Купить</button>
+          <div className={cx(classes.text)}>{product.name} {product.price} $</div>
+          <button  className={cx(classes.btn)} onClick={()=> dispatch(basketCreateRequest(product))}>Купить</button>
         </div>
         
       ))}

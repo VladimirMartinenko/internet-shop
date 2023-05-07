@@ -1,42 +1,55 @@
 import React, { useEffect}  from 'react';
 import { connect, useDispatch, useSelector} from 'react-redux'
-import {categoryRequest} from '../../redux/actions/categoryAction'
-import { productGetRequest,productGetByCategoryRequest } from '../../redux/actions/productActionCreators'
+import {sectionRequest} from '../../redux/actions/sectionActionCreators'
+import {categoryGetBySectionRequest } from '../../redux/actions/categoryAction'
 import cx from "classnames";
 import classes from './Section.module.scss';
 import Category from '../category/Category';
+import { Link } from 'react-router-dom';
 
 
 const Section = () => {
 
-  // const { section, isLoading, error } = useSelector(state => state.section);
-
+  const { section, isLoading, error } = useSelector(state => state.section);
+  const { category } = useSelector(state => state.category);
+console.log(category)
   const dispatch = useDispatch();
-// console.log(category)
+console.log(section)
   useEffect(() => {
-    requestCategorys();
+    requestSection();
   }, []);
   
-  const requestCategorys = (options) => dispatch(categoryRequest(options));
+  const requestSection = (options) => dispatch(sectionRequest(options));
   // console.log(category);
-  const requestProducts = options => dispatch(productGetByCategoryRequest(options))
+  // const requestCategory = options => dispatch(categoryGetBySectionRequest(options))
+  let categoryFilter
+ function filterCategory(sectionid){
+  console.log(sectionid);
+   categoryFilter=category.filter(function(category){return category.sectionId === Number(sectionid)})
+  console.log(categoryFilter);
+  return categoryFilter
+}
+console.log(filterCategory(1));
+
+
    return (
-    <div>
-      {/* {isLoading && <div>Loading</div>}
+    <>
+    {isLoading && <div>Loading</div>}
       {error && <div>{error.message}</div>}
-      {/* <button onClick={() => requestCategorys()}>Load More</button> */}
-      {/* {section.map((section) => (
+      {/* <button onClick={() => requestSection()}>Load More</button> */}
+      {section?.map((section) => (
         <div key={section.id}>
-          <li className={cx(classes.list)} onClick={() => requestProducts(section.id)} >
-            <a href="#" className={cx(classes.link)} >{section.name}</a>
-            <ul><Category/></ul>
+          {/* <li className={cx([classes.list],[classes.listCat])} onMouseEnter={() => requestCategory(section.id)} > */}
+          <li className={cx([classes.list],[classes.listCat])} onClick={() =>  filterCategory(section.id)} >
+            <Link className={cx(classes.link)} >{section.name}</Link>
+            <ul className={cx([classes.nav2],[classes.position])}><Category categoryFilter={filterCategory(section.id)}/></ul>
             </li>
-        </div> */}
-      {/* ))} */} */
-    </div>
+         </div> 
+      ))}
+    </>
   );
 }
 export default Section
 // const mStP= state=>state.section;
-// const mDtP = (dispatch)=>({requestWorkers:()=>dispatch(productGetByCategoryRequest())});
+// const mDtP = (dispatch)=>({requestWorkers:()=>dispatch(categoryGetBySectionRequest())});
 // export default connect(mStP,mDtP)(Section);
