@@ -20,10 +20,11 @@ function* productGetByCategory(action) {
     const {
       data: { data: product },
     } = yield API.productGetByCategory(action.payload.values);
-
+console.log(product);
     yield put(productGetByCategorySucces(product));
   } catch (error) {
-    yield put(productGetByCategoryError(error.response.data.error));
+    console.log(error);
+    yield put(productGetByCategoryError(error.response.data.errors));
   }
 }
 function* productGetSaga() {

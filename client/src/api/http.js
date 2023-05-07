@@ -60,7 +60,9 @@ export const signup = (userData) => httpClient.post(`auth/register`, userData);
 
 export const test = () => httpClient.get('tekt');
 
-export const categoryGet = () => httpClient.get(`category`);
+export const categoryGet = () => httpClient.get(`category/all`);
+
+export const categoryGetBySection = (sectionId) => httpClient.get(`category?sectionId=${sectionId}`);
 
 export const categoryCreate = (values) => httpClient.post(`category`,values );
 
@@ -91,4 +93,6 @@ export const productUpdate = (id,data) => httpClient.put(`product/${id}`,data);
 export const buyerCreate = (value) => httpClient.post(`buyer`,value,console.log(value));
 
 export const buyerGet = () => httpClient.get(`buyer`);
+
+export const sliderGet = () => httpClient.get(`slider`);
 

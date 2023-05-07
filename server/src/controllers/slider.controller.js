@@ -1,5 +1,6 @@
 const createError = require("http-errors");
 const { Slider } = require("../db/models");
+const { Product , ProductInfo } = require("../db/models");
 
 module.exports.createSlider = async (req, res, next) => {
   try {
@@ -14,7 +15,8 @@ module.exports.createSlider = async (req, res, next) => {
 
 module.exports.findAllSlider = async (req, res, next) => {
   try {
-    const slider = await Slider.findAll();
+    const slider = await Slider.findAll({  attributes: []  ,include:{model:Product}});
+    // const slider=someSlider.getProfiles({ joinTableAttributes: ['Product'] });
     if (!slider) {
       const err = createError(404, "cant find section");
       return next(err);

@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage/HomePage';
 import RegistrationPage from './pages/RegistrationPage';
 import LoginPage from './pages/LoginPage';
 import AdminPage from './pages/AdminPage';
-import ShopPage from './pages/ShopPage';
+import ShopPage from './pages/ShopPage/ShopPage';
 import BasketPage from './pages/BasketPage';
 import ProductPage from './pages/ProductPage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,6 +14,7 @@ import AuthActionCreators from './redux/actions/authActionCreators';
 import {basketSumRequest} from './redux/actions/basketActionCreators';
 import CONSTANTS from './constants';
 import { buyerCreateRequest } from './redux/actions/buyerActionCreators';
+import { sliderGetRequest } from './redux/actions/sliderActionCreators';
 import Admin from './pages/Admin';
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
       dispatch(AuthActionCreators.refreshRequest(refreshToken))
     }
   }, []);
-  const dispatch = useDispatch();
+ 
   const { items } = useSelector(state => state.basket);
   useEffect(() => {
     window.localStorage.setItem('basket', JSON.stringify(items));
@@ -34,7 +35,11 @@ function App() {
   useEffect(() => {
    dispatch(basketSumRequest())
   }, [items]);
-  
+
+  useEffect(() => {
+   dispatch(sliderGetRequest())
+  }, []);
+  const dispatch = useDispatch();
   // const { user } = useSelector(state => state.auth);
   // console.log(user);
   // useEffect(() => {

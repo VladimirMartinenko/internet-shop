@@ -1,0 +1,26 @@
+.slideShowMain {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ 
+}
+
+.image {
+  border-radius: 1.5rem;
+  height: 200px;
+  width: 200px;
+  border: 2px solid rgb(34, 41, 44);
+}
+.slideShowName {
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.slideShowLink {
+  text-decoration: none;
+  color: black;
+  font-size: 1em;
+  font-style: italic;
+  text-transform: capitalize;
+}

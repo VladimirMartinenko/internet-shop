@@ -1,9 +1,9 @@
 const sliderRouter = require('express').Router();
-const categoryController = require('../controllers/category.controller')
+const sliderController = require('../controllers/slider.controller')
 
-sliderRouter.post('/',categoryController.createCategory);
-sliderRouter.get('/',categoryController.findAllCategory);
-sliderRouter.delete('/:id',categoryController.deleteCategory);
-sliderRouter.put('/:id',categoryController.updateCategory);
+sliderRouter.post('/',sliderController.createSlider);
+sliderRouter.get('/',sliderController.findAllSlider);
+sliderRouter.delete('/:id',sliderController.deleteSlider);
+sliderRouter.put('/:id',sliderController.updateSlider);
 
 module.exports = sliderRouter;
