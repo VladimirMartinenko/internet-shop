@@ -9,7 +9,9 @@ module.exports.register = async (req, res, next) => {
     // console.log(body);
     const user = await User.create(body);
     // console.log(user.id);
-
+    if (!user) {
+      return next(createHttpError(401, "помилка при реєстрації"));
+    }
     const sessionData = await AuthService.createSession(user);
     //  console.log(sessionData);
 
@@ -29,11 +31,11 @@ module.exports.login = async (req, res, next) => {
     console.log(user);
 
     if (!user) {
-      return next(createHttpError(401, "invalid data"));
+      return next(createHttpError(401, "користувач не знайдений"));
     }
 
     if (user.password !== password) {
-      return next(createHttpError(401, "invalid data"));
+      return next(createHttpError(401, "невірний пароль"));
     }
     const sessionData = await AuthService.createSession(user);
 

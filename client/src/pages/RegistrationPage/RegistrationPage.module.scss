@@ -1,0 +1,16 @@
+.containerMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+}
+.text {
+  font-style: italic;
+  font-size: 1.5em;
+  padding-bottom: 2%;
+}
+.error{
+  color: red;
+  font-style: italic;
+}

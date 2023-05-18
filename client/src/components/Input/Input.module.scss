@@ -1,0 +1,33 @@
+.input {
+  font-size: 1.3em;
+  // line-height: 30px;
+  padding-left: 10px;
+  border: 1px solid black;
+  font-style: italic;
+  border-radius: 5px;
+}
+.position {
+  position: relative;
+  margin-bottom: 3%;
+}
+.validInput {
+  border-color: lightblue;
+}
+
+.invalidInput {
+  border-color: rgb(199, 2, 2);
+  position: relative;
+}
+.invalidInput::placeholder{
+  opacity: 0;
+}
+
+.error {
+  position: absolute;
+  // top: 2px;
+  color: rgb(238, 63, 63);
+  font-weight: bold;
+  z-index: 999999;
+  bottom: 3%;
+  right: 15%;
+}

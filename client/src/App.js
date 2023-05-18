@@ -2,12 +2,12 @@ import { BrowserRouter as Router, Route, Switch,Link } from 'react-router-dom';
 import PublicOnlyRoute from './components/Routes/PublicOnlyRoute';
 import PrivateRoute from './components/Routes/PrivateRoute'
 import HomePage from './pages/HomePage/HomePage';
-import RegistrationPage from './pages/RegistrationPage';
-import LoginPage from './pages/LoginPage';
+import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
+import LoginPage from './pages/LoginPage/LoginPage';
 import AdminPage from './pages/AdminPage';
 import ShopPage from './pages/ShopPage/ShopPage';
 import BasketPage from './pages/BasketPage';
-import ProductPage from './pages/ProductPage';
+import ProductPage from './pages/ProductPage/ProductPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import AuthActionCreators from './redux/actions/authActionCreators';

@@ -10,10 +10,11 @@ function* loginSaga(action) {
         data: { user },
       },
     } = yield HTTP_API.login(action.payload);
-
     yield put(AuthActionCreators.authSuccess(user));
+   
   } catch (error) {
-    yield put(AuthActionCreators.authError(error));
+    yield put(AuthActionCreators.authError(error.response.data.errors));
+    console.log(error.response.data.errors)
   }
 }
 function* refreshSaga(action) {
