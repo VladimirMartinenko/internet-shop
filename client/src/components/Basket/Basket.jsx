@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import CONSTANTS from '../../constants'
+import BasketItems from '../BasketItems/BasketItems'
 import {
   basketClearRequest,
   basketMinusRequest,
@@ -24,9 +25,9 @@ const initialValues = {
 const Basket = () => {
   const { user } = useSelector(state => state.auth)
   console.log(user)
-  useEffect(() => {
-    dispatch(buyerCreateRequest(user))
-  }, [])
+  // useEffect(() => {
+  //   dispatch(buyerCreateRequest(user))
+  // }, [])
   // const onSubmit = (values, utils) => {
   const AutoSubmitToken = () => {
     const { setFieldValue } = useFormikContext()
@@ -37,9 +38,7 @@ const Basket = () => {
       setFieldValue('phone', buyer.phone)
     }, [buyer])
   }
-
-  //   console.log(values);
-  // }
+ 
   const httpClient = axios.create({
     baseURL: CONSTANTS.HTTP_SERVER_URL
   })
@@ -53,11 +52,6 @@ const Basket = () => {
         `productToOrder/${order.data.data.id}/${product.id}?quantity=${product.quantity}`
       )
     )
-      // function addMailer(values,order,items){
-      // console.log(values.name);
-      // props.clearOfferError();
-      
-      // const { contestId, contestType, customerId } = props;
       data.append('firstName', values.firstName);
       data.append('lastName',values.lastName);
       data.append('phone', values.phone);
@@ -69,32 +63,14 @@ const Basket = () => {
         
       }
       await httpClient.post(`mailer`,data)
-     
-    //  }
-    //  httpClient.post(`mailer`,data)
-     
-    // .then(res=>{console.log(res);items&&items.map(product=>httpClient.post(`productToOrderRouter`,(res.data.data,product,product.quantity)))})
-    // .then(res=>{console.log(res)});
-    // await console.log();
-    // await console.log(items[0]);
-    // await console.log('подожди');
-    // await console.log('привет');
-    // await dispatch(basketClearRequest())
   }
   const { buyer } = useSelector(state => state.buyer)
   const basket = JSON.parse(localStorage.getItem('basket'))
   console.log(basket)
   const { items } = useSelector(state => state.basket)
   const { totalSumm } = useSelector(state => state.basket)
-
-  // const onSubmit = (values, utils) => {
-
-  //   console.log(values);
-  // }
+  
   const handlValueChanges = (value, products) => {
-    // if (value.target.value === products) {value.target.value = ''}
-    // console.log(value.target.value)
-    // v=null;
     console.log(value.target.name)
     value.target.value = ''
   }
@@ -102,87 +78,88 @@ const Basket = () => {
     if (value.target.value === '') {
       value.target.value = buyer.name
     }
-    console.log('пока')
-    // value.target.value=products.name;
   }
   const dispatch = useDispatch()
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      {items?.map(i => (
-        <div key={i.id} style={{ display: 'flex', flexDirection: 'row' }}>
-          <img
-            style={{ width: '260px', height: '260px' }}
-            src={CONSTANTS.HTTP_SERVER_URL_images + i.img}
-            alt={i.name}
-          ></img>
-          <div
-            style={{
-              width: '150px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            название : {i.name}
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <button
-              style={{ width: '20px', height: '20px' }}
-              onClick={() => dispatch(basketPlusRequest(i.id))}
-            >
-              +
-            </button>
-          </div>
-          <div
-            style={{
-              width: '150px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            количество : {i.count}
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <button
-              style={{ width: '20px', height: '20px' }}
-              onClick={() => dispatch(basketMinusRequest(i.id))}
-            >
-              -
-            </button>
-          </div>
-          <div
-            style={{
-              width: '150px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            цена : {i.price}
-          </div>
-          <div
-            style={{
-              width: '150px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            сумма : {i.price * i.count}
-          </div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <button
-              style={{ width: '70px', height: '20px' }}
-              onClick={() => dispatch(basketDeleteRequest(i.id))}
-            >
-              УДАЛИТЬ
-            </button>
-          </div>
-        </div>
-      ))}
-      <div>ОБЩАЯ : {totalSumm}</div>
+    // <div style={{ display: 'flex', flexDirection: 'column' }}>
+    //   {items?.map(i => (
+    //     <div key={i.id} style={{ display: 'flex', flexDirection: 'row' }}>
+    //       <img
+    //         style={{ width: '260px', height: '260px' }}
+    //         src={CONSTANTS.HTTP_SERVER_URL_images + i.img}
+    //         alt={i.name}
+    //       ></img>
+    //       <div
+    //         style={{
+    //           width: '150px',
+    //           display: 'flex',
+    //           justifyContent: 'center',
+    //           alignItems: 'center'
+    //         }}
+    //       >
+    //         название : {i.name}
+    //       </div>
+    //       <div style={{ display: 'flex', alignItems: 'center' }}>
+    //         <button
+    //           style={{ width: '20px', height: '20px' }}
+    //           onClick={() => dispatch(basketPlusRequest(i.id))}
+    //         >
+    //           +
+    //         </button>
+    //       </div>
+    //       <div
+    //         style={{
+    //           width: '150px',
+    //           display: 'flex',
+    //           justifyContent: 'center',
+    //           alignItems: 'center'
+    //         }}
+    //       >
+    //         количество : {i.count}
+    //       </div>
+    //       <div style={{ display: 'flex', alignItems: 'center' }}>
+    //         <button
+    //           style={{ width: '20px', height: '20px' }}
+    //           onClick={() => dispatch(basketMinusRequest(i.id))}
+    //         >
+    //           -
+    //         </button>
+    //       </div>
+    //       <div
+    //         style={{
+    //           width: '150px',
+    //           display: 'flex',
+    //           justifyContent: 'center',
+    //           alignItems: 'center'
+    //         }}
+    //       >
+    //         цена : {i.price}
+    //       </div>
+    //       <div
+    //         style={{
+    //           width: '150px',
+    //           display: 'flex',
+    //           justifyContent: 'center',
+    //           alignItems: 'center'
+    //         }}
+    //       >
+    //         сумма : {i.price * i.count}
+    //       </div>
+    //       <div style={{ display: 'flex', alignItems: 'center' }}>
+    //         <button
+    //           style={{ width: '70px', height: '20px' }}
+    //           onClick={() => dispatch(basketDeleteRequest(i.id))}
+    //         >
+    //           УДАЛИТЬ
+    //         </button>
+    //       </div>
+    //     </div>
+    //   ))}
+    //   <div>ОБЩАЯ : {totalSumm}</div>
+
+
       <div>
+         <BasketItems/>
         <div>
           <h1>LOGIN</h1>
           <Formik initialValues={initialValues} onSubmit={createOrder}>
@@ -257,16 +234,15 @@ const Basket = () => {
           </Formik>
         </div>
       </div>
-      {/* <button onClick={() => createOrder()}>оформить</button> */}
-    </div>
+    // </div>
   )
 }
-const mapStateToProps = state => {
-  return {
-    user: state.auth.user
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     user: state.auth.user
+//   }
+// }
 
-export default connect(mapStateToProps)(Basket)
+// export default connect(mapStateToProps)(Basket)
 
-// export default Basket
+export default Basket

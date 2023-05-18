@@ -1,0 +1,19 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between ;
+  height: 100vh;
+}
+.body {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: 100vh;
+
+}
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

@@ -1,0 +1,22 @@
+.containerMain {
+  display: flex;
+  flex-direction: row;
+}
+.img {
+  width: 260px;
+  height: 260px
+}
+.text {
+  width: 150px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+.containerBtn{
+  display: flex;
+  align-items: center;
+}
+.btn{
+  width: 20px;
+  height: 20px;
+}

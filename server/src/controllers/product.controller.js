@@ -45,7 +45,7 @@ module.exports.findProductByCategory = async (req, res, next) => {
       // products = await Product.findAll({limit,offset});
       products = await Product.findAll();
       if (!products) {
-        const err = createError(404, "cant find product");
+        const err = createError(404, "товари не знайдені");
         return next(err);
       }
       }
@@ -55,7 +55,7 @@ module.exports.findProductByCategory = async (req, res, next) => {
       products = await Product.findAll({where:{categoryId}});
     console.log(products);
     if (!products,products.length == 0) {
-      const err = createError(404, "cant find product");
+      const err = createError(404, "товари не знайдені");
       return next(err);
     };
     }
@@ -91,7 +91,7 @@ module.exports.findAllProduct = async (req, res, next) => {
       // products = await Product.findAll({limit,offset});
       products = await Product.findAll();
       if (!products) {
-        const err = createError(404, "cant find product");
+        const err = createError(404, "товари не знайдені");
         return next(err);
       }
       
@@ -115,7 +115,7 @@ module.exports.findProductbyId = async (req, res, next) => {
     const product = await Product.findOne({where:{id},
     include:[{model: ProductInfo}]});
     if (!product) {
-      const err = createError(404, "Product not found");
+      const err = createError(404, "товар не знайден");
       return next(err);
     }
     res.send({ data: product });
