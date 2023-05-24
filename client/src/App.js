@@ -17,6 +17,7 @@ import { buyerCreateRequest } from './redux/actions/buyerActionCreators';
 import { sliderGetRequest } from './redux/actions/sliderActionCreators';
 import Admin from './pages/Admin';
 import CategoryPage from './pages/CategoryPage/CategoryPage';
+import SectionPage from './pages/SectionPage/SectionPage';
 
 function App() {
   // const { user } = useSelector(state => state.auth);
@@ -82,6 +83,7 @@ function App() {
       <PublicOnlyRoute exact path='/product/:id' component={ProductPage} />
       <PublicOnlyRoute exact path='/admin' component={AdminPage} />
       <PublicOnlyRoute exact path='/admin/category' component={CategoryPage} />
+      <PublicOnlyRoute exact path='/admin/section' component={SectionPage} />
     </Switch>
   </Router>
   );

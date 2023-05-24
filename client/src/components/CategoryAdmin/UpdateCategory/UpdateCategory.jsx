@@ -31,7 +31,7 @@ const UpdateCategory = () => {
 
   return (
     <div>
-      <h1 className={cx(classes.text)}>Оновити категорію</h1>
+      <h1 className={cx(classes.text)}>Оновити підрозділ</h1>
       {error &&
         error.map(error => (
           <div className={cx(classes.error)}>{error.message}</div>
@@ -42,9 +42,9 @@ const UpdateCategory = () => {
         onSubmit={onSubmit}
       >
         <Form className={cx(classes.form)}>
-          <Input name='name' type='text' placeholder='категорія' />
+          <Input name='name' type='text' placeholder='підрозділ' />
           <MySelect name='categoryId' placeholder='categoryId' as='select'>
-            <option value=''>виберіть категорію</option>
+            <option value=''>виберіть підрозділ</option>
             {category.map(category => (
               <option key={category.id} value={JSON.stringify(category.id)}>
                 {category.name}

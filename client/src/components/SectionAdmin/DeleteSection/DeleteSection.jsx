@@ -1,43 +1,45 @@
 import { Formik, Field, Form } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { categoryCreateRequest } from '../../../redux/actions/categoryAction'
-import { sectionRequest } from '../../../redux/actions/sectionActionCreators'
-import { CATEGORY_CREATE_CHEMA } from '../../../utils/validationSchemasAdmin'
-import Input from '../../Input/Input'
+import {
+  sectionRequest,
+  sectionDeleteRequest
+} from '../../../redux/actions/sectionActionCreators'
 import MySelect from '../../MySelect/MySelect'
+import { SECTION_DELETE_CHEMA } from '../../../utils/validationSchemasAdmin'
 import cx from 'classnames'
-import classes from './CreateCategory.module.scss'
+import classes from './DeleteSection.module.scss'
 
 const initialValues = {
-  name: '',
   sectionId: ''
 }
-const CreateCategory = () => {
-  useEffect(() => {
-    requestCategorys()
-  }, [])
 
-  const requestCategorys = options => dispatch(sectionRequest(options))
-
-  const { section } = useSelector(state => state.section)
-  const { category, isLoading, error } = useSelector(state => state.category)
+const DeleteSection = () => {
+  const { section, isLoading, error } = useSelector(state => state.section)
 
   const dispatch = useDispatch()
+  // console.log(category)
+  useEffect(() => {
+    requestSection()
+  }, [])
+
+  const requestSection = options => dispatch(sectionRequest(options))
   const onSubmit = (values, utils) => {
-    dispatch(categoryCreateRequest(values))
+    dispatch(sectionDeleteRequest(values))
+
+    // console.log(values);
   }
 
   return (
     <div>
-      <h1 className={cx(classes.text)}>Створити підрозділ</h1>
+      <h1 className={cx(classes.text)}>Видалити розділ</h1>
       {error &&
         error.map(error => (
           <div className={cx(classes.error)}>{error.message}</div>
         ))}
       <Formik
         initialValues={initialValues}
-        validationSchema={CATEGORY_CREATE_CHEMA}
+        validationSchema={SECTION_DELETE_CHEMA}
         onSubmit={onSubmit}
       >
         <Form className={cx(classes.form)}>
@@ -49,9 +51,8 @@ const CreateCategory = () => {
               </option>
             ))}
           </MySelect>
-          <Input name='name' type='text' placeholder='підрозділ' />
           <button type='submit' className={cx(classes.btn)}>
-            СТВОРИТИ
+            Видалити
           </button>
         </Form>
       </Formik>
@@ -59,4 +60,4 @@ const CreateCategory = () => {
   )
 }
 
-export default CreateCategory
+export default DeleteSection
