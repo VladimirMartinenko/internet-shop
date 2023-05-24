@@ -21,29 +21,34 @@ export default function categoryReducer(state = initialState, action) {
       case ACTION_TYPES.CATEGORY_GET_BY_SECTION_SUCCESS:
         return produce(state, (draftState) => {
           draftState.isLoading = false;
+          draftState.error = null;
           draftState.category=(action.payload.values);
         });
     case ACTION_TYPES.CATEGORY_GET_SUCCESS:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
+        draftState.error = null;
         draftState.category=(action.payload.values);
       });
     case ACTION_TYPES.CATEGORY_CREATE_SUCCESS:
       // console.log(action.payload.values);
       return produce(state, (draftState) => {
         draftState.isLoading = false;
+        draftState.error = null;
         draftState.category.push(action.payload.values);
       });
     case ACTION_TYPES.CATEGORY_DELETE_SUCCESS:
       // console.log(action.payload.values);
       return produce(state, (draftState) => {
         draftState.isLoading = false;
+        draftState.error = null;
         draftState.category= draftState.category.filter((categorys)=> categorys.id !== Number(action.payload.values) );
       });
     case ACTION_TYPES.CATEGORY_UPDATE_SUCCESS:
       console.log(action.payload.values.id);
       return produce(state, (draftState) => {
         draftState.isLoading = false;
+        draftState.error = null;
         draftState.category = draftState.category.map((categorys)=> {if(categorys.id === Number(action.payload.values.id)){
           return action.payload.values;
         }return categorys} );

@@ -1,0 +1,24 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between ;
+  height: 100vh;
+}
+.body {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: 100vh;
+
+}
+.text {
+  font-style: italic;
+  font-size: 2em;
+  padding-bottom: 2%;
+}
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}

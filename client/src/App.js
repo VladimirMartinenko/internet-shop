@@ -4,9 +4,9 @@ import PrivateRoute from './components/Routes/PrivateRoute'
 import HomePage from './pages/HomePage/HomePage';
 import RegistrationPage from './pages/RegistrationPage/RegistrationPage';
 import LoginPage from './pages/LoginPage/LoginPage';
-import AdminPage from './pages/AdminPage';
+import AdminPage from './pages/AdminPage/AdminPage';
 import ShopPage from './pages/ShopPage/ShopPage';
-import BasketPage from './pages/BasketPage';
+import BasketPage from './pages/BasketPage/BasketPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
@@ -16,6 +16,7 @@ import CONSTANTS from './constants';
 import { buyerCreateRequest } from './redux/actions/buyerActionCreators';
 import { sliderGetRequest } from './redux/actions/sliderActionCreators';
 import Admin from './pages/Admin';
+import CategoryPage from './pages/CategoryPage/CategoryPage';
 
 function App() {
   // const { user } = useSelector(state => state.auth);
@@ -79,7 +80,8 @@ function App() {
       <PublicOnlyRoute exact path='/shop' component={ShopPage} />
       <PublicOnlyRoute exact path='/orders' component={Admin} />
       <PublicOnlyRoute exact path='/product/:id' component={ProductPage} />
-      <PrivateRoute exact path='/admin' component={AdminPage} />
+      <PublicOnlyRoute exact path='/admin' component={AdminPage} />
+      <PublicOnlyRoute exact path='/admin/category' component={CategoryPage} />
     </Switch>
   </Router>
   );
