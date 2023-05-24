@@ -15,8 +15,9 @@
 }
 
 .invalidInput {
-  border-color: rgb(199, 2, 2);
+  border-color: rgb(252, 6, 6);
   position: relative;
+  background-color: red;
 }
 .invalidInput::placeholder{
   opacity: 0;
