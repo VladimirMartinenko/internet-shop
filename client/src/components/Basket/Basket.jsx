@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect, useDispatch, useSelector } from 'react-redux'
 import CONSTANTS from '../../constants'
 import BasketItems from '../BasketItems/BasketItems'
+import { BAYER_CHEMA } from '../../utils/validationSchemas'
 import {
   basketClearRequest,
   basketMinusRequest,
@@ -14,6 +15,9 @@ import {
 } from '../../redux/actions/buyerActionCreators'
 import { Formik, Field, Form, useFormikContext } from 'formik'
 import axios from 'axios'
+import Input from '../Input/Input'
+import cx from 'classnames'
+import classes from './Basket.module.scss'
 
 const initialValues = {
   email: '',
@@ -25,9 +29,9 @@ const initialValues = {
 const Basket = () => {
   const { user } = useSelector(state => state.auth)
   console.log(user)
-  // useEffect(() => {
-  //   dispatch(buyerCreateRequest(user))
-  // }, [])
+  useEffect(() => {
+    dispatch(buyerCreateRequest(user))
+  }, [])
   // const onSubmit = (values, utils) => {
   const AutoSubmitToken = () => {
     const { setFieldValue } = useFormikContext()
@@ -38,11 +42,12 @@ const Basket = () => {
       setFieldValue('phone', buyer.phone)
     }, [buyer])
   }
- 
+
   const httpClient = axios.create({
     baseURL: CONSTANTS.HTTP_SERVER_URL
   })
-  const data = new FormData();
+  const data = new FormData()
+
   async function createOrder (values) {
     // await dispatch(buyerCreateRequest(values))
     let res = await httpClient.post(`buyer`, values, console.log(values))
@@ -52,24 +57,24 @@ const Basket = () => {
         `productToOrder/${order.data.data.id}/${product.id}?quantity=${product.quantity}`
       )
     )
-      data.append('firstName', values.firstName);
-      data.append('lastName',values.lastName);
-      data.append('phone', values.phone);
-      data.append('email', values.email);
-      data.append('order',order.data.data.id);
-      data.append('products', JSON.stringify(items));
-      for (const [key, value] of data) {
-        console.log(`${key}: ${value}\n`);
-        
-      }
-      await httpClient.post(`mailer`,data)
+    data.append('firstName', values.firstName)
+    data.append('lastName', values.lastName)
+    data.append('phone', values.phone)
+    data.append('email', values.email)
+    data.append('order', order.data.data.id)
+    data.append('products', JSON.stringify(items))
+    for (const [key, value] of data) {
+      console.log(`${key}: ${value}\n`)
+    }
+    await httpClient.post(`mailer`, data)
   }
   const { buyer } = useSelector(state => state.buyer)
+  console.log(buyer)
   const basket = JSON.parse(localStorage.getItem('basket'))
   console.log(basket)
   const { items } = useSelector(state => state.basket)
   const { totalSumm } = useSelector(state => state.basket)
-  
+
   const handlValueChanges = (value, products) => {
     console.log(value.target.name)
     value.target.value = ''
@@ -157,83 +162,73 @@ const Basket = () => {
     //   ))}
     //   <div>ОБЩАЯ : {totalSumm}</div>
 
-
+    <div>
+      <BasketItems />
       <div>
-         <BasketItems/>
-        <div>
-          <h1>LOGIN</h1>
-          <Formik initialValues={initialValues} onSubmit={createOrder}>
-            {buyer
-              ? ({ values }) => (
-                  <Form>
-                    <AutoSubmitToken />
-                    <Field
-                      name='firstName'
-                      type='text'
-                      placeholder='firstName'
-                      value={buyer.firstName}
-                      onFocus={e => handlValueChanges(e)}
-                      onBlur={e => handlValueChange(e)}
-                      onChange={e =>
-                        dispatch(buyerLocalUpdateRequest(e.target))
-                      }
-                    />
-                    <Field
-                      name='lastName'
-                      type='text'
-                      placeholder='lastName'
-                      value={buyer.lastName}
-                      onFocus={e => handlValueChanges(e)}
-                      onBlur={e => handlValueChange(e)}
-                      onChange={e =>
-                        dispatch(buyerLocalUpdateRequest(e.target))
-                      }
-                    />
-                    <Field
-                      name='email'
-                      type='email'
-                      value={buyer.email}
-                      onFocus={e => handlValueChanges(e)}
-                      onBlur={e => handlValueChange(e)}
-                      onChange={e =>
-                        dispatch(buyerLocalUpdateRequest(e.target))
-                      }
-                    />
-                    <Field
-                      name='phone'
-                      type='phone'
-                      value={buyer.phone}
-                      onFocus={e => handlValueChanges(e)}
-                      onBlur={e => handlValueChange(e)}
-                      onChange={e =>
-                        dispatch(buyerLocalUpdateRequest(e.target))
-                      }
-                    />
-                    {/* <button type='submit'>LOGIN</button> */}
-                    <button type='submit'>оформить</button>
-                  </Form>
-                )
-              : ({ values }) => (
-                  <Form>
-                    <Field
-                      name='firstName'
-                      type='text'
-                      placeholder='First Name'
-                    />
-                    <Field
-                      name='lastName'
-                      type='text'
-                      placeholder='Last Name'
-                    />
-                    <Field name='email' type='email' />
-                    <Field name='phone' type='phone' />
-                    {/* <button type='submit'>LOGIN</button> */}
-                    <button type='submit'>оформить</button>
-                  </Form>
-                )}
-          </Formik>
-        </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={BAYER_CHEMA}
+          onSubmit={createOrder}
+        >
+          {buyer
+            ? ({ values }) => (
+                <Form className={cx(classes.form)}>
+                  <AutoSubmitToken />
+                  <Input
+                    name='firstName'
+                    type='text'
+                    placeholder="І'мя"
+                    value={buyer.firstName}
+                    onFocus={e => handlValueChanges(e)}
+                    // onBlur={e => handlValueChange(e)}
+                    onChange={e => dispatch(buyerLocalUpdateRequest(e.target))}
+                  />
+                  <Input
+                    name='lastName'
+                    type='text'
+                    placeholder='Фамілія'
+                    value={buyer.lastName}
+                    onFocus={e => handlValueChanges(e)}
+                    // onBlur={e => handlValueChange(e)}
+                    onChange={e => dispatch(buyerLocalUpdateRequest(e.target))}
+                  />
+                  <Input
+                    name='email'
+                    type='email'
+                    placeholder='email'
+                    value={buyer.email}
+                    onFocus={e => handlValueChanges(e)}
+                    // onBlur={e => handlValueChange(e)}
+                    onChange={e => dispatch(buyerLocalUpdateRequest(e.target))}
+                  />
+                  <Input
+                    name='phone'
+                    type='phone'
+                    placeholder='телефон'
+                    value={buyer.phone}
+                    onFocus={e => handlValueChanges(e)}
+                    // onBlur={e => handlValueChange(e)}
+                    onChange={e => dispatch(buyerLocalUpdateRequest(e.target))}
+                  />
+                  {/* <button type='submit'>LOGIN</button> */}
+                  <button type='submit'>оформить</button>
+                </Form>
+              )
+            : ({ values }) => (
+                <Form className={cx(classes.form)}>
+                  <Input name='firstName' type='text' placeholder="І'мя" />
+                  <Input name='lastName' type='text' placeholder='Фамілія' />
+                  <Input name='email' type='email' placeholder='email' />
+                  <Input name='phone' type='phone' placeholder='телефон' />
+                  {/* <button type='submit'>LOGIN</button> */}
+                  <button type='submit' className={cx(classes.btn)}>
+                    ОФОРМИТИ
+                  </button>
+                </Form>
+              )}
+        </Formik>
       </div>
+    </div>
     // </div>
   )
 }

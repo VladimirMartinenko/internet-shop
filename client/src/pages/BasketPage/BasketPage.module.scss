@@ -1,0 +1,29 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between ;
+  height: 100vh;
+}
+.body {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+}
+.img {
+  min-height:400px ;
+  max-height: 500px;
+  // min-width: 82vw;
+  // max-width: 90vw;
+  // height: 500px;
+  width: 100%;
+  object-fit: cover;
+  margin-bottom: 5px;
+  border: 2px solid black;
+}
+.center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
