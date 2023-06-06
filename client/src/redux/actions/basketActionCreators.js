@@ -1,71 +1,28 @@
 import ACTION_TYPES from "./types";
 
-export const basketCreateRequest = (product) => ({
-  type: ACTION_TYPES.BASKET_CREATE_REQUEST,
-  payload: { values: product},
-});
-export const basketCreateSucces = (product) => ({
-  type: ACTION_TYPES.BASKET_CREATE_SUCCESS,
+
+export const basketCreate = (product) => ({
+  type: ACTION_TYPES.BASKET_CREATE,
   payload: { values: product },
   });
-export const basketCreateError = (error) => ({
-  type: ACTION_TYPES.BASKET_CREATE_ERROR,
-  payload: { error },
-});
-
-export const basketClearRequest = () => ({
-  type: ACTION_TYPES.BASKET_CLEAR_REQUEST, 
-});
-export const basketClearSucces = () => ({
-  type: ACTION_TYPES.BASKET_CLEAR_SUCCESS,
+export const basketClear = () => ({
+  type: ACTION_TYPES.BASKET_CLEAR,
   });
-export const basketClearError = (error) => ({
-  type: ACTION_TYPES.BASKET_CLEAR_ERROR,
-  payload: { error },
-});
-export const basketMinusRequest = (id) => ({
-  type: ACTION_TYPES.BASKET_MINUS_REQUEST,
+export const basketMinus = (id) => ({
+  type: ACTION_TYPES.BASKET_MINUS,
   payload: { values: id}, 
 });
-export const basketMinusSucces = (id) => ({
-  type: ACTION_TYPES.BASKET_MINUS_SUCCESS,
-  payload: { values: id},
-  });
-export const basketMinusError = (error) => ({
-  type: ACTION_TYPES.BASKET_MINUS_ERROR,
-  payload: { error },
-});
-export const basketPlusRequest = (id) => ({
-  type: ACTION_TYPES.BASKET_PLUS_REQUEST, 
+
+export const basketPlus = (id) => ({
+  type: ACTION_TYPES.BASKET_PLUS, 
   payload: { values: id},
 });
-export const basketPlusSucces = (id) => ({
-  type: ACTION_TYPES.BASKET_PLUS_SUCCESS,
-  payload: { values: id},
-  });
-export const basketPlusError = (error) => ({
-  type: ACTION_TYPES.BASKET_PLUS_ERROR,
-  payload: { error },
-});
-export const basketDeleteRequest = (id) => ({
-  type: ACTION_TYPES.BASKET_DELETE_REQUEST, 
+
+export const basketDelete = (id) => ({
+  type: ACTION_TYPES.BASKET_DELETE, 
   payload: { values: id},
 });
-export const basketDeleteSucces = (id) => ({
-  type: ACTION_TYPES.BASKET_DELETE_SUCCESS,
-  payload: { values: id},
-  });
-export const basketDeleteError = (error) => ({
-  type: ACTION_TYPES.BASKET_DELETE_ERROR,
-  payload: { error },
-});
-export const basketSumRequest = () => ({
-  type: ACTION_TYPES.BASKET_SUM_REQUEST, 
-});
-export const basketSumSucces = () => ({
-  type: ACTION_TYPES.BASKET_SUM_SUCCESS,
-  });
-export const basketSumError = (error) => ({
-  type: ACTION_TYPES.BASKET_SUM_ERROR,
-  payload: { error },
+
+export const basketSum = () => ({
+  type: ACTION_TYPES.BASKET_SUM, 
 });

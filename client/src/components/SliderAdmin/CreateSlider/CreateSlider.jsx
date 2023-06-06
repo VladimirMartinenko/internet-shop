@@ -1,0 +1,62 @@
+import { Formik, Field, Form } from 'formik'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { productGetRequest } from '../../../redux/actions/productActionCreators'
+import { SLIDER_CREATE_CHEMA } from '../../../utils/validationSchemasAdmin'
+import Input from '../../Input/Input'
+import MySelect from '../../MySelect/MySelect'
+import cx from 'classnames'
+import classes from './CreateSlider.module.scss'
+import { sliderCreateRequest } from '../../../redux/actions/sliderActionCreators'
+
+const initialValues = {
+  productId: ''
+}
+const CreateSlider = () => {
+  useEffect(() => {
+    requestProduct()
+  }, [])
+
+  const requestProduct = options => dispatch(productGetRequest(options))
+
+  const { slider, isLoading, error  } = useSelector(state => state.slider)
+
+  const { product } = useSelector(state => state.products);
+
+  const dispatch = useDispatch()
+  const onSubmit = (values, utils) => {
+    dispatch(sliderCreateRequest(values))
+    utils.resetForm()
+  }
+
+  return (
+    <div>
+      <h1 className={cx(classes.text)}>Створити слайд</h1>
+      {error &&
+        error.map(error => (
+          <div className={cx(classes.error)}>{error.message}</div>
+        ))}
+      <Formik
+        initialValues={initialValues}
+        validationSchema={SLIDER_CREATE_CHEMA}
+        onSubmit={onSubmit}
+      >
+        <Form className={cx(classes.form)}>
+          <MySelect name='productId' placeholder='productId' as='select'>
+            <option value=''>виберіть товар</option>
+            {product.map(product => (
+              <option key={product.id} value={JSON.stringify(product.id)}>
+                {product.name}
+              </option>
+            ))}
+          </MySelect>
+          <button type='submit' className={cx(classes.btn)}>
+            СТВОРИТИ
+          </button>
+        </Form>
+      </Formik>
+    </div>
+  )
+}
+
+export default CreateSlider

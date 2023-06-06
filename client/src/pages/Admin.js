@@ -1,5 +1,5 @@
 import React from 'react';
-import GetOrder from '../components/ProductAdmin/GetOrder/GetOrder';
+import GetOrder from '../components/OrderAdmin/GetOrder/GetOrder';
 
 const Admin = () => {
   return (

@@ -1,13 +1,11 @@
 import React from 'react'
 import CONSTANTS from '../../constants'
 import {
-  basketClearRequest,
-  basketMinusRequest,
-  basketPlusRequest,
-  basketDeleteRequest
+  basketMinus,
+  basketPlus,
+  basketDelete
 } from '../../redux/actions/basketActionCreators'
 import { useDispatch, useSelector } from 'react-redux'
-import cx from 'classnames'
 import classes from './BasketItems.module.scss'
 
 const BasketItems = () => {
@@ -28,7 +26,7 @@ const BasketItems = () => {
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
-              onClick={() => dispatch(basketPlusRequest(i.id))}
+              onClick={() => dispatch(basketPlus(i.id))}
             >
               +
             </button>
@@ -37,7 +35,7 @@ const BasketItems = () => {
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
-              onClick={() => dispatch(basketMinusRequest(i.id))}
+              onClick={() => dispatch(basketMinus(i.id))}
             >
               -
             </button>
@@ -47,7 +45,7 @@ const BasketItems = () => {
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
-              onClick={() => dispatch(basketDeleteRequest(i.id))}
+              onClick={() => dispatch(basketDelete(i.id))}
             >
               ВИДАЛИТИ
             </button>

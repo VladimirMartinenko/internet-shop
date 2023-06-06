@@ -16,7 +16,9 @@ const AdminPage = () => {
     <p className={cx(classes.text)}>Оберіть пункт меню для редагування</p>
     </div>
     </div>
+    <div className={cx(classes.footer)}>
     <Footer/>
+    </div>
     </div>
     
   );

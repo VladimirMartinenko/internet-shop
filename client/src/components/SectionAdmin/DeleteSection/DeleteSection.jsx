@@ -26,8 +26,7 @@ const DeleteSection = () => {
   const requestSection = options => dispatch(sectionRequest(options))
   const onSubmit = (values, utils) => {
     dispatch(sectionDeleteRequest(values))
-
-    // console.log(values);
+    utils.resetForm()
   }
 
   return (

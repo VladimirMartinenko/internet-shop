@@ -35,3 +35,15 @@ export const buyersGetError = (error) => ({
   type: ACTION_TYPES.BUYERS_GET_ERROR,
   payload: { error },
 });
+export const buyersDeleteRequest = (buyersId) => ({
+  type: ACTION_TYPES.BUYERS_DELETE_REQUEST,
+  payload: { values: buyersId },
+  });
+export const buyersDeleteSucces = (buyersId) => ({
+  type: ACTION_TYPES.BUYERS_DELETE_SUCCESS,
+  payload: { values: buyersId },
+  });
+export const buyersDeleteError = (error) => ({
+  type: ACTION_TYPES.CATEGORY_DELETE_ERROR,
+  payload: { error },
+});

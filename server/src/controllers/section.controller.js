@@ -6,6 +6,10 @@ module.exports.createSection = async (req, res, next) => {
     const { body } = req;
     console.log(body);
     const section = await Section.create(body);
+    if (!section) {
+      const err = createError(404, "не вдалось створити розділ");
+      return next(err);
+    }
     res.send({ data: section });
   } catch (error) {
     next(error);
@@ -16,7 +20,7 @@ module.exports.findAllSection = async (req, res, next) => {
   try {
     const section = await Section.findAll();
     if (!section) {
-      const err = createError(404, "cant find section");
+      const err = createError(404, "не знайдено розділів");
       return next(err);
     }
 
@@ -33,7 +37,7 @@ module.exports.deleteSection = async (req, res, next) => {
     } = req;
     const deleteRows = await Section.destroy({ where: { id } });
     if (deleteRows != 1) {
-      const err = createError(404, "cant delete section");
+      const err = createError(404, "не вдалось видалити розділ");
       return next(err);
     }
 
@@ -55,7 +59,7 @@ module.exports.updateSection = async (req, res, next) => {
       returning: true,
     });
     if (rowsUpdatet != 1) {
-      const err = createError(404, "cant update section");
+      const err = createError(404, "не вдалось оновити розділ");
       return next(err);
     }
 

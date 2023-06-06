@@ -6,6 +6,11 @@ import {
   productGetByIdRequest,
   productLocalUpdateRequest
 } from '../../../redux/actions/productActionCreators'
+import MySelect from '../../MySelect/MySelect'
+import Input from '../../Input/Input'
+import cx from 'classnames'
+import classes from './UpdateProduct.module.scss'
+import { PRODUCT_UPDATE_CHEMA } from '../../../utils/validationSchemasAdmin'
 
 // const FieldSelect =({name})=> {
 //   const [field, meta, helpers] = useField(name);
@@ -63,7 +68,7 @@ const initialValues = {
 
 const UpdateProduct = () => {
   const { category } = useSelector(state => state.category)
-  const { product } = useSelector(state => state.products)
+  const { product, isLoading, error } = useSelector(state => state.products)
   const { products } = useSelector(state => state.product)
   console.log(products)
   const AutoSubmitToken = () => {
@@ -163,23 +168,28 @@ const UpdateProduct = () => {
 
   return (
     <div>
-      <h1>UPDATE PRODUCT</h1>
-
-      <Formik initialValues={initialValues} onSubmit={addProduct}>
+      <h1 className={cx(classes.text)}>ОНОВИТИ ТОВАР</h1>
+      {error &&
+        error.map(error => (
+          <div className={cx(classes.error)}>{error.message}</div>
+        ))}
+      <Formik initialValues={initialValues} 
+      validationSchema={PRODUCT_UPDATE_CHEMA}
+      onSubmit={addProduct}>
         {formikProps => {
           console.log(formikProps)
 
           return (
-            <Form>
+            <Form className={cx(classes.form)}>
               <AutoSubmitToken />
               {/* <pre>{JSON.stringify(props, undefined, 2)}</pre>
             <FormSelect name="productId" options={product}/> */}
-              <Field
+              <MySelect
                 name='productId'
                 component='select'
                 onClick={() => handleProductChange(formikProps.values)}
               >
-                <option value=''>--select--</option>
+                <option value=''>виберіть товар</option>
                 {product?.map(products => (
                   <option key={products.id} value={JSON.stringify(products.id)}>
                     {/* // <option key={products.id} value={products}> */}
@@ -187,58 +197,59 @@ const UpdateProduct = () => {
                   </option>
                 ))}
                 {/* {handleProductChange(values.productId)} */}
-              </Field>
-              <Field
+              </MySelect>
+              <Input
                 name='name'
                 type='text'
-                placeholder='name'
+                placeholder='назва'
                 value={products.name}
                 onFocus={e => handlValueChanges(e)}
-                onBlur={e => handlValueChange(e)}
+                // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdateRequest(e.target))}
                 // onClick={()=>changeValue(formikProps)}
               />
-              <Field
+              <Input
                 name='price'
                 type='text'
-                placeholder='price'
+                placeholder='ціна'
                 value={products.price}
                 onFocus={e => handlValueChanges(e)}
-                onBlur={e => handlValueChange(e)}
+                // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdateRequest(e.target))}
               />
-              <Field
+              <Input
                 name='quantity'
                 type='text'
-                placeholder='quantity'
+                placeholder='кількість'
                 value={products.quantity}
                 onFocus={e => handlValueChanges(e)}
-                onBlur={e => handlValueChange(e)}
+                // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdateRequest(e.target))}
               />
-              <Field
+              <MySelect
                 name='categoryId'
-                placeholder='category'
+                placeholder='підрозділ'
                 as='select'
                 value={products.categoryId}
                 onChange={e => dispatch(productLocalUpdateRequest(e.target))}
               >
+                <option value=''>виберіть підрозділ</option>
                 {category?.map(category => (
                   <option key={category.id} value={JSON.stringify(category.id)}>
                     {category.name}
                   </option>
                 ))}
-              </Field>
-              <Field
+              </MySelect>
+              <Input
                 name='brand'
                 type='text'
-                placeholder='brand'
+                placeholder='бренд'
                 value={products.brand}
                 onFocus={e => handlValueChanges(e)}
-                onBlur={e => handlValueChange(e)}
+                // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdateRequest(e.target))}
               />
-              <Field name='img' type='file' placeholder='img' />
+              {/* <Field name='img' type='file' placeholder='img' /> */}
 
               {/* { products.ProductInfos?.map((products,index) =>(
                       <div key={index}>
@@ -275,11 +286,11 @@ const UpdateProduct = () => {
                           {/** both these conventions do the same */}
                           {inf.title !== '' && (
                             <div key={index + 1}>
-                              <Field
+                              <Input
                                 name={`info[${index}].title`}
                                 value={info.title}
                               />
-                              <Field
+                              <Input
                                 name={`info.${index}.description`}
                                 value={info.description}
                               />
@@ -312,7 +323,7 @@ const UpdateProduct = () => {
                   </div>
                 )}
               />
-              <button type='submit'>CREATE</button>
+              <button className={cx(classes.btn)} type='submit'>оновити</button>
 
               {/* <button type="button" onClick={()=>console.log(initialValues.info)}>info</button> */}
             </Form>

@@ -6,7 +6,12 @@ module.exports.createSlider = async (req, res, next) => {
   try {
     const { body } = req;
     console.log(body);
-    const slider = await Slider.create(body);
+    const sliders = await Slider.create(body);
+    const slider = await Slider.findOne({ where: { id: sliders.id } ,  attributes: ['id']  ,include:{model:Product}});
+    if (!slider) {
+      const err = createError(404, "невдала спроба");
+      return next(err);
+    }
     res.send({ data: slider });
   } catch (error) {
     next(error);
@@ -15,10 +20,10 @@ module.exports.createSlider = async (req, res, next) => {
 
 module.exports.findAllSlider = async (req, res, next) => {
   try {
-    const slider = await Slider.findAll({  attributes: []  ,include:{model:Product}});
+    const slider = await Slider.findAll({  attributes: ['id']  ,include:{model:Product}});
     // const slider=someSlider.getProfiles({ joinTableAttributes: ['Product'] });
     if (!slider) {
-      const err = createError(404, "cant find section");
+      const err = createError(404, "не знайдено");
       return next(err);
     }
 
@@ -33,9 +38,10 @@ module.exports.deleteSlider = async (req, res, next) => {
     const {
       params: { id },
     } = req;
+    console.log(id);
     const deleteRows = await Slider.destroy({ where: { id } });
     if (deleteRows != 1) {
-      const err = createError(404, "cant delete slider");
+      const err = createError(404, "неможливо видалити");
       return next(err);
     }
 

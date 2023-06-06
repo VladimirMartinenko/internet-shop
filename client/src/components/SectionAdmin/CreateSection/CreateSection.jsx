@@ -19,6 +19,7 @@ const CreateSection = () => {
   const dispatch = useDispatch()
   const onSubmit = (values, utils) => {
     dispatch(sectionCreateRequest(values))
+    utils.resetForm()
   }
 
   return (

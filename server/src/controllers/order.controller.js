@@ -18,9 +18,10 @@ module.exports.createOrderBuyer = async (req, res, next) => {
   try {
     const {
       body: { id: buyerId },
+      query:{sum}
     } = req;
-
-    const order = await Order.create({ buyerId });
+console.log(req);
+    const order = await Order.create({ buyerId,sum });
 
     res.send({ data: order });
   } catch (error) {

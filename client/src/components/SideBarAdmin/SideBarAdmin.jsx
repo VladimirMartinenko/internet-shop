@@ -17,10 +17,13 @@ const SideBarAdmin = () => {
           <Link to='/admin/category' className={cx(classes.link)}>Підрозділи</Link>
         </li>
         <li className={cx(classes.list)}>
-          <Link  className={cx(classes.link)}>Товари</Link>
+          <Link to='/admin/product'  className={cx(classes.link)}>Товари</Link>
         </li>
         <li className={cx(classes.list)}>
-          <Link  className={cx(classes.link)}>Слайдер</Link>
+          <Link to='/admin/slider' className={cx(classes.link)}>Слайдер</Link>
+        </li>
+        <li className={cx(classes.list)}>
+          <Link to='/admin/order' className={cx(classes.link)}>Замовлення</Link>
         </li>
       </ul>
     </nav>

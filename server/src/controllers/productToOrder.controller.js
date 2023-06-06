@@ -13,6 +13,9 @@ module.exports.createProductToOrder = async (req, res, next) => {
     console.log(req);
 
     const productToOrder = await ProductToOrder.create({ orderId,productId,quantity});
+    if (!productToOrder) {
+      return next(createError(404, 'неправильні дані'));
+    }
 
     res.status(201).send({ data: productToOrder });
   } catch (error) {
@@ -22,12 +25,13 @@ module.exports.createProductToOrder = async (req, res, next) => {
 module.exports.getProductToOrders = async (req, res, next) => {
   try {
     const {
-      order: { id: orderId },
+      params: { orderId },
     } = req;
+    console.log(req);
     const productToOrder = await ProductToOrder.findAll({ where: { orderId } });
 
     if (!productToOrder) {
-      return next(createHttpError(404, 'Orders not found'));
+      return next(createHttpError(404, 'замовлення не знайдено'));
     }
 
     res.send({ data: productToOrder });

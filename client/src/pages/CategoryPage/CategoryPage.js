@@ -20,7 +20,9 @@ const CategoryPage = () => {
     <UpdateCategory/>
     </div>
     </div>
+    <div className={cx(classes.footer)}>
     <Footer/>
+    </div>
     </div>
     
   );

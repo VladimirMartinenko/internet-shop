@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import CONSTANTS from '../../constants'
 import BasketItems from '../BasketItems/BasketItems'
 import { BAYER_CHEMA } from '../../utils/validationSchemas'
 import {
-  basketClearRequest,
-  basketMinusRequest,
-  basketPlusRequest,
-  basketDeleteRequest
+  basketClear,
+  basketDelete
 } from '../../redux/actions/basketActionCreators'
 import {
   buyerCreateRequest,
   buyerLocalUpdateRequest
 } from '../../redux/actions/buyerActionCreators'
-import { Formik, Field, Form, useFormikContext } from 'formik'
+import { Formik, Form, useFormikContext } from 'formik'
 import axios from 'axios'
 import Input from '../Input/Input'
 import cx from 'classnames'
@@ -27,7 +25,25 @@ const initialValues = {
 }
 
 const Basket = () => {
+  let [hasError, setHasError] = useState(null)
+  let [Error, setError] = useState(null)
+  let [Message, setMessage] = useState(null)
   const { user } = useSelector(state => state.auth)
+  const { items } = useSelector(state => state.basket)
+
+  async function examinationBasket () {
+    items?.map(async items => {
+      try {
+        await httpClient.get(`product/${items.id}`, console.log(items.id))
+      } catch (err) {
+        dispatch(basketDelete(items.id))
+      }
+    })
+  }
+  useEffect(() => {
+    examinationBasket()
+  }, [])
+
   console.log(user)
   useEffect(() => {
     dispatch(buyerCreateRequest(user))
@@ -49,30 +65,43 @@ const Basket = () => {
   const data = new FormData()
 
   async function createOrder (values) {
-    // await dispatch(buyerCreateRequest(values))
-    let res = await httpClient.post(`buyer`, values, console.log(values))
-    let order = await httpClient.post(`order/buyer`, res.data.data)
-    await items.map(product =>
-      httpClient.post(
-        `productToOrder/${order.data.data.id}/${product.id}?quantity=${product.quantity}`
+    try {
+      let res = await httpClient.post(`buyer`, values, console.log(values))
+      let order = await httpClient.post(
+        `order/buyer?sum=${totalSumm}`,
+        res.data.data,
+        console.log(res.data.data)
       )
-    )
-    data.append('firstName', values.firstName)
-    data.append('lastName', values.lastName)
-    data.append('phone', values.phone)
-    data.append('email', values.email)
-    data.append('order', order.data.data.id)
-    data.append('products', JSON.stringify(items))
-    for (const [key, value] of data) {
-      console.log(`${key}: ${value}\n`)
+      await items.map(product =>
+        httpClient.post(
+          `productToOrder/${order.data.data.id}/${product.id}?quantity=${product.count}`
+        )
+      )
+      data.append('firstName', values.firstName)
+      data.append('lastName', values.lastName)
+      data.append('phone', values.phone)
+      data.append('email', values.email)
+      data.append('order', order.data.data.id)
+      data.append('products', JSON.stringify(items))
+      for (const [key, value] of data) {
+        console.log(`${key}: ${value}\n`)
+      }
+      //  await httpClient.post(`mailer`, data)
+      await dispatch(basketClear())
+      await setMessage('замовлення створено успішно')
+    } catch (err) {
+      if (err.response.status === 500) {
+        setHasError('проблема при створенні')
+      } else {
+        setError(err.response.data.errors)
+      }
     }
-    await httpClient.post(`mailer`, data)
   }
+
   const { buyer } = useSelector(state => state.buyer)
   console.log(buyer)
   const basket = JSON.parse(localStorage.getItem('basket'))
   console.log(basket)
-  const { items } = useSelector(state => state.basket)
   const { totalSumm } = useSelector(state => state.basket)
 
   const handlValueChanges = (value, products) => {
@@ -86,83 +115,13 @@ const Basket = () => {
   }
   const dispatch = useDispatch()
   return (
-    // <div style={{ display: 'flex', flexDirection: 'column' }}>
-    //   {items?.map(i => (
-    //     <div key={i.id} style={{ display: 'flex', flexDirection: 'row' }}>
-    //       <img
-    //         style={{ width: '260px', height: '260px' }}
-    //         src={CONSTANTS.HTTP_SERVER_URL_images + i.img}
-    //         alt={i.name}
-    //       ></img>
-    //       <div
-    //         style={{
-    //           width: '150px',
-    //           display: 'flex',
-    //           justifyContent: 'center',
-    //           alignItems: 'center'
-    //         }}
-    //       >
-    //         название : {i.name}
-    //       </div>
-    //       <div style={{ display: 'flex', alignItems: 'center' }}>
-    //         <button
-    //           style={{ width: '20px', height: '20px' }}
-    //           onClick={() => dispatch(basketPlusRequest(i.id))}
-    //         >
-    //           +
-    //         </button>
-    //       </div>
-    //       <div
-    //         style={{
-    //           width: '150px',
-    //           display: 'flex',
-    //           justifyContent: 'center',
-    //           alignItems: 'center'
-    //         }}
-    //       >
-    //         количество : {i.count}
-    //       </div>
-    //       <div style={{ display: 'flex', alignItems: 'center' }}>
-    //         <button
-    //           style={{ width: '20px', height: '20px' }}
-    //           onClick={() => dispatch(basketMinusRequest(i.id))}
-    //         >
-    //           -
-    //         </button>
-    //       </div>
-    //       <div
-    //         style={{
-    //           width: '150px',
-    //           display: 'flex',
-    //           justifyContent: 'center',
-    //           alignItems: 'center'
-    //         }}
-    //       >
-    //         цена : {i.price}
-    //       </div>
-    //       <div
-    //         style={{
-    //           width: '150px',
-    //           display: 'flex',
-    //           justifyContent: 'center',
-    //           alignItems: 'center'
-    //         }}
-    //       >
-    //         сумма : {i.price * i.count}
-    //       </div>
-    //       <div style={{ display: 'flex', alignItems: 'center' }}>
-    //         <button
-    //           style={{ width: '70px', height: '20px' }}
-    //           onClick={() => dispatch(basketDeleteRequest(i.id))}
-    //         >
-    //           УДАЛИТЬ
-    //         </button>
-    //       </div>
-    //     </div>
-    //   ))}
-    //   <div>ОБЩАЯ : {totalSumm}</div>
-
     <div>
+      {hasError && <div className={cx(classes.error)}>{hasError}</div>}
+      {Error &&
+        Error.map(error => (
+          <div className={cx(classes.error)}>{error.message}</div>
+        ))}
+      {Message && <div className={cx(classes.valid)}>{Message}</div>}
       <BasketItems />
       <div>
         <Formik
@@ -204,14 +163,16 @@ const Basket = () => {
                   <Input
                     name='phone'
                     type='phone'
-                    placeholder='телефон'
+                    placeholder='телефон(380)'
                     value={buyer.phone}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
                     onChange={e => dispatch(buyerLocalUpdateRequest(e.target))}
                   />
                   {/* <button type='submit'>LOGIN</button> */}
-                  <button type='submit'>оформить</button>
+                  <button type='submit' className={cx(classes.btn)}>
+                    ОФОРМИТИ
+                  </button>
                 </Form>
               )
             : ({ values }) => (
@@ -220,7 +181,6 @@ const Basket = () => {
                   <Input name='lastName' type='text' placeholder='Фамілія' />
                   <Input name='email' type='email' placeholder='email' />
                   <Input name='phone' type='phone' placeholder='телефон' />
-                  {/* <button type='submit'>LOGIN</button> */}
                   <button type='submit' className={cx(classes.btn)}>
                     ОФОРМИТИ
                   </button>
@@ -229,15 +189,8 @@ const Basket = () => {
         </Formik>
       </div>
     </div>
-    // </div>
+   
   )
 }
-// const mapStateToProps = state => {
-//   return {
-//     user: state.auth.user
-//   }
-// }
-
-// export default connect(mapStateToProps)(Basket)
 
 export default Basket

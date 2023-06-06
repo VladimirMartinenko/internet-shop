@@ -94,5 +94,11 @@ export const buyerCreate = (value) => httpClient.post(`buyer`,value,console.log(
 
 export const buyerGet = () => httpClient.get(`buyer`);
 
+export const buyerDelete = (id) => httpClient.delete(`buyer/${id}`,console.log(id));
+
 export const sliderGet = () => httpClient.get(`slider`);
+
+export const sliderCreate = (id) => httpClient.post(`slider`,id,console.log(id));
+
+export const sliderDelete = (id) => httpClient.delete(`slider/${id}`);
 

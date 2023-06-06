@@ -20,7 +20,7 @@ const Header = () => {
   const controlButtons = (
     <div  >
       {user ? (
-        <button className={cx(style.btn)} onClick={()=>{logOut()}}>Logout</button>
+        <button className={cx(style.btn)} onClick={()=>{logOut()}}>Вийти</button>
       ) : (
         <>
         

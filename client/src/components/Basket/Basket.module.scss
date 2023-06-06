@@ -28,3 +28,23 @@
   font-style: italic;
   font-size: 1.5em;
 }
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-family: italic;
+  font-size: 4em;
+  text-align: center;
+  color: red;
+}
+.valid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-family: italic;
+  font-size: 4em;
+  text-align: center;
+  color: green;
+}

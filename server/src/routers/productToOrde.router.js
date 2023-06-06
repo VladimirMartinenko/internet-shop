@@ -4,7 +4,7 @@ const productToOrderController = require('../controllers/productToOrder.controll
 
 productToOrderRouter.post('/:orderId/:productId', productToOrderController.createProductToOrder);
 
-productToOrderRouter.get('/', productToOrderController.getProductToOrders);
+productToOrderRouter.get('/:orderId', productToOrderController.getProductToOrders);
 
 productToOrderRouter.get('/:productToOrderId', productToOrderController.getProductToOrder);
 

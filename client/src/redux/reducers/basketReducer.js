@@ -10,16 +10,8 @@ const initialState = {
 };
 export default function basketReducer(state = initialState, action) {
   switch (action.type) {
-    case ACTION_TYPES.BASKET_CREATE_REQUEST:
-    case ACTION_TYPES.BASKET_CLEAR_REQUEST:
-    case ACTION_TYPES.BASKET_MINUS_REQUEST:
-    case ACTION_TYPES.BASKET_PLUS_REQUEST:
-    case ACTION_TYPES.BASKET_SUM_REQUEST:
-    case ACTION_TYPES.BASKET_DELETE_REQUEST:
-      return produce(state, (draftState) => {
-        draftState.isLoading = true;
-      });
-    case ACTION_TYPES.BASKET_CREATE_SUCCESS:
+    
+    case ACTION_TYPES.BASKET_CREATE:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         // draftState.items.push(action.payload.values);
@@ -39,12 +31,12 @@ export default function basketReducer(state = initialState, action) {
 
         // draftState.totalSumm=i;
       });
-    case ACTION_TYPES.BASKET_CLEAR_SUCCESS:
+    case ACTION_TYPES.BASKET_CLEAR:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.items = [];
       });
-    case ACTION_TYPES.BASKET_DELETE_SUCCESS:
+    case ACTION_TYPES.BASKET_DELETE:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.isLoading = false;
@@ -52,7 +44,7 @@ export default function basketReducer(state = initialState, action) {
           (items) => items.id !== Number(action.payload.values)
         );
       });
-    case ACTION_TYPES.BASKET_SUM_SUCCESS:
+    case ACTION_TYPES.BASKET_SUM:
       return produce(state, (draftState) => {
         draftState.totalSumm = state.items.reduce(
           (prev, { count, price }) => prev + count * Number(price),
@@ -60,14 +52,14 @@ export default function basketReducer(state = initialState, action) {
         );
         draftState.count=state.items.length
       });
-    case ACTION_TYPES.BASKET_PLUS_SUCCESS:
+    case ACTION_TYPES.BASKET_PLUS:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.items = state.items.map((n) =>
           n.id === action.payload.values ? { ...n, count: n.count + 1 } : n
         );
       });
-    case ACTION_TYPES.BASKET_MINUS_SUCCESS:
+    case ACTION_TYPES.BASKET_MINUS:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.items = state.items.map((n) =>
@@ -76,16 +68,7 @@ export default function basketReducer(state = initialState, action) {
             : n
         );
       });
-    case ACTION_TYPES.BASKET_CREATE_ERROR:
-    case ACTION_TYPES.BASKET_DELETE_ERROR:
-    case ACTION_TYPES.BASKET_SUM_ERROR:
-    case ACTION_TYPES.BASKET_CLEAR_ERROR:
-    case ACTION_TYPES.BASKET_MINUS_ERROR:
-    case ACTION_TYPES.BASKET_PLUS_ERROR:
-      return produce(state, (draftState) => {
-        draftState.isLoading = false;
-        draftState.error = action.payload.values;
-      });
+    
     default:
       return state;
   }

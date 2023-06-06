@@ -15,10 +15,10 @@ const initialValues = {
 }
 const CreateCategory = () => {
   useEffect(() => {
-    requestCategorys()
+    requestSections()
   }, [])
 
-  const requestCategorys = options => dispatch(sectionRequest(options))
+  const requestSections = options => dispatch(sectionRequest(options))
 
   const { section } = useSelector(state => state.section)
   const { category, isLoading, error } = useSelector(state => state.category)
@@ -26,6 +26,7 @@ const CreateCategory = () => {
   const dispatch = useDispatch()
   const onSubmit = (values, utils) => {
     dispatch(categoryCreateRequest(values))
+    utils.resetForm()
   }
 
   return (

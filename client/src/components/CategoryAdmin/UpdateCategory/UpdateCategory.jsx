@@ -25,8 +25,7 @@ const UpdateCategory = () => {
   // const requestCategorys = (options) => dispatch(categoryRequest(options));
   const onSubmit = (values, utils) => {
     dispatch(categoryUpdateRequest(values))
-
-    // console.log(values);
+    utils.resetForm()
   }
 
   return (

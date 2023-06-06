@@ -11,13 +11,16 @@ import ProductPage from './pages/ProductPage/ProductPage';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import AuthActionCreators from './redux/actions/authActionCreators';
-import {basketSumRequest} from './redux/actions/basketActionCreators';
+import {basketSum} from './redux/actions/basketActionCreators';
 import CONSTANTS from './constants';
 import { buyerCreateRequest } from './redux/actions/buyerActionCreators';
 import { sliderGetRequest } from './redux/actions/sliderActionCreators';
 import Admin from './pages/Admin';
 import CategoryPage from './pages/CategoryPage/CategoryPage';
 import SectionPage from './pages/SectionPage/SectionPage';
+import SliderPage from './pages/SliderPage/SliderPage';
+import ProductAdminPage from './pages/ProductAdminPage/ProductAdminPage';
+import AdminOrderPage from './pages/AdminOrderPage/AdminOrderPage';
 
 function App() {
   // const { user } = useSelector(state => state.auth);
@@ -35,7 +38,7 @@ function App() {
   }, [items]);
 
   useEffect(() => {
-   dispatch(basketSumRequest())
+   dispatch(basketSum())
   }, [items]);
 
   useEffect(() => {
@@ -77,13 +80,16 @@ function App() {
       <Route exact path='/' component={HomePage} />
       <PublicOnlyRoute exact path='/login' component={LoginPage} />
       <PublicOnlyRoute exact path='/registration' component={RegistrationPage} />
-      <PublicOnlyRoute exact path='/basket' component={BasketPage} />
-      <PublicOnlyRoute exact path='/shop' component={ShopPage} />
+      <PrivateRoute exact path='/basket' component={BasketPage} />
+      <Route exact path='/shop' component={ShopPage} />
       <PublicOnlyRoute exact path='/orders' component={Admin} />
       <PublicOnlyRoute exact path='/product/:id' component={ProductPage} />
-      <PublicOnlyRoute exact path='/admin' component={AdminPage} />
-      <PublicOnlyRoute exact path='/admin/category' component={CategoryPage} />
-      <PublicOnlyRoute exact path='/admin/section' component={SectionPage} />
+      <PrivateRoute exact path='/admin' component={AdminPage} />
+      <PrivateRoute exact path='/admin/category' component={CategoryPage} />
+      <PrivateRoute exact path='/admin/section' component={SectionPage} />
+      <PrivateRoute exact path='/admin/slider' component={SliderPage} />
+      <PrivateRoute exact path='/admin/product' component={ProductAdminPage} />
+      <PrivateRoute exact path='/admin/order' component={AdminOrderPage} />
     </Switch>
   </Router>
   );

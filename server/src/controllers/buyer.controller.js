@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const { Buyer,Order,ProductToOrder,Product } = require('../db/models');
+const createHttpError = require('http-errors');
 
 module.exports.createBuyer = async (req, res, next) => {
   try {
@@ -7,6 +8,10 @@ module.exports.createBuyer = async (req, res, next) => {
     console.log(body);
 
     const buyer = await Buyer.create(body);
+
+    if (!buyer) {
+      return next(createHttpError(401, "помилка при створенні"));
+    }
 
     
     res.send({ data: buyer });
@@ -18,16 +23,20 @@ module.exports.createBuyer = async (req, res, next) => {
 module.exports.findBuyers = async (req, res, next) => {
   try {
     // const { query: {limit, offset}} =req;
+    // const buyer = await Buyer.findAll({
+    //   include:[{ model: Order,attributes: ['id','sum'],include:[{model: Product ,attributes: ['name','price']}]}]});
     const buyer = await Buyer.findAll({
-      include:[{model: Order,include:[{model: Product}]}]});
+      include:{ model: Order,include:{model: Product }}});
+   
+   
 
     // const users = await User.findAll({
     //   attributes: ['email', 'firstName', 'lastName']
     // });
-    if (!buyer) {
+    if (!buyer,buyer.length == 0) {
       // throw new Error('404. User not found');
       // throw createError(404, 'User not found');
-      const err = createError(404, 'Buyer not found');
+      const err = createError(404, 'Покупців не знайдено');
       return next(err);
     }
 

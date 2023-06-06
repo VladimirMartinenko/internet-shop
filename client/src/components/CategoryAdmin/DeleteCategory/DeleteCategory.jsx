@@ -26,8 +26,7 @@ const DeleteCategory = () => {
   const requestCategorys = options => dispatch(categoryRequest(options))
   const onSubmit = (values, utils) => {
     dispatch(categoryDeleteRequest(values))
-
-    // console.log(values);
+    utils.resetForm()
   }
 
   return (
