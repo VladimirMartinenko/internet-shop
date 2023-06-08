@@ -55,7 +55,9 @@ httpClient.interceptors.response.use(
 );
 
 export const login = (userData) => httpClient.post(`auth/login`, userData );
+
 export const refresh = (refreshToken) => httpClient.post(`auth/refresh`, { refreshToken });
+
 export const signup = (userData) => httpClient.post(`auth/register`, userData);
 
 export const test = () => httpClient.get('tekt');
@@ -68,7 +70,7 @@ export const categoryCreate = (values) => httpClient.post(`category`,values );
 
 export const categoryDelete = (id) => httpClient.delete(`category/${id}`);
 
-export const categoryUpdate = (values) => httpClient.put(`category/${values.categoryId}`,values , console.log(values));
+export const categoryUpdate = (values) => httpClient.put(`category/${values.categoryId}`,values);
 
 export const sectionGet = () => httpClient.get(`section`);
 
@@ -76,29 +78,29 @@ export const sectionCreate = (values) => httpClient.post(`section`,values );
 
 export const sectionDelete = (id) => httpClient.delete(`section/${id}`);
 
-export const sectionUpdate = (values) => httpClient.put(`section/${values.sectionId}`,values , console.log(values));
+export const sectionUpdate = (values) => httpClient.put(`section/${values.sectionId}`,values);
 
-export const productGetByCategory = (categoryId) => httpClient.get(`product?categoryId=${categoryId}`,console.log(categoryId));
+export const productGetByCategory = (categoryId) => httpClient.get(`product?categoryId=${categoryId}`);
 
 export const productGet = () => httpClient.get(`product/all`);
 
 export const productGetById = (id) => httpClient.get(`product/${id}`); 
 
-export const productCreate = (values) => httpClient.post(`product`,values, console.log(values));
+export const productCreate = (values) => httpClient.post(`product`,values);
 
-export const productDelete = (id) => httpClient.delete(`product/${id}`, console.log(id));
+export const productDelete = (id) => httpClient.delete(`product/${id}`);
 
 export const productUpdate = (id,data) => httpClient.put(`product/${id}`,data);
 
-export const buyerCreate = (value) => httpClient.post(`buyer`,value,console.log(value));
+export const buyerCreate = (value) => httpClient.post(`buyer`,value);
 
 export const buyerGet = () => httpClient.get(`buyer`);
 
-export const buyerDelete = (id) => httpClient.delete(`buyer/${id}`,console.log(id));
+export const buyerDelete = (id) => httpClient.delete(`buyer/${id}`);
 
 export const sliderGet = () => httpClient.get(`slider`);
 
-export const sliderCreate = (id) => httpClient.post(`slider`,id,console.log(id));
+export const sliderCreate = (id) => httpClient.post(`slider`,id);
 
 export const sliderDelete = (id) => httpClient.delete(`slider/${id}`);
 

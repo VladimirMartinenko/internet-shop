@@ -1,44 +1,41 @@
 import ACTION_TYPES from "./types";
 
 class AuthActionCreators {
-  static loginRequest (userData) {
-    // console.log(userData);
+  static loginRequest(userData) {
     return {
       type: ACTION_TYPES.LOGIN_REQUEST,
-      payload: userData
-      
-    }
+      payload: userData,
+    };
   }
-  static signUpRequest (userData) {
+  static signUpRequest(userData) {
     return {
       type: ACTION_TYPES.SIGN_UP_REQUEST,
-      payload: userData
-    }
+      payload: userData,
+    };
   }
-  static refreshRequest (userData) {
+  static refreshRequest(userData) {
     return {
       type: ACTION_TYPES.REFRESH_REQUEST,
-      payload: userData
-    }
+      payload: userData,
+    };
   }
-  static authSuccess (userData) {
+  static authSuccess(userData) {
     return {
       type: ACTION_TYPES.AUTH_SUCCESS,
-      payload: userData
-    }
+      payload: userData,
+    };
   }
-  static authError (error) {
+  static authError(error) {
     return {
       type: ACTION_TYPES.AUTH_ERROR,
-      payload: error
-    }
+      payload: error,
+    };
   }
-  static clearUserStore  () {
-    return{
+  static clearUserStore() {
+    return {
       type: ACTION_TYPES.CLEAR_USER_STORE,
-    }
-    
-  };
+    };
+  }
 }
 
 export default AuthActionCreators;

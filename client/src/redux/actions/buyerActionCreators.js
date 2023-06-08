@@ -1,29 +1,13 @@
 import ACTION_TYPES from "./types";
 
-export const buyerCreateRequest = (buyer) => ({
-  type: ACTION_TYPES.BUYER_CREATE_REQUEST,
-  payload: { values: buyer},
-});
-export const buyerCreateSucces = (buyer) => ({
-  type: ACTION_TYPES.BUYER_CREATE_SUCCESS,
+export const buyerCreate = (buyer) => ({
+  type: ACTION_TYPES.BUYER_CREATE,
   payload: { values: buyer },
   });
-export const buyerCreateError = (error) => ({
-  type: ACTION_TYPES.BUYER_CREATE_ERROR,
-  payload: { error },
-});
-export const buyerLocalUpdateRequest = (field) => ({
-  type: ACTION_TYPES.BUYER_LOCAL_UPDATE_REQUEST,
-  payload: { values: field},
-});
-export const buyerLocalUpdateSucces = (field) => ({
-  type: ACTION_TYPES.BUYER_LOCAL_UPDATE_SUCCESS,
+export const buyerLocalUpdate = (field) => ({
+  type: ACTION_TYPES.BUYER_LOCAL_UPDATE,
   payload: { values: field },
   });
-export const buyerLocalUpdateError = (error) => ({
-  type: ACTION_TYPES.BUYER_LOCAL_UPDATE_ERROR,
-  payload: { error },
-});
 export const buyersGetRequest = () => ({
   type: ACTION_TYPES.BUYERS_GET_REQUEST,
   });

@@ -1,7 +1,5 @@
 import { useParams } from 'react-router-dom'
-import {
-  productGetByIdRequest
-} from '../../redux/actions/productActionCreators'
+import { productGetByIdRequest } from '../../redux/actions/productActionCreators'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import cx from 'classnames'
@@ -14,7 +12,6 @@ const Product = () => {
   const { id } = useParams()
 
   useEffect(() => {
-    // requestProducts();
     requestIdProduct(id)
   }, [])
   const requestIdProduct = id => dispatch(productGetByIdRequest(id))

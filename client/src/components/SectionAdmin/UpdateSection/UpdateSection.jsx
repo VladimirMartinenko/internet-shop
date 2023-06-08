@@ -5,7 +5,6 @@ import { categoryUpdateRequest } from '../../../redux/actions/categoryAction'
 import Input from '../../Input/Input'
 import MySelect from '../../MySelect/MySelect'
 import { SECTION_UPDATE_CHEMA } from '../../../utils/validationSchemasAdmin'
-import cx from 'classnames'
 import classes from './UpdateSection.module.scss'
 
 const initialValues = {
@@ -15,32 +14,24 @@ const initialValues = {
 
 const UpdateSection = () => {
   const { section, isLoading, error } = useSelector(state => state.section)
-
   const dispatch = useDispatch()
-  // console.log(category)
-  // useEffect(() => {
-  //   requestCategorys();
-  // }, []);
-
-  // const requestCategorys = (options) => dispatch(categoryRequest(options));
   const onSubmit = (values, utils) => {
     dispatch(categoryUpdateRequest(values))
     utils.resetForm()
   }
-
   return (
     <div>
-      <h1 className={cx(classes.text)}>Оновити розділ</h1>
+      <h1 className={classes.text}>Оновити розділ</h1>
       {error &&
         error.map(error => (
-          <div className={cx(classes.error)}>{error.message}</div>
+          <div className={classes.error}>{error.message}</div>
         ))}
       <Formik
         initialValues={initialValues}
         validationSchema={SECTION_UPDATE_CHEMA}
         onSubmit={onSubmit}
       >
-        <Form className={cx(classes.form)}>
+        <Form className={classes.form}>
           <Input name='name' type='text' placeholder='розділ' />
           <MySelect name='sectionId' placeholder='sectionId' as='select'>
             <option value=''>виберіть категорію</option>
@@ -50,7 +41,7 @@ const UpdateSection = () => {
               </option>
             ))}
           </MySelect>
-          <button type='submit' className={cx(classes.btn)}>
+          <button type='submit' className={classes.btn}>
             ОНОВИТИ
           </button>
         </Form>

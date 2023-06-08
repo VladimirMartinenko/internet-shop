@@ -1,4 +1,4 @@
-import { Formik, Field, Form } from 'formik'
+import { Formik, Form } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { categoryCreateRequest } from '../../../redux/actions/categoryAction'
@@ -6,7 +6,6 @@ import { sectionRequest } from '../../../redux/actions/sectionActionCreators'
 import { CATEGORY_CREATE_CHEMA } from '../../../utils/validationSchemasAdmin'
 import Input from '../../Input/Input'
 import MySelect from '../../MySelect/MySelect'
-import cx from 'classnames'
 import classes from './CreateCategory.module.scss'
 
 const initialValues = {
@@ -31,17 +30,17 @@ const CreateCategory = () => {
 
   return (
     <div>
-      <h1 className={cx(classes.text)}>Створити підрозділ</h1>
+      <h1 className={classes.text}>Створити підрозділ</h1>
       {error &&
         error.map(error => (
-          <div className={cx(classes.error)}>{error.message}</div>
+          <div className={classes.error}>{error.message}</div>
         ))}
       <Formik
         initialValues={initialValues}
         validationSchema={CATEGORY_CREATE_CHEMA}
         onSubmit={onSubmit}
       >
-        <Form className={cx(classes.form)}>
+        <Form className={classes.form}>
           <MySelect name='sectionId' placeholder='sectionId' as='select'>
             <option value=''>виберіть розділ</option>
             {section.map(section => (
@@ -51,7 +50,7 @@ const CreateCategory = () => {
             ))}
           </MySelect>
           <Input name='name' type='text' placeholder='підрозділ' />
-          <button type='submit' className={cx(classes.btn)}>
+          <button type='submit' className={classes.btn}>
             СТВОРИТИ
           </button>
         </Form>

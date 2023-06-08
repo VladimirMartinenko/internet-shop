@@ -8,13 +8,12 @@ import {
   basketDelete
 } from '../../redux/actions/basketActionCreators'
 import {
-  buyerCreateRequest,
-  buyerLocalUpdateRequest
+  buyerCreate,
+  buyerLocalUpdate
 } from '../../redux/actions/buyerActionCreators'
 import { Formik, Form, useFormikContext } from 'formik'
 import axios from 'axios'
 import Input from '../Input/Input'
-import cx from 'classnames'
 import classes from './Basket.module.scss'
 
 const initialValues = {
@@ -46,9 +45,8 @@ const Basket = () => {
 
   console.log(user)
   useEffect(() => {
-    dispatch(buyerCreateRequest(user))
+    dispatch(buyerCreate(user))
   }, [])
-  // const onSubmit = (values, utils) => {
   const AutoSubmitToken = () => {
     const { setFieldValue } = useFormikContext()
     useEffect(() => {
@@ -69,8 +67,7 @@ const Basket = () => {
       let res = await httpClient.post(`buyer`, values, console.log(values))
       let order = await httpClient.post(
         `order/buyer?sum=${totalSumm}`,
-        res.data.data,
-        console.log(res.data.data)
+        res.data.data
       )
       await items.map(product =>
         httpClient.post(
@@ -116,12 +113,12 @@ const Basket = () => {
   const dispatch = useDispatch()
   return (
     <div>
-      {hasError && <div className={cx(classes.error)}>{hasError}</div>}
+      {hasError && <div className={classes.error}>{hasError}</div>}
       {Error &&
         Error.map(error => (
-          <div className={cx(classes.error)}>{error.message}</div>
+          <div className={classes.error}>{error.message}</div>
         ))}
-      {Message && <div className={cx(classes.valid)}>{Message}</div>}
+      {Message && <div className={classes.valid}>{Message}</div>}
       <BasketItems />
       <div>
         <Formik
@@ -131,7 +128,7 @@ const Basket = () => {
         >
           {buyer
             ? ({ values }) => (
-                <Form className={cx(classes.form)}>
+                <Form className={classes.form}>
                   <AutoSubmitToken />
                   <Input
                     name='firstName'
@@ -140,7 +137,7 @@ const Basket = () => {
                     value={buyer.firstName}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
-                    onChange={e => dispatch(buyerLocalUpdateRequest(e.target))}
+                    onChange={e => dispatch(buyerLocalUpdate(e.target))}
                   />
                   <Input
                     name='lastName'
@@ -149,7 +146,7 @@ const Basket = () => {
                     value={buyer.lastName}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
-                    onChange={e => dispatch(buyerLocalUpdateRequest(e.target))}
+                    onChange={e => dispatch(buyerLocalUpdate(e.target))}
                   />
                   <Input
                     name='email'
@@ -158,7 +155,7 @@ const Basket = () => {
                     value={buyer.email}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
-                    onChange={e => dispatch(buyerLocalUpdateRequest(e.target))}
+                    onChange={e => dispatch(buyerLocalUpdate(e.target))}
                   />
                   <Input
                     name='phone'
@@ -167,21 +164,21 @@ const Basket = () => {
                     value={buyer.phone}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
-                    onChange={e => dispatch(buyerLocalUpdateRequest(e.target))}
+                    onChange={e => dispatch(buyerLocalUpdate(e.target))}
                   />
                   {/* <button type='submit'>LOGIN</button> */}
-                  <button type='submit' className={cx(classes.btn)}>
+                  <button type='submit' className={classes.btn}>
                     ОФОРМИТИ
                   </button>
                 </Form>
               )
             : ({ values }) => (
-                <Form className={cx(classes.form)}>
+                <Form className={classes.form}>
                   <Input name='firstName' type='text' placeholder="І'мя" />
                   <Input name='lastName' type='text' placeholder='Фамілія' />
                   <Input name='email' type='email' placeholder='email' />
                   <Input name='phone' type='phone' placeholder='телефон' />
-                  <button type='submit' className={cx(classes.btn)}>
+                  <button type='submit' className={classes.btn}>
                     ОФОРМИТИ
                   </button>
                 </Form>
@@ -189,7 +186,6 @@ const Basket = () => {
         </Formik>
       </div>
     </div>
-   
   )
 }
 

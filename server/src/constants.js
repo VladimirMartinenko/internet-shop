@@ -13,12 +13,3 @@ module.exports = {
   USER: 'user',
   ADMIN: 'admin'
 };
-// const CONSTANTS = {
-//   JWT_ACCESS_SECRET : 'secret_key_12343532DFSL',
-//   JWT_ACCESS_EXPIRATION_TIME: '30s',
-//   JWT_REFRESH_SECRET: 'jhhhhhhhhhgggggg',
-//   JWT_REFRESH_EXPIRATION_TIME: '14d',
-//   USER: 'user',
-//   ADMIN: 'admin'
-// }
-// module.exports = CONSTANTS

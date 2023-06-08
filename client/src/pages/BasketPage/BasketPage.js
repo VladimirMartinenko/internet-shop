@@ -1,19 +1,14 @@
 import React from "react";
 import Basket from "../../components/Basket/Basket";
-import { useDispatch } from "react-redux";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import cx from "classnames";
-import classes from './BasketPage.module.scss';
+import classes from "./BasketPage.module.scss";
 
 const BasketPage = (props) => {
   return (
-    // <>
-    //  <Basket/>
-    // </>
-    <div div className={cx(classes.main)}>
+    <div div className={classes.main}>
       <Header />
-      <div className={cx(classes.body)}>
+      <div className={classes.body}>
         <Basket />
       </div>
       <Footer />

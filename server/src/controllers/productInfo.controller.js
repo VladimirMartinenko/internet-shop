@@ -1,16 +1,17 @@
-const createHttpError = require('http-errors');
-const {ProductInfo} = require('../db/models');
+const createHttpError = require("http-errors");
+const { ProductInfo } = require("../db/models");
 
 module.exports.createProductInfo = async (req, res, next) => {
   try {
-    const { product: { id: productId },body } = req;
-    const productInfo = await ProductInfo.create({productId},body);
-
+    const {
+      product: { id: productId },
+      body,
+    } = req;
+    const productInfo = await ProductInfo.create({ productId }, body);
     if (!productInfo) {
-      const err = createHttpError(404, 'ProductInfo not found');
+      const err = createHttpError(404, "ProductInfo not found");
       return next(err);
     }
-
     res.send({ data: productInfo });
   } catch (error) {
     next(error);
@@ -20,17 +21,13 @@ module.exports.findProductInfoById = async (req, res, next) => {
   try {
     const {
       params: { id },
-      product: { id: productId }
-
+      product: { id: productId },
     } = req;
-
-    const productInfo = await ProductInfo.findOne({where:{id,productId}});
-
+    const productInfo = await ProductInfo.findOne({ where: { id, productId } });
     if (!productInfo) {
-      const err = createHttpError(404, 'ProductInfo not found');
+      const err = createHttpError(404, "ProductInfo not found");
       return next(err);
     }
-
     res.send({ data: productInfo });
   } catch (error) {
     next(error);
@@ -43,17 +40,14 @@ module.exports.updateProductInfo = async (req, res, next) => {
       params: { id },
       body,
     } = req;
-
     const [rowsUpdated, [productInfo]] = await ProductInfo.update(body, {
       where: { id },
       returning: true,
     });
 
     if (rowsUpdated !== 1) {
-      return next(createHttpError('Cant update productInfo'));
+      return next(createHttpError("Cant update productInfo"));
     }
-
-
     res.send({ data: productInfo });
   } catch (error) {
     next(error);
@@ -64,17 +58,14 @@ module.exports.deleteProductInfo = async (req, res, next) => {
   try {
     const {
       params: { id },
-      product: { id: productId }
+      product: { id: productId },
     } = req;
-
     const deletedRows = await ProductInfo.destroy({
-      where: { id ,productId},
+      where: { id, productId },
     });
-
     if (deletedRows !== 1) {
-      return next(createHttpError('Cant delete productInfo'));
+      return next(createHttpError("Cant delete productInfo"));
     }
-
     res.send({ data: { id: productId } });
   } catch (error) {
     next(error);

@@ -1,4 +1,4 @@
-import { Formik, Field, Form } from 'formik'
+import { Formik, Form } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -7,7 +7,6 @@ import {
 } from '../../../redux/actions/categoryAction'
 import MySelect from '../../MySelect/MySelect'
 import { CATEGORY_DELETE_CHEMA } from '../../../utils/validationSchemasAdmin'
-import cx from 'classnames'
 import classes from './DeleteCategory.module.scss'
 
 const initialValues = {
@@ -18,7 +17,6 @@ const DeleteCategory = () => {
   const { category, isLoading, error } = useSelector(state => state.category)
 
   const dispatch = useDispatch()
-  // console.log(category)
   useEffect(() => {
     requestCategorys()
   }, [])
@@ -31,17 +29,17 @@ const DeleteCategory = () => {
 
   return (
     <div>
-      <h1 className={cx(classes.text)}>Видалити підрозділ</h1>
+      <h1 className={classes.text}>Видалити підрозділ</h1>
       {error &&
         error.map(error => (
-          <div className={cx(classes.error)}>{error.message}</div>
+          <div className={classes.error}>{error.message}</div>
         ))}
       <Formik
         initialValues={initialValues}
         validationSchema={CATEGORY_DELETE_CHEMA}
         onSubmit={onSubmit}
       >
-        <Form className={cx(classes.form)}>
+        <Form className={classes.form}>
           <MySelect name='categoryId' placeholder='categoryId' as='select'>
             <option value=''>виберіть підрозділ</option>
             {category.map(category => (
@@ -50,7 +48,7 @@ const DeleteCategory = () => {
               </option>
             ))}
           </MySelect>
-          <button type='submit' className={cx(classes.btn)}>
+          <button type='submit' className={classes.btn}>
             Видалити
           </button>
         </Form>

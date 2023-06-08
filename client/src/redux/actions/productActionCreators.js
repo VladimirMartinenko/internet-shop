@@ -71,15 +71,7 @@ export const productUpdateError = (error) => ({
   type: ACTION_TYPES.PRODUCT_UPDATE_ERROR,
   payload: { error },
 });
-export const productLocalUpdateRequest = (field) => ({
-  type: ACTION_TYPES.PRODUCT_LOCAL_UPDATE_REQUEST,
-  payload: { values: field},
-});
-export const productLocalUpdateSucces = (field) => ({
-  type: ACTION_TYPES.PRODUCT_LOCAL_UPDATE_SUCCESS,
+export const productLocalUpdate = (field) => ({
+  type: ACTION_TYPES.PRODUCT_LOCAL_UPDATE,
   payload: { values: field },
   });
-export const productLocalUpdateError = (error) => ({
-  type: ACTION_TYPES.PRODUCT_LOCAL_UPDATE_ERROR,
-  payload: { error },
-});

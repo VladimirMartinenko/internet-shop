@@ -1,33 +1,44 @@
-import React from 'react';
-import cx from "classnames";
-import classes from './SideBarAdmin.module.scss';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import classes from './SideBarAdmin.module.scss'
+import { Link } from 'react-router-dom'
 
 const SideBarAdmin = () => {
   return (
     <nav>
-      <ul className={cx(classes.nav)}>
-        <li className={cx(classes.list)}>
-          <Link to='/'className={cx(classes.link)}>Домашня</Link> 
+      <ul className={classes.nav}>
+        <li className={classes.list}>
+          <Link to='/' className={classes.link}>
+            Домашня
+          </Link>
         </li>
-        <li className={cx(classes.list)}>
-          <Link to='/admin/section' className={cx(classes.link)}>Розділи</Link>
+        <li className={classes.list}>
+          <Link to='/admin/section' className={classes.link}>
+            Розділи
+          </Link>
         </li>
-        <li className={cx(classes.list)}>
-          <Link to='/admin/category' className={cx(classes.link)}>Підрозділи</Link>
+        <li className={classes.list}>
+          <Link to='/admin/category' className={classes.link}>
+            Підрозділи
+          </Link>
         </li>
-        <li className={cx(classes.list)}>
-          <Link to='/admin/product'  className={cx(classes.link)}>Товари</Link>
+        <li className={classes.list}>
+          <Link to='/admin/product' className={classes.link}>
+            Товари
+          </Link>
         </li>
-        <li className={cx(classes.list)}>
-          <Link to='/admin/slider' className={cx(classes.link)}>Слайдер</Link>
+        <li className={classes.list}>
+          <Link to='/admin/slider' className={classes.link}>
+            Слайдер
+          </Link>
         </li>
-        <li className={cx(classes.list)}>
-          <Link to='/admin/order' className={cx(classes.link)}>Замовлення</Link>
+        <li className={classes.list}>
+          <Link to='/admin/order' className={classes.link}>
+            Замовлення
+          </Link>
         </li>
       </ul>
     </nav>
-  );
+  )
 }
 
-export default SideBarAdmin;
+export default SideBarAdmin

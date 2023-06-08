@@ -12,17 +12,14 @@ export const basketMinus = (id) => ({
   type: ACTION_TYPES.BASKET_MINUS,
   payload: { values: id}, 
 });
-
 export const basketPlus = (id) => ({
   type: ACTION_TYPES.BASKET_PLUS, 
   payload: { values: id},
 });
-
 export const basketDelete = (id) => ({
   type: ACTION_TYPES.BASKET_DELETE, 
   payload: { values: id},
 });
-
 export const basketSum = () => ({
   type: ACTION_TYPES.BASKET_SUM, 
 });

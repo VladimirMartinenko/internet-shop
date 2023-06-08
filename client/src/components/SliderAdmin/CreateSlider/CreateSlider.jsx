@@ -3,9 +3,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { productGetRequest } from '../../../redux/actions/productActionCreators'
 import { SLIDER_CREATE_CHEMA } from '../../../utils/validationSchemasAdmin'
-import Input from '../../Input/Input'
 import MySelect from '../../MySelect/MySelect'
-import cx from 'classnames'
 import classes from './CreateSlider.module.scss'
 import { sliderCreateRequest } from '../../../redux/actions/sliderActionCreators'
 
@@ -19,29 +17,28 @@ const CreateSlider = () => {
 
   const requestProduct = options => dispatch(productGetRequest(options))
 
-  const { slider, isLoading, error  } = useSelector(state => state.slider)
+  const { slider, isLoading, error } = useSelector(state => state.slider)
 
-  const { product } = useSelector(state => state.products);
+  const { product } = useSelector(state => state.products)
 
   const dispatch = useDispatch()
   const onSubmit = (values, utils) => {
     dispatch(sliderCreateRequest(values))
     utils.resetForm()
   }
-
   return (
     <div>
-      <h1 className={cx(classes.text)}>Створити слайд</h1>
+      <h1 className={classes.text}>Створити слайд</h1>
       {error &&
         error.map(error => (
-          <div className={cx(classes.error)}>{error.message}</div>
+          <div className={classes.error}>{error.message}</div>
         ))}
       <Formik
         initialValues={initialValues}
         validationSchema={SLIDER_CREATE_CHEMA}
         onSubmit={onSubmit}
       >
-        <Form className={cx(classes.form)}>
+        <Form className={classes.form}>
           <MySelect name='productId' placeholder='productId' as='select'>
             <option value=''>виберіть товар</option>
             {product.map(product => (
@@ -50,7 +47,7 @@ const CreateSlider = () => {
               </option>
             ))}
           </MySelect>
-          <button type='submit' className={cx(classes.btn)}>
+          <button type='submit' className={classes.btn}>
             СТВОРИТИ
           </button>
         </Form>

@@ -4,7 +4,6 @@ const { Section } = require("../db/models");
 module.exports.createSection = async (req, res, next) => {
   try {
     const { body } = req;
-    console.log(body);
     const section = await Section.create(body);
     if (!section) {
       const err = createError(404, "не вдалось створити розділ");
@@ -23,7 +22,6 @@ module.exports.findAllSection = async (req, res, next) => {
       const err = createError(404, "не знайдено розділів");
       return next(err);
     }
-
     res.send({ data: section });
   } catch (error) {
     next(error);
@@ -40,7 +38,6 @@ module.exports.deleteSection = async (req, res, next) => {
       const err = createError(404, "не вдалось видалити розділ");
       return next(err);
     }
-
     res.send({ data: { id } });
   } catch (error) {
     next(error);
@@ -53,7 +50,6 @@ module.exports.updateSection = async (req, res, next) => {
       params: { id },
       body,
     } = req;
-    console.log(req);
     const [rowsUpdatet, [updateSection]] = await Section.update(body, {
       where: { id },
       returning: true,
@@ -62,7 +58,6 @@ module.exports.updateSection = async (req, res, next) => {
       const err = createError(404, "не вдалось оновити розділ");
       return next(err);
     }
-
     res.send({ data: updateSection });
   } catch (error) {
     next(error);

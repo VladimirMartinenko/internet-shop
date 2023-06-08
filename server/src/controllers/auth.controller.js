@@ -6,14 +6,11 @@ const AuthService = require("../services/auth.service");
 module.exports.register = async (req, res, next) => {
   try {
     const { body } = req;
-    // console.log(body);
     const user = await User.create(body);
-    // console.log(user.id);
     if (!user) {
       return next(createHttpError(401, "помилка при реєстрації"));
     }
     const sessionData = await AuthService.createSession(user);
-    //  console.log(sessionData);
 
     res.status(201).send({ data: sessionData });
   } catch (error) {
@@ -25,15 +22,11 @@ module.exports.login = async (req, res, next) => {
     const {
       body: { email, password },
     } = req;
-    console.log(req.body);
-    // console.log(email);
-    const user = await User.findOne({where: { email } });
-    console.log(user);
+    const user = await User.findOne({ where: { email } });
 
     if (!user) {
       return next(createHttpError(401, "користувач не знайдений"));
     }
-
     if (user.password !== password) {
       return next(createHttpError(401, "невірний пароль"));
     }
@@ -47,7 +40,6 @@ module.exports.login = async (req, res, next) => {
 
 module.exports.refresh = async (req, res, next) => {
   const { refreshTokenInstance } = req;
-  // console.log(refreshTokenInstance);
   const sessionData = await AuthService.refreshSession(refreshTokenInstance);
   res.status(200).send({ data: sessionData });
 };

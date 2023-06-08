@@ -53,19 +53,17 @@ export const PRODUCT_CREATE_CHEMA = yup.object({
   brand: yup
     .string("повинно бути строчкою")
     .required("повинно бути заповненим"),
-  img: yup.string()
-  .required("повинно бути заповненим"),
-  info: yup.array()
-  .of(
+  img: yup.string().required("повинно бути заповненим"),
+  info: yup.array().of(
     yup.object({
-    title: yup
-    .string("повинно бути строчкою")
-    .required("повинно бути заповненим"),
-  description: yup
-    .string("повинно бути строчкою")
-    .required("повинно бути заповненим"),
-  })
-  )
+      title: yup
+        .string("повинно бути строчкою")
+        .required("повинно бути заповненим"),
+      description: yup
+        .string("повинно бути строчкою")
+        .required("повинно бути заповненим"),
+    })
+  ),
 });
 export const PRODUCT_UPDATE_CHEMA = yup.object({
   name: yup.string("повинно бути строчкою").required("повинно бути заповненим"),
@@ -79,17 +77,16 @@ export const PRODUCT_UPDATE_CHEMA = yup.object({
   brand: yup
     .string("повинно бути строчкою")
     .required("повинно бути заповненим"),
-  info: yup.array()
-  .of(
+  info: yup.array().of(
     yup.object({
-    title: yup
-    .string("повинно бути строчкою")
-    .required("повинно бути заповненим"),
-  description: yup
-    .string("повинно бути строчкою")
-    .required("повинно бути заповненим"),
-  })
-  )
+      title: yup
+        .string("повинно бути строчкою")
+        .required("повинно бути заповненим"),
+      description: yup
+        .string("повинно бути строчкою")
+        .required("повинно бути заповненим"),
+    })
+  ),
 });
 export const PRODUCT_DELETE_CHEMA = yup.object({
   productId: yup
