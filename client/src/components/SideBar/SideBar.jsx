@@ -9,15 +9,15 @@ const SideBar = () => {
       <ul className={classes.nav}>
         <li className={classes.list}>
           <Link to='/' className={classes.link}>
-            Домашняя
+            Домашня
           </Link>
         </li>
         <Section />
         <li className={classes.list}>
-          <Link className={classes.link}>О компании</Link>
+          <Link className={classes.link}>Про компанію</Link>
         </li>
         <li className={classes.list}>
-          <Link className={classes.link}>Контакты</Link>
+          <Link className={classes.link}>Контакти</Link>
         </li>
       </ul>
     </nav>

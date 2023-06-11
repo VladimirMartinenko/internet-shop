@@ -27,10 +27,10 @@ const Header = () => {
       ) : (
         <>
           <Link className={style.btn} to='/registration'>
-            Регистрация
+            Реєстрація
           </Link>
           <Link className={style.btn} to='/login'>
-            Вход
+            Вхід
           </Link>
         </>
       )}
@@ -40,7 +40,7 @@ const Header = () => {
     <div>
       {user && user.role === 'admin' ? (
         <Link className={style.btn} to='/admin'>
-          АдминПанель
+          АдмінПанель
         </Link>
       ) : (
         <></>
@@ -50,7 +50,7 @@ const Header = () => {
   return (
     <header className={style.header}>
       <Link className={style.textPosition} to='/'>
-        <p className={style.text}>МЕДИМПЛАНТ</p>
+        <p className={style.text}>МЕДІМПЛАНТ</p>
       </Link>
       <div className={style.btnPosition}>
         <div>{controlButtons}</div>

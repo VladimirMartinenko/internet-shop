@@ -11,7 +11,9 @@ const ProductPage = () => {
       <div className={classes.body}>
         <Product />
       </div>
-      <Footer />
+      <div className={classes.footer}>
+        <Footer />
+      </div>
     </div>
   );
 };

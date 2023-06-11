@@ -49,9 +49,9 @@ function App() {
       <Route exact path='/' component={HomePage} />
       <PublicOnlyRoute exact path='/login' component={LoginPage} />
       <PublicOnlyRoute exact path='/registration' component={RegistrationPage} />
-      <PrivateRoute exact path='/basket' component={BasketPage} />
+      <Route exact path='/basket' component={BasketPage} />
       <Route exact path='/shop' component={ShopPage} />
-      <PublicOnlyRoute exact path='/product/:id' component={ProductPage} />
+      <Route exact path='/product/:id' component={ProductPage} />
       <PrivateRoute exact path='/admin' component={AdminPage} />
       <PrivateRoute exact path='/admin/category' component={CategoryPage} />
       <PrivateRoute exact path='/admin/section' component={SectionPage} />

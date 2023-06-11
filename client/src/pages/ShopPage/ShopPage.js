@@ -13,7 +13,9 @@ const ShopPage = () => {
         <SideBar />
         <ProductList />
       </div>
-      <Footer />
+      <div className={classes.footer}>
+        <Footer />
+      </div>
     </div>
   );
 };

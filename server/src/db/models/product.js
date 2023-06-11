@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -9,70 +7,78 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ProductToOrders,ProductInfo,Category,Order,Slider}) {
+    static associate({
+      ProductToOrders,
+      ProductInfo,
+      Category,
+      Order,
+      Slider,
+    }) {
       // define association here
       // Product.hasMany(ProductToOrders,{foreignKey:'productId'});
-      Product.hasMany(ProductInfo,{foreignKey:'productId'});
-      Product.belongsTo(Category,{foreignKey:'categoryId'});
-      Product.hasOne(Slider,{foreignKey:'productId'});
+      Product.hasMany(ProductInfo, { foreignKey: "productId" });
+      Product.belongsTo(Category, { foreignKey: "categoryId" });
+      Product.hasOne(Slider, { foreignKey: "productId" });
       Product.belongsToMany(Order, {
-        through: 'products_to_rders',
-        foreignKey: 'productId'
+        through: "products_to_rders",
+        foreignKey: "productId",
       });
-
     }
   }
-  Product.init({
-    name:{
-      allowNull: false,
-      type: DataTypes.STRING(128),
-      validate: {
-        // isAlpha: true,
-        notEmpty: true,
-        notNull: true,
-        len: [1, 128],
+  Product.init(
+    {
+      name: {
+        allowNull: false,
+        type: DataTypes.STRING(128),
+        validate: {
+          // isAlpha: true,
+          notEmpty: true,
+          notNull: true,
+          len: [1, 128],
+        },
+      },
+      price: {
+        allowNull: false,
+        type: DataTypes.DECIMAL(12, 2),
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
+      },
+      quantity: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
+      },
+      categoryId: DataTypes.INTEGER,
+      brand: {
+        allowNull: false,
+        type: DataTypes.STRING(128),
+        validate: {
+          // isAlpha: true,
+          notEmpty: true,
+          notNull: true,
+          len: [1, 128],
+        },
+      },
+      img: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: true,
+          notNull: true,
+        },
       },
     },
-    price:{
-      allowNull: false,
-      type: DataTypes.DECIMAL(12,2),
-      validate: {
-        notEmpty: true,
-        notNull: true,
-      },
-    },
-    quantity: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      validate: {
-        notEmpty: true,
-        notNull: true,
-      },
-    },
-    categoryId: DataTypes.INTEGER,
-    brand:{
-      allowNull: false,
-      type: DataTypes.STRING(128),
-      validate: {
-        // isAlpha: true,
-        notEmpty: true,
-        notNull: true,
-        len: [1, 128],
-      },
-    },
-    img:{
-      allowNull: false,
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: true,
-        notNull: true,
-      },
-    },
-  }, {
-    sequelize,
-    modelName: 'Product',
-    underscored: true,
-    tableName: 'products',
-  });
+    {
+      sequelize,
+      modelName: "Product",
+      underscored: true,
+      tableName: "products",
+    }
+  );
   return Product;
 };

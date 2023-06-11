@@ -20,7 +20,9 @@ const HomePage = () => {
           <Slider />
         </div>
       </div>
-      <Footer />
+      <div className={classes.footer}>
+        <Footer />
+      </div>
     </div>
   );
 };

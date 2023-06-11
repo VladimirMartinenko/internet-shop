@@ -1,6 +1,6 @@
 "use strict";
 const { Model } = require("sequelize");
-const { ADMIN,USER} = require("../../constants");
+const { ADMIN, USER } = require("../../constants");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     /**
@@ -68,7 +68,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       role: {
         allowNull: false,
-        type: DataTypes.ENUM('user', 'admin'),
+        type: DataTypes.ENUM("user", "admin"),
         validate: {
           notEmpty: true,
           notNull: true,

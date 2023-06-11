@@ -20,7 +20,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
+  flex-wrap: wrap;
+  text-align: center;
 }
 .footer{
   margin-top: auto;

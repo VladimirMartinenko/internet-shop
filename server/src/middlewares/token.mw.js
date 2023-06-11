@@ -6,15 +6,10 @@ module.exports.checkAccessToken = async (req, res, next) => {
     const {
       headers: { authorization },
     } = req;
-    console.log(authorization);
 
     const [authType, token] = authorization.split(" ");
-    // console.log(authType);
-    // console.log(token);
 
     const verifiedToken = await jwtService.verifyAccessToken(token);
-
-    console.log(verifiedToken);
 
     next();
   } catch (error) {
@@ -27,10 +22,8 @@ module.exports.checkRefreshToken = async (req, res, next) => {
     const {
       body: { refreshToken },
     } = req;
-    // console.log(refreshToken);
 
     await jwtService.verifyRefreshToken(refreshToken);
-    // console.log(refreshToken);
 
     const refreshTokenInstance = await RefreshToken.findOne({
       token: refreshToken,

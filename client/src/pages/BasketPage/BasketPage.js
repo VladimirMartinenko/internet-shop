@@ -11,7 +11,9 @@ const BasketPage = (props) => {
       <div className={classes.body}>
         <Basket />
       </div>
-      <Footer />
+      <div className={classes.footer}>
+        <Footer />
+      </div>
     </div>
   );
 };

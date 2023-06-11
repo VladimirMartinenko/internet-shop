@@ -24,7 +24,7 @@ const ProductList = () => {
           <div key={product.id} className={cx(classes.box)}>
             <img
               onClick={() => history.push('/product/' + product.id)}
-              src={CONSTANTS.HTTP_SERVER_URL_images + product.img}
+              src={product.img === undefined ? CONSTANTS.PRODUCT_IMAGE_PATH: CONSTANTS.HTTP_SERVER_URL_images + product.img}
               alt={product.name}
               className={cx(classes.img)}
             ></img>

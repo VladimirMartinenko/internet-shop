@@ -9,7 +9,6 @@ const initialState = {
 
 const requestHandler = produce((draftState, action) => {
   draftState.isLoading = true;});
-
 const handlers = {
   [ACTION_TYPES.LOGIN_REQUEST]: requestHandler,
   [ACTION_TYPES.SIGN_UP_REQUEST]: requestHandler,

@@ -26,3 +26,12 @@
 .footer{
   margin-top: auto;
 }
+@media (min-width:375px) and (max-width: 900px){
+  .center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:center;
+    width: 100%;
+  }
+}

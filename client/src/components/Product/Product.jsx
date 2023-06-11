@@ -30,7 +30,7 @@ const Product = () => {
         ))}
       <img
         className={classes.img}
-        src={CONSTANTS.HTTP_SERVER_URL_images + products.img}
+        src={products.img === undefined ? CONSTANTS.PRODUCT_IMAGE_PATH: CONSTANTS.HTTP_SERVER_URL_images + products.img}
         alt={products.name}
       ></img>
       <div className={classes.conteiner}>

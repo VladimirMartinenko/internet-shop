@@ -23,7 +23,7 @@
   align-items: center;
   justify-content: center;
   font-style: italic;
-  font-size: 1.02em;
+  font-size: 1em;
   margin: 0.7em;
 }
 .text2 {
@@ -46,13 +46,32 @@
   text-align: center;
   color: red;
 }
+.btn {
+  font-style: italic;
+  border: 1px solid black;
+  background-color: grey;
+  border-radius: 5px;
+  margin:1.9em 0.3em;
+  padding: 0 0.5em 0 0.5em;
+  text-decoration: none;
+  font-size: 1.01em;
+  color: black;
+}
 
 @media (min-width:375px) and (max-width: 900px){
   .containerMain{
     display: flex;
-    width: 100vw;
+    width: 90vw;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  }
+}
+  .container {
+  display: flex;
+  flex-direction: column;
+}
+.text {
+    font-size: 1.2em;
+  margin: 5px;
+}
 }

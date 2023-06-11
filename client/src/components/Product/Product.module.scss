@@ -58,3 +58,22 @@ line-height: 1.5em;
   width: 40vw;
   padding-top: 50px;
 }
+@media (min-width:375px) and (max-width: 900px){
+  .mainProduct {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1px 1px;
+  }
+  .conteiner{
+    width: 100vw;
+    align-items: center;
+  }
+  .conteiner2{
+    width: 100vw;
+  }
+  .img{
+    width: 80vw;
+  }
+}

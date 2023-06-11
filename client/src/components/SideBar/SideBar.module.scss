@@ -17,6 +17,7 @@
 .nav {
   margin: 0vh 0 2vh 5vh;
   width: 20vw;
+
 }
 // .nav2
 // {
@@ -42,17 +43,9 @@
 .list {
     background-color:  rgb(8, 107, 121);
 }
-// .listCat:hover > .nav2
-//  {
-//   display: block;
-// }
-// .listCat {
-//   position: relative;
-// }
-// .list:hover {
-//   background-color:grey;
-// }
-// .position{
-//   left:200px;
-//   top: 0px;
-//  }
+@media (min-width:375px) and (max-width: 900px){
+  .nav{
+    margin:0;
+    width: 20vw;
+  }
+}
