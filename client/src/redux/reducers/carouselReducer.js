@@ -15,7 +15,6 @@ export default function carouselReducer(state = initialState, action) {
           start = draftState.currentIndices[0] + 1;
           end = draftState.currentIndices[1] + 1;
         } else {
-          console.log(state.length);
           start = 0;
           end = 2;
         }

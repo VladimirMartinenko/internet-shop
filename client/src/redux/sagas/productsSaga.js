@@ -15,15 +15,12 @@ import ACTION_TYPES from "../actions/types";
 import * as API from "../../api/http";
 
 function* productGetByCategory(action) {
-  console.log(action.payload.values);
   try {
     const {
       data: { data: product },
     } = yield API.productGetByCategory(action.payload.values);
-console.log(product);
     yield put(productGetByCategorySucces(product));
   } catch (error) {
-    console.log(error);
     yield put(productGetByCategoryError(error.response.data.errors));
   }
 }
@@ -64,28 +61,23 @@ function* productCreateSaga(action) {
   }
 }
 function* productDeleteSaga(action) {
-  // console.log(action.payload.values.productId);
   try {
     const {
       data: { data: productId },
     } = yield API.productDelete(action.payload.values.productId);
 
     yield put(productDeleteSucces(productId.id));
-    console.log(productId.id)
   } catch (error) {
     yield put(productDeleteError(error.response.data.error));
   }
 }
 
 function* productUpdateSaga(action) {
-  console.log(action.payload.data);
   try {
     const {
       data: { data: productId },
     } = yield API.productUpdate(action.payload.values,action.payload.data);
-    console.log(productId);
     yield put(productUpdateSucces(productId));
-    console.log(productId)
   } catch (error) {
     yield put(productUpdateError(error.response.data.error));
   }

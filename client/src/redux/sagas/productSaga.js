@@ -7,7 +7,6 @@ import ACTION_TYPES from "../actions/types";
 import * as API from "../../api/http";
 
 function* productGetByIdSaga(action) {
-  console.log(action.payload.values);
   try {
     const {
       data: { data: product },

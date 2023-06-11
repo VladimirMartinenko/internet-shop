@@ -9,7 +9,7 @@ import DeleteCategory from "../../components/CategoryAdmin/DeleteCategory/Delete
 
 const CategoryPage = () => {
   return (
-    <div div className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <div className={classes.body}>
         <SideBarAdmin />

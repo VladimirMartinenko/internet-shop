@@ -22,7 +22,6 @@ const DeleteProduct = () => {
     requestProducts()
   }, [])
   const requestProducts = options => dispatch(productGetRequest(options))
-  console.log(product)
   const onSubmit = (values, utils) => {
     dispatch(productDeleteRequest(values))
   }

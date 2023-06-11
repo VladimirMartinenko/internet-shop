@@ -8,7 +8,7 @@ import DeleteSlider from "../../components/SliderAdmin/DeleteSlider/DeleteSlider
 
 const SliderPage = () => {
   return (
-    <div div className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <div className={classes.body}>
         <SideBarAdmin />

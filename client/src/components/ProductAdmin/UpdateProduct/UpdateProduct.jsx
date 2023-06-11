@@ -33,7 +33,6 @@ const UpdateProduct = () => {
   const { category } = useSelector(state => state.category)
   const { product, isLoading, error } = useSelector(state => state.products)
   const { products } = useSelector(state => state.product)
-  console.log(products)
   const AutoSubmitToken = () => {
     const { setFieldValue } = useFormikContext()
     useEffect(() => {
@@ -53,7 +52,7 @@ const UpdateProduct = () => {
 
   const dispatch = useDispatch()
   const addProduct = (values, { resetForm }) => {
-    console.log(document.getElementsByName('img')[1].value)
+    // console.log(document.getElementsByName('img')[1].value)
     const data = new FormData()
     data.append('name', values.name)
     data.append('price', `${values.price}`)
@@ -66,9 +65,9 @@ const UpdateProduct = () => {
       data.append('img', document.getElementsByName('img')[1].value)
     }
     data.append('info', JSON.stringify(values.info))
-    for (const [key, value] of data) {
-      console.log(`${key}: ${value}\n`)
-    }
+    // for (const [key, value] of data) {
+    //   console.log(`${key}: ${value}\n`)
+    // }
     dispatch(productUpdateRequest(data, values.productId))
   }
   const handleProductChange = (values, formikProps) => {
@@ -96,8 +95,6 @@ const UpdateProduct = () => {
         onSubmit={addProduct}
       >
         {formikProps => {
-          console.log(formikProps)
-
           return (
             <Form className={cx(classes.form)}>
               <AutoSubmitToken />

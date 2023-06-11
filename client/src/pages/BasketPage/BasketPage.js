@@ -6,7 +6,7 @@ import classes from "./BasketPage.module.scss";
 
 const BasketPage = (props) => {
   return (
-    <div div className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <div className={classes.body}>
         <Basket />

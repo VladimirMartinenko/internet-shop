@@ -6,7 +6,7 @@ import Footer from "../../components/Footer/Footer";
 
 const ProductPage = () => {
   return (
-    <div div className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <div className={classes.body}>
         <Product />

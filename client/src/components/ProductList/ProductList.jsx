@@ -9,7 +9,6 @@ import classes from './ProductList.module.scss'
 const ProductList = () => {
   const history = useHistory()
   const { product, isLoading, error } = useSelector(state => state.products)
-  console.log(history)
 
   const dispatch = useDispatch()
   return (

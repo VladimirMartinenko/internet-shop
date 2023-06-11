@@ -9,7 +9,7 @@ import UpdateProduct from "../../components/ProductAdmin/UpdateProduct/UpdatePro
 
 const ProductAdminPage = () => {
   return (
-    <div div className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <div className={classes.body}>
         <SideBarAdmin />

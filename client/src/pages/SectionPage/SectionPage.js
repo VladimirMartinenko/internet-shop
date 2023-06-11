@@ -9,7 +9,7 @@ import DeleteSection from "../../components/SectionAdmin/DeleteSection/DeleteSec
 
 const SectionPage = () => {
   return (
-    <div div className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <div className={classes.body}>
         <SideBarAdmin />

@@ -24,7 +24,7 @@ const Category = props => {
       {error && <div>{error.message}</div>}
       {categoryFilter?.map(category => (
         // <div key={category.id}>
-        <li
+        <li key={category.id}
           className={cx(classes.list)}
           onClick={() => requestProducts(category.id)}
         >

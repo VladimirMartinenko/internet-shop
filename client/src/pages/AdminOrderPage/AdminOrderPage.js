@@ -7,7 +7,7 @@ import GetOrder from "../../components/OrderAdmin/GetOrder/GetOrder";
 
 const AdminOrderPage = () => {
   return (
-    <div div className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <div className={classes.body}>
         <SideBarAdmin />

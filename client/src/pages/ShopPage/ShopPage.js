@@ -7,7 +7,7 @@ import classes from "./Shop.module.scss";
 
 const ShopPage = () => {
   return (
-    <div div className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <div className={classes.body}>
         <SideBar />

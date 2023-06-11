@@ -6,7 +6,7 @@ import Footer from "../../components/Footer/Footer";
 
 const AdminPage = () => {
   return (
-    <div div className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <div className={classes.body}>
         <SideBarAdmin />

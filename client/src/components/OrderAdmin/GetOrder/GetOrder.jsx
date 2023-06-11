@@ -13,7 +13,6 @@ const GetOrder = () => {
     dispatch(buyersGetRequest())
   }, [])
   const { buyers, isLoading, error } = useSelector(state => state.buyers)
-  console.log(buyers)
 
   return (
     <div className={classes.form}>
@@ -35,9 +34,8 @@ const GetOrder = () => {
                   <div className={classes.text}> номер:{order.id}</div>
                   <div className={classes.text}> Сума:{order.sum}</div>
                   <div>
-                    {' '}
                     {order.Products?.map(products => (
-                      <div key={products.id} className={cx(classes.container)}>
+                      <div key={products.name} className={cx(classes.container)}>
                         <div className={classes.text}>
                           назва:{products.name}
                         </div>
