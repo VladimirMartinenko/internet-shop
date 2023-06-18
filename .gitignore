@@ -4,4 +4,4 @@ node_modules/
 !.*rc*
 !.env.example
 sequelize-*.json
-/public
+**server/public/*
