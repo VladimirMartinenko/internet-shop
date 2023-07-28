@@ -6,11 +6,11 @@ const smtpTransport = nodemailer.createTransport({
   port:465,
   secure: true,
   auth:{
-    user: process.env.user,
-    pass: process.env.pass
+    user: 'medimplant2023@gmail.com',
+    pass: 'pecaktdcxfcxbdag'
   },
 },{
-  from: 'teslabest87 <teslabest87@gmail.com>'
+  from: 'medimplant <medimplant2023@gmail.com>'
 });
 
 module.exports = smtpTransport;

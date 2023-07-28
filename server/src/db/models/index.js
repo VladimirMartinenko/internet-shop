@@ -1,5 +1,5 @@
 'use strict';
-const {configPath} = require('../../constants');
+// const {configPath} = require('../../constants');
 
 const fs = require('fs');
 const path = require('path');
@@ -7,7 +7,19 @@ const Sequelize = require('sequelize');
 const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
+const configPath =
+  env === 'production'
+    ? path.join(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        '..',
+        'server/src/config/db.json'
+      )
+    : path.join(__dirname, '..','..', '/config/db.json');
 const config = require(configPath)[env];
+console.log(config);
 const db = {};
 
 let sequelize;

@@ -25,8 +25,8 @@ module.exports.send = async (req, res, next) => {
     );
 
     let message = await smtpTransport.sendMail({
-      from: "teslabest87 <teslabest87@gmail.com>",
-      to: "teslabest87@gmail.com", // sender address
+      from:"medimplant <medimplant2023@gmail.com>",
+      to: "medimplant2023@gmail.com", // sender address
       subject: `Заказ от ${lastName}`,
       html: `<h2>Order </h2>
              <ul>

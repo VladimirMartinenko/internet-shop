@@ -17,13 +17,14 @@
     "react-router-dom": "^5.3.3",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
+    "reactstrap": "^9.2.0",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-saga": "^1.2.2",
-    "sass": "^1.57.1",
     "scss-reset": "^1.2.2",
     "web-vitals": "^2.1.4",
-    "yup": "^1.1.1"
+    "yup": "^1.1.1",
+    "sass": "^1.64.0"
   },
   "scripts": {
     "start": "react-scripts start",

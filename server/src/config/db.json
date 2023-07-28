@@ -8,6 +8,13 @@
     "migrationStorage": "json",
     "seederStorage": "json"
   },
-  "test": { },
-  "production": { }
+  "production": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "internet_shop_db",
+    "host": "db-prod",
+    "dialect": "postgres",
+    "migrationStorage": "json",
+    "seederStorage": "json"
+  }
 }
