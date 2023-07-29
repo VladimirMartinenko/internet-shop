@@ -1,7 +1,2 @@
 node_modules/
-.*
-!.*ignore
-!.*rc*
-!.env.example
-sequelize-*.json
-/public
+# /public

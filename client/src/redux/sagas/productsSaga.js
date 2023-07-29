@@ -49,7 +49,6 @@ function* productGetSaga() {
 //   }
 // }
 function* productCreateSaga(action) {
-  console.log(action.payload.values);
   try {
     const {
       data: { data: product },

@@ -50,10 +50,10 @@ const CreateProduct = () => {
 
   return (
     <div>
-      <h1 className={cx(classes.text)}>СТВОРИТИ ТОВАР</h1>
+      <h1 className={classes.text}>СТВОРИТИ ТОВАР</h1>
       {error &&
         error.map(error => (
-          <div className={cx(classes.error)}>{error.message}</div>
+          <div className={classes.error}>{error.message}</div>
         ))}
       <Formik
         initialValues={initialValues}
@@ -66,7 +66,7 @@ const CreateProduct = () => {
             [classes.invalidInput]: errors.img && touched.img
           })
           return (
-            <Form className={cx(classes.form)}>
+            <Form className={classes.form}>
               <MySelect name='categoryId' placeholder='category' as='select'>
                 <option value=''>виберіть підрозділ</option>
                 {category.map(category => (
@@ -79,7 +79,7 @@ const CreateProduct = () => {
               <Input name='price' type='text' placeholder='ціна' />
               <Input name='quantity' type='text' placeholder='кількість' />
               <Input name='brand' type='text' placeholder='бренд' />
-              <label for='file' className={inputStyles}>
+              <label htmlFor='file' className={inputStyles}>
                 <Input
                   name='img'
                   type='file'
@@ -103,7 +103,7 @@ const CreateProduct = () => {
                         />
 
                         <button
-                          className={cx(classes.button_long)}
+                          className={classes.button_long}
                           type='button'
                           onClick={() => arrayHelpers.remove(index)}
                         >
@@ -112,7 +112,7 @@ const CreateProduct = () => {
                       </div>
                     ))}
                     <button
-                      className={cx(classes.button_long)}
+                      className={classes.button_long}
                       type='button'
                       onClick={() =>
                         arrayHelpers.push({ title: '', description: '' })
@@ -123,7 +123,7 @@ const CreateProduct = () => {
                   </div>
                 )}
               />
-              <button className={cx(classes.btn)} type='submit'>
+              <button className={classes.btn} type='submit'>
                 СТВОРИТИ
               </button>
             </Form>

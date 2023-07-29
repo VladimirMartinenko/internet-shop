@@ -1,5 +1,4 @@
 import React from "react";
-import cx from "classnames";
 import classes from "./LoginPage.module.scss";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import { useSelector } from "react-redux";

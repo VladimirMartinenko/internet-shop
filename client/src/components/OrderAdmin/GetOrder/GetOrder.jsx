@@ -4,7 +4,6 @@ import {
   buyersGetRequest
 } from '../../../redux/actions/buyerActionCreators'
 import { useDispatch, useSelector } from 'react-redux'
-import cx from 'classnames'
 import classes from './GetOrder.module.scss'
 
 const GetOrder = () => {
@@ -19,10 +18,10 @@ const GetOrder = () => {
       {isLoading && <div>Loading</div>}
       {error &&
         error.map(error => (
-          <div className={cx(classes.error)}>{error.message}</div>
+          <div className={classes.error}>{error.message}</div>
         ))}
       {buyers?.map(buyers => (
-        <div key={buyers.id} className={cx(classes.containerMain)}>
+        <div key={buyers.id} className={classes.containerMain}>
           <div className={classes.text}>{buyers.firstName}</div>
           <div className={classes.text}>{buyers.lastName}</div>
           <div className={classes.text}>{buyers.email}</div>
@@ -30,12 +29,12 @@ const GetOrder = () => {
           <div className={classes.form}>
             <div className={classes.text}>
               {buyers.Orders?.map(order => (
-                <div key={order.id} className={cx(classes.container)}>
+                <div key={order.id} className={classes.container}>
                   <div className={classes.text}> номер:{order.id}</div>
                   <div className={classes.text}> Сума:{order.sum}</div>
                   <div>
                     {order.Products?.map(products => (
-                      <div key={products.name} className={cx(classes.container)}>
+                      <div key={products.name} className={classes.container}>
                         <div className={classes.text}>
                           назва:{products.name}
                         </div>

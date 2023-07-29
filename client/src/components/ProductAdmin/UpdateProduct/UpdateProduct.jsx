@@ -8,7 +8,6 @@ import {
 } from '../../../redux/actions/productActionCreators'
 import MySelect from '../../MySelect/MySelect'
 import Input from '../../Input/Input'
-import cx from 'classnames'
 import classes from './UpdateProduct.module.scss'
 import { PRODUCT_UPDATE_CHEMA } from '../../../utils/validationSchemasAdmin'
 
@@ -84,10 +83,10 @@ const UpdateProduct = () => {
 
   return (
     <div>
-      <h1 className={cx(classes.text)}>ОНОВИТИ ТОВАР</h1>
+      <h1 className={classes.text}>ОНОВИТИ ТОВАР</h1>
       {error &&
         error.map(error => (
-          <div className={cx(classes.error)}>{error.message}</div>
+          <div className={classes.error}>{error.message}</div>
         ))}
       <Formik
         initialValues={initialValues}
@@ -96,7 +95,7 @@ const UpdateProduct = () => {
       >
         {formikProps => {
           return (
-            <Form className={cx(classes.form)}>
+            <Form className={classes.form}>
               <AutoSubmitToken />
               <MySelect
                 name='productId'
@@ -105,7 +104,7 @@ const UpdateProduct = () => {
               >
                 <option value=''>виберіть товар</option>
                 {product?.map(products => (
-                  <option key={products.id} value={JSON.stringify(products.id)}>
+                  <option key={products.id} value={JSON.stringify(products.id) || ""}>
                     {products.name}
                   </option>
                 ))}
@@ -114,7 +113,7 @@ const UpdateProduct = () => {
                 name='name'
                 type='text'
                 placeholder='назва'
-                value={products.name}
+                value={products.name || ""}
                 onFocus={e => handlValueChanges(e)}
                 // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdate(e.target))}
@@ -123,7 +122,7 @@ const UpdateProduct = () => {
                 name='price'
                 type='text'
                 placeholder='ціна'
-                value={products.price}
+                value={products.price || ""}
                 onFocus={e => handlValueChanges(e)}
                 // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdate(e.target))}
@@ -132,7 +131,7 @@ const UpdateProduct = () => {
                 name='quantity'
                 type='text'
                 placeholder='кількість'
-                value={products.quantity}
+                value={products.quantity || ""}
                 onFocus={e => handlValueChanges(e)}
                 // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdate(e.target))}
@@ -141,12 +140,12 @@ const UpdateProduct = () => {
                 name='categoryId'
                 placeholder='підрозділ'
                 as='select'
-                value={products.categoryId}
+                value={products.categoryId || ""}
                 onChange={e => dispatch(productLocalUpdate(e.target))}
               >
                 <option value=''>виберіть підрозділ</option>
                 {category?.map(category => (
-                  <option key={category.id} value={JSON.stringify(category.id)}>
+                  <option key={category.id} value={JSON.stringify(category.id) || ""}>
                     {category.name}
                   </option>
                 ))}
@@ -155,7 +154,7 @@ const UpdateProduct = () => {
                 name='brand'
                 type='text'
                 placeholder='бренд'
-                value={products.brand}
+                value={products.brand || ""}
                 onFocus={e => handlValueChanges(e)}
                 // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdate(e.target))}
@@ -222,7 +221,7 @@ const UpdateProduct = () => {
                   </div>
                 )}
               />
-              <button className={cx(classes.btn)} type='submit'>
+              <button className={classes.btn} type='submit'>
                 оновити
               </button>
             </Form>

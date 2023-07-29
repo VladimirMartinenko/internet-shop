@@ -42,8 +42,7 @@ const Basket = () => {
   useEffect(() => {
     examinationBasket()
   }, [])
-
-  console.log(user)
+  
   useEffect(() => {
     dispatch(buyerCreate(user))
   }, [])
@@ -80,9 +79,9 @@ const Basket = () => {
       data.append('email', values.email)
       data.append('order', order.data.data.id)
       data.append('products', JSON.stringify(items))
-      for (const [key, value] of data) {
-        console.log(`${key}: ${value}\n`)
-      }
+      // for (const [key, value] of data) {
+      //   console.log(`${key}: ${value}\n`)
+      // }
       await httpClient.post(`mailer`, data)
       await dispatch(basketClear())
       await setMessage('замовлення створено успішно')
@@ -96,13 +95,10 @@ const Basket = () => {
   }
 
   const { buyer } = useSelector(state => state.buyer)
-  console.log(buyer)
   const basket = JSON.parse(localStorage.getItem('basket'))
-  console.log(basket)
   const { totalSumm } = useSelector(state => state.basket)
 
   const handlValueChanges = (value, products) => {
-    console.log(value.target.name)
     value.target.value = ''
   }
   const handlValueChange = value => {
@@ -134,7 +130,7 @@ const Basket = () => {
                     name='firstName'
                     type='text'
                     placeholder="І'мя"
-                    value={buyer.firstName}
+                    value={buyer.firstName || ""}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
                     onChange={e => dispatch(buyerLocalUpdate(e.target))}
@@ -143,7 +139,7 @@ const Basket = () => {
                     name='lastName'
                     type='text'
                     placeholder='Фамілія'
-                    value={buyer.lastName}
+                    value={buyer.lastName || ""}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
                     onChange={e => dispatch(buyerLocalUpdate(e.target))}
@@ -152,7 +148,7 @@ const Basket = () => {
                     name='email'
                     type='email'
                     placeholder='email'
-                    value={buyer.email}
+                    value={buyer.email || ""}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
                     onChange={e => dispatch(buyerLocalUpdate(e.target))}
@@ -161,7 +157,7 @@ const Basket = () => {
                     name='phone'
                     type='phone'
                     placeholder='телефон(380)'
-                    value={buyer.phone}
+                    value={buyer.phone || ""}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
                     onChange={e => dispatch(buyerLocalUpdate(e.target))}

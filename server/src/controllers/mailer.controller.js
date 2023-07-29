@@ -13,13 +13,13 @@ module.exports.send = async (req, res, next) => {
       (i) =>
         (arrayItems +=
           "<li>" +
-          "name:" +
+          "назва:" +
           i.name +
           "," +
-          "price:" +
+          "ціна:" +
           i.price +
           "," +
-          "count:" +
+          "кількість:" +
           i.count +
           "</li>")
     );
@@ -27,15 +27,15 @@ module.exports.send = async (req, res, next) => {
     let message = await smtpTransport.sendMail({
       from:"medimplant <medimplant2023@gmail.com>",
       to: "medimplant2023@gmail.com", // sender address
-      subject: `Заказ от ${lastName}`,
-      html: `<h2>Order </h2>
+      subject: `Замовлення від ${lastName}`,
+      html: `<h2>Замовник </h2>
              <ul>
-             <li>firstName:${firstName}</li>
-             <li>lastName:${lastName}</li>
-             <li>phone:${phone}</li>
+             <li>Ім'я:${firstName}</li>
+             <li>Фамілія:${lastName}</li>
+             <li>Телефон:${phone}</li>
              <li>email:${email}</li
              </ul>
-             <h2>order:${order}</h2>
+             <h2>Замовлення:${order}</h2>
               <ul>${arrayItems},</ul>`
     });
 

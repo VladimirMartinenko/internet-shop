@@ -19,7 +19,6 @@ const Product = () => {
   const dispatch = useDispatch()
 
   const { products, isLoading, error } = useSelector(state => state.product)
-  console.log(products)
   let info = products.ProductInfos
   return (
     <div className={cx(classes.mainProduct)}>
