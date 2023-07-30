@@ -14,7 +14,7 @@ services:
       - server-prod:ro
 
   server-prod:
-    # restart: always
+    restart: always
     build:
       context: ./server
       dockerfile: Dockerfile-production
@@ -28,7 +28,7 @@ services:
       - /var/www/html/images:/var/www/html/images
 
   db-prod:
-    # restart: always
+    restart: always
     image: postgres:14-alpine
     environment:
       - POSTGRES_PASSWORD=postgres
