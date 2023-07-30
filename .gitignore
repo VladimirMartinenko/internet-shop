@@ -1,7 +1,7 @@
 node_modules/
-# .*
-# !.*ignore
-# !.*rc*
-# !.env.example
+.*
+!.*ignore
+!.*rc*
+!.env.example
 # sequelize-*.json
 # **server/public/*
