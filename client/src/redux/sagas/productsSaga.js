@@ -49,10 +49,12 @@ function* productGetSaga() {
 //   }
 // }
 function* productCreateSaga(action) {
+  console.log(action.payload.values);
   try {
     const {
       data: { data: product },
     } = yield API.productCreate(action.payload.values);
+    console.log(product);
 
     yield put(productCreateSucces(product));
   } catch (error) {

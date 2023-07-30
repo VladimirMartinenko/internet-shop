@@ -86,7 +86,7 @@ export const productGet = () => httpClient.get(`product/all`);
 
 export const productGetById = (id) => httpClient.get(`product/${id}`); 
 
-export const productCreate = (values) => httpClient.post(`product`,values);
+export const productCreate = (values) => httpClient.post(`product`,values,console.log(values));
 
 export const productDelete = (id) => httpClient.delete(`product/${id}`);
 

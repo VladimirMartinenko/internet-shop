@@ -41,9 +41,9 @@ const CreateProduct = () => {
     data.append('brand', values.brand)
     data.append('img', document.getElementsByName('img')[0].files[0])
     data.append('info', JSON.stringify(values.info))
-    // for (const [key, value] of data) {
-    //   console.log(`${key}: ${value}\n`)
-    // }
+    for (const [key, value] of data) {
+      console.log(`${key}: ${value}\n`)
+    }
     dispatch(productCreateRequest(data))
     utils.resetForm()
   }
