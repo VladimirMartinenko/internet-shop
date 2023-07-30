@@ -1,5 +1,7 @@
 const { imagePath } = require('../constants');
 const fs = require('fs');
+const multer = require('multer');
+const env = process.env.NODE_ENV || 'development';
 
 const filePath = env === 'production' ? '/var/www/html/images/' : imagePath;
 
@@ -9,7 +11,7 @@ if (!fs.existsSync(filePath)) {
   });
 }
 
-const multer = require('multer');
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, filePath);
