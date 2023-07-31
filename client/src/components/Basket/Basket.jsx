@@ -79,15 +79,16 @@ const Basket = () => {
       data.append('email', values.email)
       data.append('order', order.data.data.id)
       data.append('products', JSON.stringify(items))
-      // for (const [key, value] of data) {
-      //   console.log(`${key}: ${value}\n`)
-      // }
-      await httpClient.post(`mailer`, data)
+      for (const [key, value] of data) {
+        console.log(`${key}: ${value}\n`)
+      }
+      await httpClient.post(`mailer`, data ,console.log(data))
       await dispatch(basketClear())
       await setMessage('замовлення створено успішно')
     } catch (err) {
       if (err.response.status === 500) {
-        setHasError('проблема при створенні')
+        setHasError('проблема при створенні');
+        console.log(err);
       } else {
         setError(err.response.data.errors)
       }
@@ -173,7 +174,7 @@ const Basket = () => {
                   <Input name='firstName' type='text' placeholder="І'мя" />
                   <Input name='lastName' type='text' placeholder='Фамілія' />
                   <Input name='email' type='email' placeholder='email' />
-                  <Input name='phone' type='phone' placeholder='телефон' />
+                  <Input name='phone' type='phone' placeholder='телефон(380)' />
                   <button type='submit' className={classes.btn}>
                     ОФОРМИТИ
                   </button>

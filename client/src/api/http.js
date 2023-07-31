@@ -92,7 +92,7 @@ export const productDelete = (id) => httpClient.delete(`product/${id}`);
 
 export const productUpdate = (id,data) => httpClient.put(`product/${id}`,data);
 
-export const buyerCreate = (value) => httpClient.post(`buyer`,value);
+// export const buyerCreate = (value) => httpClient.post(`buyer`,value);
 
 export const buyerGet = () => httpClient.get(`buyer`);
 

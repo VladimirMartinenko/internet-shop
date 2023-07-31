@@ -47,5 +47,6 @@ module.exports.send = async (req, res, next) => {
     res.send({ data: message });
   } catch (error) {
     next(error);
+    console.log(error);
   }
 };

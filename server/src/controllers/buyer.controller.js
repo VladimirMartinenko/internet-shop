@@ -5,6 +5,7 @@ const createHttpError = require("http-errors");
 module.exports.createBuyer = async (req, res, next) => {
   try {
     const { body } = req;
+    console.log(req);
     const buyer = await Buyer.create(body);
     if (!buyer) {
       return next(createHttpError(401, "помилка при створенні"));
