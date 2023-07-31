@@ -86,9 +86,9 @@ const Basket = () => {
       await dispatch(basketClear())
       await setMessage('замовлення створено успішно')
     } catch (err) {
+      console.log(err);
       if (err.response.status === 500) {
         setHasError('проблема при створенні');
-        console.log(err);
       } else {
         setError(err.response.data.errors)
       }
