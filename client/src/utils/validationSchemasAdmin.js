@@ -43,9 +43,9 @@ export const SLIDER_DELETE_CHEMA = yup.object({
 });
 export const PRODUCT_CREATE_CHEMA = yup.object({
   name: yup.string("повинно бути строчкою").required("повинно бути заповненим"),
-  price: yup.number("повинно бути цифрою").required("повинно бути заповненим"),
+  price: yup.number().typeError("повинно бути цифрою").required("повинно бути заповненим"),
   quantity: yup
-    .number("повинно бути цифрою")
+    .number().typeError("повинно бути цифрою")
     .required("повинно бути заповненим"),
   categoryId: yup
     .string("повинно бути строчкою")
@@ -67,9 +67,9 @@ export const PRODUCT_CREATE_CHEMA = yup.object({
 });
 export const PRODUCT_UPDATE_CHEMA = yup.object({
   name: yup.string("повинно бути строчкою").required("повинно бути заповненим"),
-  price: yup.number("повинно бути цифрою").required("повинно бути заповненим"),
+  price: yup.number().typeError("повинно бути цифрою").required("повинно бути заповненим"),
   quantity: yup
-    .number("повинно бути цифрою")
+    .number().typeError("повинно бути цифрою")
     .required("повинно бути заповненим"),
   categoryId: yup
     .string("повинно бути строчкою")

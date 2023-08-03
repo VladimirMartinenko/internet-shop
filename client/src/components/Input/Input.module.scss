@@ -19,15 +19,16 @@
   position: relative;
 }
 .invalidInput::placeholder{
-  opacity: 0;
+  // opacity: 0;
 }
 
 .error {
-  position: absolute;
+  // position: absolute;
   // top: 2px;
+  text-align: center;
   color: rgb(238, 63, 63);
   font-weight: bold;
   z-index: 999999;
-  bottom: 3%;
-  right: 15%;
+  // bottom: 3%;
+  // right: 15%;
 }
