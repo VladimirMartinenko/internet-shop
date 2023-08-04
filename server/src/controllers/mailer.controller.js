@@ -2,12 +2,12 @@ const smtpTransport = require("../utils/mailer");
 
 module.exports.send = async (req, res, next) => {
   try {
-    // const {
-    //   body: { lastName, firstName, phone, email, order, products },
-    // } = req;
-    // console.log(req);
-    // info = JSON.parse(products);
-    // // console.log(info);
+    const {
+      body: { lastName, firstName, phone, email, order, products },
+    } = req;
+    console.log(req);
+    info = JSON.parse(products);
+    console.log(info);
     // var arrayItems = "";
     // info.forEach(
     //   (i) =>
@@ -27,7 +27,7 @@ module.exports.send = async (req, res, next) => {
     let message = await smtpTransport.sendMail({
       from:"medimplant <medimplant2023@ukr.net>",
       to: "teslabest87@gmail.com",
-      // subject: `Замовлення від ${lastName}`,
+      subject: `Замовлення від ${lastName}`,
       // html: `<h2>Замовник </h2>
       //        <ul>
       //        <li>Ім'я:${firstName}</li>
