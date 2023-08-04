@@ -82,7 +82,8 @@ const Basket = () => {
       for (const [key, value] of data) {
         console.log(`${key}: ${value}\n`)
       }
-      await httpClient.post(`mailer`, data ,console.log(data))
+      // await httpClient.post(`mailer`, data ,console.log(data))
+      await httpClient.post(`mailer`)
       await dispatch(basketClear())
       await setMessage('замовлення створено успішно')
     } catch (err) {
