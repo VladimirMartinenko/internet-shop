@@ -6,38 +6,37 @@ module.exports.send = async (req, res, next) => {
       body: { lastName, firstName, phone, email, order, products },
     } = req;
     console.log(req);
-    console.log(JSON.parse(products));
-    // info = JSON.parse(products);
-    // console.log(info);
-    // var arrayItems = "";
-    // info.forEach(
-    //   (i) =>
-    //     (arrayItems +=
-    //       "<li>" +
-    //       "назва:" +
-    //       i.name +
-    //       "," +
-    //       "ціна:" +
-    //       i.price +
-    //       "," +
-    //       "кількість:" +
-    //       i.count +
-    //       "</li>")
-    // );
+    info = JSON.parse(products);
+    console.log(info);
+    var arrayItems = "";
+    info.forEach(
+      (i) =>
+        (arrayItems +=
+          "<li>" +
+          "назва:" +
+          i.name +
+          "," +
+          "ціна:" +
+          i.price +
+          "," +
+          "кількість:" +
+          i.count +
+          "</li>")
+    );
 
     let message = await smtpTransport.sendMail({
       from:"medimplant <medimplant2023@ukr.net>",
       to: "teslabest87@gmail.com",
       subject: `Замовлення від ${lastName}`,
-      // html: `<h2>Замовник </h2>
-      //        <ul>
-      //        <li>Ім'я:${firstName}</li>
-      //        <li>Фамілія:${lastName}</li>
-      //        <li>Телефон:${phone}</li>
-      //        <li>email:${email}</li
-      //        </ul>
-      //        <h2>Замовлення:${order}</h2>
-      //         <ul>${arrayItems},</ul>`
+      html: `<h2>Замовник </h2>
+             <ul>
+             <li>Ім'я:${firstName}</li>
+             <li>Фамілія:${lastName}</li>
+             <li>Телефон:${phone}</li>
+             <li>email:${email}</li
+             </ul>
+             <h2>Замовлення:${order}</h2>
+              <ul>${arrayItems},</ul>`
     });
 
     if(!message){
