@@ -6,6 +6,7 @@ module.exports.send = async (req, res, next) => {
       body: { lastName, firstName, phone, email, order, products },
     } = req;
     console.log(req);
+    console.log(JSON.parse(products));
     // info = JSON.parse(products);
     // console.log(info);
     // var arrayItems = "";
