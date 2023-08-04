@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const smtpTransport = nodemailer.createTransport({
   host:'smtp.ukr.net',
-  port:2525,
+  port:465,
   secure: true,
   auth:{
     user: 'medimplant2023@ukr.net',
