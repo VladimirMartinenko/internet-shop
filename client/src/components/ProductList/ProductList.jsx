@@ -33,7 +33,7 @@ const ProductList = () => {
               className={classes.btn}
               onClick={() => dispatch(basketCreate(product))}
             >
-              Купить
+              До кошика
             </button>
           </div>
         ))}

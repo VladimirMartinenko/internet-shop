@@ -1,5 +1,6 @@
 import produce from "immer";
 import ACTION_TYPES from "../actions/types";
+import CONSTANTS from '../../constants';
 
 const initialState = {
   user: null,
@@ -26,6 +27,7 @@ const handlers = {
   [ACTION_TYPES.AUTH_ERROR]: produce((draftState, action) => {
     draftState.isLoading = false;
     draftState.error = action.payload;
+    localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
   }),
 };
 

@@ -8,13 +8,14 @@ import {
 import classes from './DeleteProduct.module.scss'
 import MySelect from '../../MySelect/MySelect'
 import { PRODUCT_DELETE_CHEMA } from '../../../utils/validationSchemasAdmin'
+import ValidationMessages from '../../validator/validationMessages'
 
 const initialValues = {
   productId: ''
 }
 
 const DeleteProduct = () => {
-  const { product, isLoading, error } = useSelector(state => state.products)
+  const { product, isLoading, error, messagesDelete } = useSelector(state => state.products)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -28,10 +29,11 @@ const DeleteProduct = () => {
   return (
     <div>
       <h1 className={classes.text}>ВИДАЛИТИ ТОВАР</h1>
-      {error &&
+      {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
-        ))}
+        ))} */}
+        < ValidationMessages  message={messagesDelete}/>
       <Formik
         initialValues={initialValues}
         validationSchema={PRODUCT_DELETE_CHEMA}

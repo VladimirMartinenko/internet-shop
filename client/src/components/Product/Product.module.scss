@@ -58,6 +58,15 @@ line-height: 1.5em;
   width: 40vw;
   padding-top: 50px;
 }
+.error {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-family: italic;
+  font-size: 4em;
+  text-align: center;
+  color: red;
+}
 @media (min-width:375px) and (max-width: 900px){
   .mainProduct {
     display: flex;

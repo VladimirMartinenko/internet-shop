@@ -89,7 +89,9 @@ color: #282828;
   
 }
 .validInput {
-  background-color: white;
+  background-color: rgb(250, 0, 0);
+  border: 1px solid black;
+  border-radius: 5px;
 }
 
 .invalidInput {

@@ -5,6 +5,9 @@ const initialState = {
   category: [],
   isLoading: false,
   error: null,
+  messagesCreate: null,
+  messagesDelete: null,
+  messagesUpdate: null,
 };
 
 export default function categoryReducer(state = initialState, action) {
@@ -16,6 +19,9 @@ export default function categoryReducer(state = initialState, action) {
     case ACTION_TYPES.CATEGORY_GET_BY_SECTION_REQUEST:
       return produce(state, (draftState) => {
         draftState.isLoading = true;
+        draftState.messagesDelete = null;
+        draftState.messagesCreate = null;
+        draftState.messagesUpdate = null;
       });
     case ACTION_TYPES.CATEGORY_GET_BY_SECTION_SUCCESS:
       return produce(state, (draftState) => {
@@ -33,12 +39,14 @@ export default function categoryReducer(state = initialState, action) {
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = null;
+        draftState.messagesCreate = 'Успішно';
         draftState.category.push(action.payload.values);
       });
     case ACTION_TYPES.CATEGORY_DELETE_SUCCESS:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = null;
+        draftState.messagesDelete = 'Успішно';
         draftState.category = draftState.category.filter(
           (categorys) => categorys.id !== Number(action.payload.values)
         );
@@ -48,6 +56,7 @@ export default function categoryReducer(state = initialState, action) {
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = null;
+        draftState.messagesUpdate = 'Успішно';
         draftState.category = draftState.category.map((categorys) => {
           if (categorys.id === Number(action.payload.values.id)) {
             return action.payload.values;
@@ -57,13 +66,28 @@ export default function categoryReducer(state = initialState, action) {
       });
     case ACTION_TYPES.CATEGORY_GET_ERROR:
     case ACTION_TYPES.CATEGORY_GET_BY_SECTION_ERROR:
-    case ACTION_TYPES.CATEGORY_CREATE_ERROR:
-    case ACTION_TYPES.CATEGORY_DELETE_ERROR:
-    case ACTION_TYPES.CATEGORY_UPDATE_ERROR:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
-        draftState.error = action.payload.values;
+        draftState.error = action.payload.error;
       });
+      case ACTION_TYPES.CATEGORY_CREATE_ERROR:
+        return produce(state, (draftState) => {
+          draftState.isLoading = false;
+          draftState.messagesCreate = 'Помилка';
+          draftState.error = action.payload.error;
+        });
+      case ACTION_TYPES.CATEGORY_DELETE_ERROR:
+        return produce(state, (draftState) => {
+          draftState.isLoading = false;
+          draftState.messagesDelete = 'Помилка';
+          draftState.error = action.payload.error;
+        });
+      case ACTION_TYPES.CATEGORY_UPDATE_ERROR:
+        return produce(state, (draftState) => {
+          draftState.isLoading = false;
+          draftState.messagesUpdate = 'Помилка';
+          draftState.error = action.payload.error;
+        });
     default:
       return state;
   }

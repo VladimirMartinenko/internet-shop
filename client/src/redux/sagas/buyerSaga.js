@@ -26,7 +26,7 @@ function* buyersDeleteSaga(action) {
 
     yield put(buyersDeleteSucces(buyersId.id));
   } catch (error) {
-    yield put(buyersDeleteError(error.response.data.error));
+    yield put(buyersDeleteError(error.response.data.errors));
   }
 }
 export default function* buyerSaga() {

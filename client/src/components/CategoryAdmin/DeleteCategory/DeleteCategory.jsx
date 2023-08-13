@@ -8,13 +8,14 @@ import {
 import MySelect from '../../MySelect/MySelect'
 import { CATEGORY_DELETE_CHEMA } from '../../../utils/validationSchemasAdmin'
 import classes from './DeleteCategory.module.scss'
+import ValidationMessages from '../../validator/validationMessages'
 
 const initialValues = {
   categoryId: ''
 }
 
 const DeleteCategory = () => {
-  const { category, isLoading, error } = useSelector(state => state.category)
+  const { category, isLoading, error, messagesDelete } = useSelector(state => state.category)
 
   const dispatch = useDispatch()
   useEffect(() => {
@@ -30,10 +31,11 @@ const DeleteCategory = () => {
   return (
     <div>
       <h1 className={classes.text}>Видалити підрозділ</h1>
-      {error &&
+      {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
-        ))}
+        ))} */}
+       < ValidationMessages  message={messagesDelete}/>  
       <Formik
         initialValues={initialValues}
         validationSchema={CATEGORY_DELETE_CHEMA}

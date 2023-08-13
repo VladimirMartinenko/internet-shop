@@ -20,7 +20,7 @@ function* sectionGetSaga(action) {
 
     yield put(sectionSucces(section));
   } catch (error) {
-    yield put(sectionError(error.response.data.error));
+    yield put(sectionError(error.response.data.errors));
   }
 }
 function* sectionCreateSaga(action) {
@@ -31,7 +31,7 @@ function* sectionCreateSaga(action) {
 
     yield put(sectionCreateSucces(section));
   } catch (error) {
-    yield put(sectionCreateError(error.response.data.error));
+    yield put(sectionCreateError(error.response.data.errors));
   }
 }
 function* sectionDeleteSaga(action) {
@@ -42,7 +42,7 @@ function* sectionDeleteSaga(action) {
 
     yield put(sectionDeleteSucces(sectionId.id));
   } catch (error) {
-    yield put(sectionDeleteError(error.response.data.error));
+    yield put(sectionDeleteError(error.response.data.errors));
   }
 }
 function* sectionUpdateSaga(action) {
@@ -53,7 +53,7 @@ function* sectionUpdateSaga(action) {
 
     yield put(sectionUpdateSucces(section));
   } catch (error) {
-    yield put(sectionUpdateError(error.response.data.error));
+    yield put(sectionUpdateError(error.response.data.errors));
   }
 }
 

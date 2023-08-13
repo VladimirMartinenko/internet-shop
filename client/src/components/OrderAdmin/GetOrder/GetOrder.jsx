@@ -22,12 +22,14 @@ const GetOrder = () => {
         ))}
       {buyers?.map(buyers => (
         <div key={buyers.id} className={classes.containerMain}>
+          <div className={classes.container}>
           <div className={classes.text}>{buyers.firstName}</div>
           <div className={classes.text}>{buyers.lastName}</div>
           <div className={classes.text}>{buyers.email}</div>
           <div className={classes.text}>{buyers.phone}</div>
+          </div>
           <div className={classes.form}>
-            <div className={classes.text}>
+            <div className={classes.container}>
               {buyers.Orders?.map(order => (
                 <div key={order.id} className={classes.container}>
                   <div className={classes.text}> номер:{order.id}</div>

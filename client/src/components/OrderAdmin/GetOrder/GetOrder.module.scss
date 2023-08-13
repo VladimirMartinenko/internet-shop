@@ -1,29 +1,41 @@
 .form {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
   min-height: 30%;
   max-height: 60%;
+  width: 100%;
+  margin-left: 3px;
+  margin-right: 3px;
 }
 .containerMain {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   border: 1px solid rgb(16, 16, 46);
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  width: 100%;
+  justify-content: center;
 }
 .container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 .text {
-  // width: 150px;
-  text-align: center;
   display: flex;
+  flex-direction: row;
+  text-align: center;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   font-style: italic;
-  font-size: 1em;
+  font-size: 97%;
   margin: 0.7em;
 }
 .text2 {

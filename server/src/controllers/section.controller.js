@@ -35,7 +35,7 @@ module.exports.deleteSection = async (req, res, next) => {
     } = req;
     const deleteRows = await Section.destroy({ where: { id } });
     if (deleteRows != 1) {
-      const err = createError(404, "не вдалось видалити розділ");
+      const err = createError(404, "не вдалося видалити розділ");
       return next(err);
     }
     res.send({ data: { id } });

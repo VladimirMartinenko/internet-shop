@@ -12,7 +12,7 @@ function* categoryGetSaga(action) {
 
     yield put(categorySucces(category));
   } catch (error) {
-    yield put(categoryError(error.response.data.error));
+    yield put(categoryError(error.response.data.errors));
   }
  }
 
@@ -22,11 +22,10 @@ function* categoryGetBySectionSaga(action) {
     const {
       data: { data: category },
     } = yield API.categoryGetBySection(action.payload.values);
-   
 
     yield put(categoryGetBySectionSucces(category));
   } catch (error) {
-    yield put(categoryGetBySectionError(error.response.data.error));
+    yield put(categoryGetBySectionError(error.response.data.errors));
   }
  }
 function* categoryCreateSaga(action) {
@@ -39,7 +38,8 @@ function* categoryCreateSaga(action) {
 
     yield put(categoryCreateSucces(category));
   } catch (error) {
-    yield put(categoryCreateError(error.response.data.error));
+    console.log(error);
+    yield put(categoryCreateError(error.response.data.errors));
   }
  }
 function* categoryDeleteSaga(action) {
@@ -48,13 +48,12 @@ function* categoryDeleteSaga(action) {
     const {
       data: { data: categoryId },
     } = yield API.categoryDelete(action.payload.values.categoryId);
-   
-    
 
     yield put(categoryDeleteSucces(categoryId.id));
-    console.log(categoryId.id)
+    console.log(categoryId)
   } catch (error) {
-    yield put(categoryDeleteError(error.response.data.error));
+    // console.log(error.response.data.error)
+    yield put(categoryDeleteError(error.response.data.errors));
   }
  }
 function* categoryUpdateSaga(action) {
@@ -69,7 +68,7 @@ function* categoryUpdateSaga(action) {
     yield put(categoryUpdateSucces(category));
     console.log(category)
   } catch (error) {
-    yield put(categoryUpdateError(error.response.data.error));
+    yield put(categoryUpdateError(error.response.data.errors));
   }
  }
 

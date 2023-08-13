@@ -32,7 +32,7 @@ function* productGetSaga() {
 
     yield put(productGetSucces(product));
   } catch (error) {
-    yield put(productGetError(error.response.data.error));
+    yield put(productGetError(error.response.data.errors));
   }
 }
 
@@ -58,7 +58,7 @@ function* productCreateSaga(action) {
 
     yield put(productCreateSucces(product));
   } catch (error) {
-    yield put(productCreateError(error.response.data.error));
+    yield put(productCreateError(error.response.data.errors));
   }
 }
 function* productDeleteSaga(action) {
@@ -69,7 +69,7 @@ function* productDeleteSaga(action) {
 
     yield put(productDeleteSucces(productId.id));
   } catch (error) {
-    yield put(productDeleteError(error.response.data.error));
+    yield put(productDeleteError(error.response.data.errors));
   }
 }
 
@@ -80,7 +80,7 @@ function* productUpdateSaga(action) {
     } = yield API.productUpdate(action.payload.values,action.payload.data);
     yield put(productUpdateSucces(productId));
   } catch (error) {
-    yield put(productUpdateError(error.response.data.error));
+    yield put(productUpdateError(error.response.data.errors));
   }
 }
 

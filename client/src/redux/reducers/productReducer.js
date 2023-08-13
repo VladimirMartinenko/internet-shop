@@ -5,6 +5,7 @@ const initialState = {
   products: [],
   isLoading: false,
   error: null,
+  messagesUpdate: null,
 };
 
 export default function productReducer(state = initialState, action) {
@@ -13,6 +14,7 @@ export default function productReducer(state = initialState, action) {
     case ACTION_TYPES.PRODUCT_UPDATE_REQUEST:
       return produce(state, (draftState) => {
         draftState.isLoading = true;
+        draftState.messagesUpdate = null;
       });
     case ACTION_TYPES.PRODUCT_GET_BY_ID_SUCCESS:
       return produce(state, (draftState) => {
@@ -24,6 +26,7 @@ export default function productReducer(state = initialState, action) {
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = null;
+        draftState.messagesUpdate = 'Успішно';
         draftState.products = action.payload.values;
       });
     case ACTION_TYPES.PRODUCT_LOCAL_UPDATE:
@@ -37,11 +40,16 @@ export default function productReducer(state = initialState, action) {
         }
       });
     case ACTION_TYPES.PRODUCT_GET_BY_ID_ERROR:
-    case ACTION_TYPES.PRODUCT_UPDATE_ERROR:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
-        draftState.error = action.payload.values;
+        draftState.error = action.payload.error;
       });
+      case ACTION_TYPES.PRODUCT_UPDATE_ERROR:
+        return produce(state, (draftState) => {
+          draftState.isLoading = false;
+          draftState.error = action.payload.error;
+          draftState.messagesUpdate = 'Помилка';
+        });
 
     default:
       return state;

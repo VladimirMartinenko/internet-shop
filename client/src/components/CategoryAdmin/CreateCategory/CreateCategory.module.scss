@@ -29,7 +29,17 @@
   justify-content: center;
   width: 100%;
   font-family: italic;
-  font-size: 4em;
+  font-size: 2em;
   text-align: center;
   color: red;
+}
+.valid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-family: italic;
+  font-size: 2em;
+  text-align: center;
+  color: green;
 }

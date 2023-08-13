@@ -8,13 +8,14 @@ import {
 import MySelect from '../../MySelect/MySelect'
 import { SECTION_DELETE_CHEMA } from '../../../utils/validationSchemasAdmin'
 import classes from './DeleteSection.module.scss'
+import ValidationMessages from '../../validator/validationMessages'
 
 const initialValues = {
   sectionId: ''
 }
 
 const DeleteSection = () => {
-  const { section, isLoading, error } = useSelector(state => state.section)
+  const { section, isLoading, error, messagesDelete } = useSelector(state => state.section)
   const dispatch = useDispatch()
   useEffect(() => {
     requestSection()
@@ -27,10 +28,11 @@ const DeleteSection = () => {
   return (
     <div>
       <h1 className={classes.text}>Видалити розділ</h1>
-      {error &&
+      {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
-        ))}
+        ))} */}
+         < ValidationMessages  message={messagesDelete}/>
       <Formik
         initialValues={initialValues}
         validationSchema={SECTION_DELETE_CHEMA}

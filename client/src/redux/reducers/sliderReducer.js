@@ -40,7 +40,7 @@ export default function sliderReducer(state = initialState, action) {
     case ACTION_TYPES.SLIDER_DELETE_ERROR:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
-        draftState.error = action.payload.values;
+        draftState.error = action.payload.error;
       });
     default:
       return state;

@@ -8,6 +8,7 @@ import Input from '../../Input/Input'
 import MySelect from '../../MySelect/MySelect'
 import { categoryRequest } from '../../../redux/actions/categoryAction'
 import { PRODUCT_CREATE_CHEMA } from '../../../utils/validationSchemasAdmin'
+import ValidationMessages from '../../validator/validationMessages'
 
 const initialValues = {
   name: '',
@@ -31,6 +32,7 @@ const CreateProduct = () => {
   const requestCategorys = options => dispatch(categoryRequest(options))
   const { category } = useSelector(state => state.category)
   const { product, isLoading, error } = useSelector(state => state.product)
+  const { messagesCreate } = useSelector(state => state.products)
   const dispatch = useDispatch()
   const addProduct = (values, utils) => {
     const data = new FormData()
@@ -47,14 +49,14 @@ const CreateProduct = () => {
     dispatch(productCreateRequest(data))
     utils.resetForm()
   }
-
   return (
     <div>
       <h1 className={classes.text}>СТВОРИТИ ТОВАР</h1>
-      {error &&
+      {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
-        ))}
+        ))} */}
+        < ValidationMessages  message={messagesCreate}/>
       <Formik
         initialValues={initialValues}
         validationSchema={PRODUCT_CREATE_CHEMA}
@@ -101,7 +103,6 @@ const CreateProduct = () => {
                           name={`info.${index}.description`}
                           placeholder='опис'
                         />
-
                         <button
                           className={classes.button_long}
                           type='button'

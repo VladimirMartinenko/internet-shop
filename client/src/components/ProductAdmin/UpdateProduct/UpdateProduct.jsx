@@ -10,6 +10,7 @@ import MySelect from '../../MySelect/MySelect'
 import Input from '../../Input/Input'
 import classes from './UpdateProduct.module.scss'
 import { PRODUCT_UPDATE_CHEMA } from '../../../utils/validationSchemasAdmin'
+import ValidationMessages from '../../validator/validationMessages'
 
 const initialValues = {
   productId: '',
@@ -31,7 +32,7 @@ const initialValues = {
 const UpdateProduct = () => {
   const { category } = useSelector(state => state.category)
   const { product, isLoading, error } = useSelector(state => state.products)
-  const { products } = useSelector(state => state.product)
+  const { products, messagesUpdate } = useSelector(state => state.product)
   const AutoSubmitToken = () => {
     const { setFieldValue } = useFormikContext()
     useEffect(() => {
@@ -51,23 +52,28 @@ const UpdateProduct = () => {
 
   const dispatch = useDispatch()
   const addProduct = (values, { resetForm }) => {
-    // console.log(document.getElementsByName('img')[1].value)
-    const data = new FormData()
+    console.log(values);
+    console.log(document.getElementsByName('img')[0].value)
+  try {
+     const data = new FormData()
     data.append('name', values.name)
     data.append('price', `${values.price}`)
     data.append('quantity', `${values.quantity}`)
     data.append('categoryId', values.categoryId)
     data.append('brand', values.brand)
-    if (document.getElementsByName('img')[1].value === '') {
+    if (document.getElementsByName('img')[0].value === '') {
       data.append('img', products.img)
     } else {
-      data.append('img', document.getElementsByName('img')[1].value)
+      data.append('img', document.getElementsByName('img')[0].value)
     }
     data.append('info', JSON.stringify(values.info))
-    // for (const [key, value] of data) {
-    //   console.log(`${key}: ${value}\n`)
-    // }
+    for (const [key, value] of data) {
+      console.log(`${key}: ${value}\n`)
+    }
     dispatch(productUpdateRequest(data, values.productId))
+  }catch(err){
+      console.log(err)
+    }
   }
   const handleProductChange = (values, formikProps) => {
     dispatch(productGetByIdRequest(values.productId))
@@ -84,10 +90,11 @@ const UpdateProduct = () => {
   return (
     <div>
       <h1 className={classes.text}>ОНОВИТИ ТОВАР</h1>
-      {error &&
+      {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
-        ))}
+        ))} */}
+        < ValidationMessages  message={messagesUpdate}/>
       <Formik
         initialValues={initialValues}
         validationSchema={PRODUCT_UPDATE_CHEMA}

@@ -1,5 +1,5 @@
 import { Formik, Form } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { categoryCreateRequest } from '../../../redux/actions/categoryAction'
 import { sectionRequest } from '../../../redux/actions/sectionActionCreators'
@@ -7,6 +7,7 @@ import { CATEGORY_CREATE_CHEMA } from '../../../utils/validationSchemasAdmin'
 import Input from '../../Input/Input'
 import MySelect from '../../MySelect/MySelect'
 import classes from './CreateCategory.module.scss'
+import ValidationMessages from '../../validator/validationMessages'
 
 const initialValues = {
   name: '',
@@ -20,21 +21,22 @@ const CreateCategory = () => {
   const requestSections = options => dispatch(sectionRequest(options))
 
   const { section } = useSelector(state => state.section)
-  const { category, isLoading, error } = useSelector(state => state.category)
+  const { category, isLoading, error, messagesCreate } = useSelector(state => state.category)
 
   const dispatch = useDispatch()
   const onSubmit = (values, utils) => {
-    dispatch(categoryCreateRequest(values))
-    utils.resetForm()
+    dispatch(categoryCreateRequest(values));
+    utils.resetForm();;
   }
 
   return (
     <div>
       <h1 className={classes.text}>Створити підрозділ</h1>
-      {error &&
+      {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
-        ))}
+        ))} */}
+       < ValidationMessages  message={messagesCreate}/>
       <Formik
         initialValues={initialValues}
         validationSchema={CATEGORY_CREATE_CHEMA}

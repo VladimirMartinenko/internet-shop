@@ -5,6 +5,8 @@ const initialState = {
   product: [],
   isLoading: false,
   error: null,
+  messagesCreate: null,
+  messagesDelete: null
 };
 
 export default function productsReducer(state = initialState, action) {
@@ -15,6 +17,8 @@ export default function productsReducer(state = initialState, action) {
     case ACTION_TYPES.PRODUCT_DELETE_REQUEST:
       return produce(state, (draftState) => {
         draftState.isLoading = true;
+        draftState.messagesDelete = null;
+        draftState.messagesCreate = null;
       });
     case ACTION_TYPES.PRODUCT_GET_SUCCESS:
       return produce(state, (draftState) => {
@@ -33,6 +37,7 @@ export default function productsReducer(state = initialState, action) {
         draftState.isLoading = false;
         draftState.product.push(action.payload.values);
         draftState.error = null;
+        draftState.messagesCreate = 'Успішно';
       });
     case ACTION_TYPES.PRODUCT_DELETE_SUCCESS:
       return produce(state, (draftState) => {
@@ -41,15 +46,28 @@ export default function productsReducer(state = initialState, action) {
           (products) => products.id !== Number(action.payload.values)
         );
         draftState.error = null;
+        draftState.messagesDelete = 'Успішно';
       });
     case ACTION_TYPES.PRODUCT_GET_ERROR:
     case ACTION_TYPES.PRODUCT_GET_BY_CATEGORY_ERROR:
-    case ACTION_TYPES.PRODUCT_CREATE_ERROR:
-    case ACTION_TYPES.PRODUCT_DELETE_ERROR:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = action.payload.error;
         draftState.product = [];
+      });
+      case ACTION_TYPES.PRODUCT_CREATE_ERROR:
+        return produce(state, (draftState) => {
+          draftState.isLoading = false;
+          draftState.error = action.payload.error;
+          draftState.product = [];
+          draftState.messagesCreate = 'Помилка';
+        });
+        case ACTION_TYPES.PRODUCT_DELETE_ERROR:
+      return produce(state, (draftState) => {
+        draftState.isLoading = false;
+        draftState.error = action.payload.error;
+        draftState.product = [];
+        draftState.messagesDelete = 'Помилка';
       });
     default:
       return state;

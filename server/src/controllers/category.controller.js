@@ -5,6 +5,11 @@ module.exports.createCategory = async (req, res, next) => {
   try {
     const { body } = req;
     const category = await Category.create(body);
+
+    if (!category) {
+      const err = createError(404, "проблема при створенні");
+      return next(err);
+    }
     res.send({ data: category });
   } catch (error) {
     next(error);
@@ -31,7 +36,7 @@ module.exports.deleteCategory = async (req, res, next) => {
     } = req;
     const deleteRows = await Category.destroy({ where: { id } });
     if (deleteRows != 1) {
-      const err = createError(404, "cant delete category");
+      const err = createError(404, "не вдалося видалити підрозділ");
       return next(err);
     }
     res.send({ data: { id } });
@@ -70,7 +75,7 @@ module.exports.findCategoryBySection = async (req, res, next) => {
     if (!sectionId) {
       category = await Category.findAll();
       if (!category) {
-        const err = createError(404, "cant find product");
+        const err = createError(404, "cant find category");
         return next(err);
       }
     }
@@ -78,7 +83,7 @@ module.exports.findCategoryBySection = async (req, res, next) => {
       category = await Category.findAll({ where: { sectionId } });
       console.log(category);
       if ((!category, category.length == 0)) {
-        const err = createError(404, "cant find product");
+        const err = createError(404, "cant find category");
         return next(err);
       }
     }

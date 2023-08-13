@@ -19,6 +19,7 @@ export default function buyersReducer(state = initialState, action) {
         draftState.isLoading = false;
         draftState.error = null;
         draftState.buyers = action.payload.values;
+        draftState.buyers = draftState.buyers.reverse();
       });
     case ACTION_TYPES.BUYERS_DELETE_SUCCESS:
       console.log(action.payload.values);

@@ -1,11 +1,12 @@
 import { Formik, Field, Form } from 'formik'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { categoryUpdateRequest } from '../../../redux/actions/categoryAction'
+import { sectionUpdateRequest } from '../../../redux/actions/sectionActionCreators'
 import Input from '../../Input/Input'
 import MySelect from '../../MySelect/MySelect'
 import { SECTION_UPDATE_CHEMA } from '../../../utils/validationSchemasAdmin'
 import classes from './UpdateSection.module.scss'
+import ValidationMessages from '../../validator/validationMessages'
 
 const initialValues = {
   sectionId: '',
@@ -13,19 +14,20 @@ const initialValues = {
 }
 
 const UpdateSection = () => {
-  const { section, isLoading, error } = useSelector(state => state.section)
+  const { section, isLoading, error, messagesUpdate } = useSelector(state => state.section)
   const dispatch = useDispatch()
   const onSubmit = (values, utils) => {
-    dispatch(categoryUpdateRequest(values))
+    dispatch(sectionUpdateRequest(values))
     utils.resetForm()
   }
   return (
     <div>
       <h1 className={classes.text}>Оновити розділ</h1>
-      {error &&
+      {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
-        ))}
+        ))} */}
+        < ValidationMessages  message={messagesUpdate}/>
       <Formik
         initialValues={initialValues}
         validationSchema={SECTION_UPDATE_CHEMA}

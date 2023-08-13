@@ -2,6 +2,7 @@ import { useSelector, connect, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import AuthActionCreators from '../../redux/actions/authActionCreators'
 import style from './Header.module.scss'
+import Burger from '../MobileMeny/Burger/Burger'
 
 const Header = () => {
   const { user } = useSelector(state => state.auth)
@@ -52,6 +53,7 @@ const Header = () => {
       <Link className={style.textPosition} to='/'>
         <p className={style.text}>МЕДІМПЛАНТ</p>
       </Link>
+      <Burger lassName={style.burger} />
       <div className={style.btnPosition}>
         <div>{controlButtons}</div>
         <div>{controlAdmin}</div>

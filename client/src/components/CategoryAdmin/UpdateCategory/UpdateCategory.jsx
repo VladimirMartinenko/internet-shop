@@ -6,6 +6,7 @@ import Input from '../../Input/Input'
 import MySelect from '../../MySelect/MySelect'
 import { CATEGORY_UPDATE_CHEMA } from '../../../utils/validationSchemasAdmin'
 import classes from './UpdateCategory.module.scss'
+import ValidationMessages from '../../validator/validationMessages'
 
 const initialValues = {
   categoryId: '',
@@ -13,7 +14,7 @@ const initialValues = {
 }
 
 const UpdateCategory = () => {
-  const { category, isLoading, error } = useSelector(state => state.category)
+  const { category, isLoading, error, messagesUpdate } = useSelector(state => state.category)
 
   const dispatch = useDispatch()
   const onSubmit = (values, utils) => {
@@ -24,10 +25,11 @@ const UpdateCategory = () => {
   return (
     <div>
       <h1 className={classes.text}>Оновити підрозділ</h1>
-      {error &&
+      {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
-        ))}
+        ))} */}
+         < ValidationMessages  message={messagesUpdate}/>
       <Formik
         initialValues={initialValues}
         validationSchema={CATEGORY_UPDATE_CHEMA}

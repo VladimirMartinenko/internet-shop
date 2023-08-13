@@ -5,12 +5,13 @@ import { sectionCreateRequest } from '../../../redux/actions/sectionActionCreato
 import { SECTION_CREATE_CHEMA } from '../../../utils/validationSchemasAdmin'
 import Input from '../../Input/Input'
 import classes from './CreateSection.module.scss'
+import ValidationMessages from '../../validator/validationMessages'
 
 const initialValues = {
   name: ''
 }
 const CreateSection = () => {
-  const { section, isLoading, error } = useSelector(state => state.section)
+  const { section, isLoading, error, messagesCreate } = useSelector(state => state.section)
 
   const dispatch = useDispatch()
   const onSubmit = (values, utils) => {
@@ -21,10 +22,11 @@ const CreateSection = () => {
   return (
     <div>
       <h1 className={classes.text}>Створити розділ</h1>
-      {error &&
+      {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
-        ))}
+        ))} */}
+        < ValidationMessages  message={messagesCreate}/>
       <Formik
         initialValues={initialValues}
         validationSchema={SECTION_CREATE_CHEMA}
