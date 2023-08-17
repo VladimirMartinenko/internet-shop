@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import { connect, useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { sectionRequest } from '../../redux/actions/sectionActionCreators'
-import { categoryGetBySectionRequest } from '../../redux/actions/categoryAction'
 import cx from 'classnames'
 import classes from './Section.module.scss'
 import Category from '../category/Category'
