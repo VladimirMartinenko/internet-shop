@@ -7,7 +7,7 @@ const smtpTransport = nodemailer.createTransport({
   secure: true,
   auth:{
     user: 'medimplant2023@ukr.net',
-    pass: 'xsjOtTT2iv840UQy'
+    pass: ''
   },
 },{
   from: 'medimplant <medimplant2023@ukr.net>'
