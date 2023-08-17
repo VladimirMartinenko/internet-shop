@@ -9,6 +9,7 @@ import buyersReducer from './buyersReducer';
 import sectionReducer from './sectionReducer';
 import carouselReducer from './carouselReducer';
 import sliderReducer from './sliderReducer';
+import mobileReducer from './mobileReducer';
 
 const rootReducer = combineReducers({
   auth: authReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   buyers:buyersReducer,
   section:sectionReducer,
   carousel:carouselReducer,
-  slider:sliderReducer
+  slider:sliderReducer,
+  mobile:mobileReducer
 });
 
 export default rootReducer;

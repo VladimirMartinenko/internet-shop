@@ -38,7 +38,7 @@ const Header = () => {
     </div>
   )
   const controlAdmin = (
-    <div>
+    <>
       {user && user.role === 'admin' ? (
         <Link className={style.btn} to='/admin'>
           АдмінПанель
@@ -46,14 +46,14 @@ const Header = () => {
       ) : (
         <></>
       )}
-    </div>
+    </>
   )
   return (
     <header className={style.header}>
+      <Burger className={style.burger} />
       <Link className={style.textPosition} to='/'>
         <p className={style.text}>МЕДІМПЛАНТ</p>
       </Link>
-      <Burger lassName={style.burger} />
       <div className={style.btnPosition}>
         <div>{controlButtons}</div>
         <div>{controlAdmin}</div>

@@ -49,3 +49,8 @@
     width: 20vw;
   }
 }
+@media (min-width:50px) and (max-width: 900px){
+  .nav{
+    display: none;
+  }
+}
