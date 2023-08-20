@@ -10,7 +10,7 @@ const smtpTransport = nodemailer.createTransport({
     pass: ''
   },
 },{
-  from: 'Medimplant <medimplant2023@ukr.net>'
+  from: 'medimplant <medimplant2023@ukr.net>'
 });
 
 module.exports = smtpTransport;
