@@ -20,6 +20,7 @@
   font-size: 2.2em;
   font-style: italic;
   color: white;
+  text-shadow: 6px 7px 4px rgba(66, 68, 90, 1);
 }
 
 .textPosition
@@ -37,6 +38,7 @@
   text-decoration: none;
   font-size: 1.2em;
   color: white;
+  box-shadow: 6px 5px 3px -2px rgba(66, 68, 90, 1);
 }
 
 .btnPosition
@@ -66,7 +68,9 @@
 .position:hover {
   animation: bounce 1s;
 }
-
+.img{
+  // box-shadow: 6px 5px 3px -2px rgba(66, 68, 90, 1);
+}
 .numberPosition
 {
   width: 50%;

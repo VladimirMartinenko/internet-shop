@@ -31,6 +31,12 @@ class AuthActionCreators {
       payload: error,
     };
   }
+  static authRefreshError(error) {
+    return {
+      type: ACTION_TYPES.AUTH_REFRESH_ERROR,
+      payload: error,
+    };
+  }
   static clearUserStore() {
     return {
       type: ACTION_TYPES.CLEAR_USER_STORE,

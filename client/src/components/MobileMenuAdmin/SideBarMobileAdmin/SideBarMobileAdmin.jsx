@@ -1,12 +1,11 @@
 import React from 'react';
-import classes from './SideBarMobile.module.scss'
+import classes from './SideBarMobileAdmin.module.scss'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import SectionMobile from '../SectionMobile/SectionMobile'
 import { useDispatch, useSelector } from 'react-redux';
 import cx from 'classnames'
 import { mobileMenu } from '../../../redux/actions/moboleAction';
 
-const SideBarMobile = () => {
+const SideBarMobileAdmin = () => {
   const dispatch = useDispatch()
   const { menu,level } = useSelector(state => state.mobile);
   console.log(menu);
@@ -24,12 +23,30 @@ const SideBarMobile = () => {
             Домашня
           </Link>
         </li>
-        <SectionMobile />
         <li className={classes.list}>
-          <Link className={classes.link}>Про компанію</Link>
+          <Link to='/admin/section' className={classes.link} onClick={()=>dispatch(mobileMenu())}>
+            Розділи
+          </Link>
         </li>
         <li className={classes.list}>
-          <Link className={classes.link}>Контакти</Link>
+          <Link to='/admin/category' className={classes.link} onClick={()=>dispatch(mobileMenu())}>
+            Підрозділи
+          </Link>
+        </li>
+        <li className={classes.list}>
+          <Link to='/admin/product' className={classes.link} onClick={()=>dispatch(mobileMenu())}>
+            Товари
+          </Link>
+        </li>
+        <li className={classes.list}>
+          <Link to='/admin/slider' className={classes.link} onClick={()=>dispatch(mobileMenu())}>
+            Слайдер
+          </Link>
+        </li>
+        <li className={classes.list}>
+          <Link to='/admin/order' className={classes.link} onClick={()=>dispatch(mobileMenu())}>
+            Замовлення
+          </Link>
         </li>
       </ul>
       </div>
@@ -38,4 +55,4 @@ const SideBarMobile = () => {
   );
 }
 
-export default SideBarMobile;
+export default SideBarMobileAdmin;

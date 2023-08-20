@@ -11,10 +11,10 @@ const ShopPage = () => {
   return (
     <div className={classes.main}>
       <Header />
+      <SideBarMobile/>
+      <CategoryMobile/>
       <div className={classes.body}>
         <SideBar />
-        <SideBarMobile/>
-        <CategoryMobile/>
         <ProductList />
       </div>
       <div className={classes.footer}>

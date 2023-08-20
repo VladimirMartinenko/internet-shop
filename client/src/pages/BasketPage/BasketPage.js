@@ -10,9 +10,11 @@ const BasketPage = (props) => {
   return (
     <div className={classes.main}>
       <Header />
+      <SideBarMobile/>
+      <CategoryMobile/>
       <div className={classes.body}>
-        <SideBarMobile/>
-        <CategoryMobile/>
+        {/* <SideBarMobile/>
+        <CategoryMobile/> */}
         <Basket />
       </div>
       <div className={classes.footer}>

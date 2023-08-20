@@ -7,13 +7,14 @@ module.exports.register = async (req, res, next) => {
   try {
     const { body } = req;
     const user = await User.create(body);
-    if (!user) {
-      return next(createHttpError(401, "помилка при реєстрації"));
-    }
+    // if (!user) {
+    //   return next(createHttpError(401, "помилка при реєстрації"));
+    // }
     const sessionData = await AuthService.createSession(user);
 
     res.status(201).send({ data: sessionData });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

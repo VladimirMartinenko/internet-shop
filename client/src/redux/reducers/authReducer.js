@@ -27,7 +27,14 @@ const handlers = {
   [ACTION_TYPES.AUTH_ERROR]: produce((draftState, action) => {
     draftState.isLoading = false;
     draftState.error = action.payload;
+    draftState.user = null;
+  }),
+
+  [ACTION_TYPES.AUTH_REFRESH_ERROR]: produce((draftState, action) => {
+    draftState.isLoading = false;
+    draftState.error = null;
     localStorage.removeItem(CONSTANTS.REFRESH_TOKEN);
+    draftState.user = null;
   }),
 };
 

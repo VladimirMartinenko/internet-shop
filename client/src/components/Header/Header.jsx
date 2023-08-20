@@ -58,7 +58,7 @@ const Header = () => {
         <div>{controlButtons}</div>
         <div>{controlAdmin}</div>
         <Link className={style.position} to='/basket'>
-          <img src='/staticImages/basket_12.svg' alt='' />
+          <img src='/staticImages/basket_12.svg' alt='' className={style.img} />
           <div className={style.numberPosition}>{count}</div>
         </Link>
       </div>

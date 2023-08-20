@@ -6,11 +6,13 @@ import Footer from "../../components/Footer/Footer";
 import CreateSection from "../../components/SectionAdmin/CreateSection/CreateSection";
 import UpdateSection from "../../components/SectionAdmin/UpdateSection/UpdateSection";
 import DeleteSection from "../../components/SectionAdmin/DeleteSection/DeleteSection";
+import SideBarMobileAdmin from "../../components/MobileMenuAdmin/SideBarMobileAdmin/SideBarMobileAdmin";
 
 const SectionPage = () => {
   return (
     <div className={classes.main}>
       <Header />
+      <SideBarMobileAdmin/>
       <div className={classes.body}>
         <SideBarAdmin />
         <div className={classes.center}>

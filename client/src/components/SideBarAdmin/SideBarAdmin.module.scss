@@ -37,6 +37,8 @@
   color: white;
   border: 1px solid black;
   word-wrap: break-word;
+  text-shadow: 7px 6px 3px rgba(66, 68, 90, 1);
+  text-transform: capitalize;
   
 }
 .list {
@@ -47,5 +49,10 @@
   .nav{
     margin:0;
     width: 20vw;
+  }
+}
+@media (min-width:50px) and (max-width: 900px){
+  .nav{
+    display: none;
   }
 }

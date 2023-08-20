@@ -25,7 +25,7 @@ module.exports.send = async (req, res, next) => {
     );
 
     let message = await smtpTransport.sendMail({
-      from:"medimplant <medimplant2023@ukr.net>",
+      from:"Medimplant <medimplant2023@ukr.net>",
       to: "teslabest87@gmail.com",
       subject: `Замовлення від ${lastName}`,
       html: `<h2>Замовник </h2>

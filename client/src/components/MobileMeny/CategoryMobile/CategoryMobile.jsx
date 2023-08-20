@@ -10,7 +10,7 @@ const CategoryMobile = () => {
   const { menu,level } = useSelector(state => state.mobile);
   console.log(menu);
   const menuStyles = cx( {
-    [classes.menu]: menu===false,
+    [classes.menu]: menu===false || level===0,
     [classes.menuActive]: menu===true && level===1
   })
   const dispatch = useDispatch()
@@ -19,13 +19,13 @@ const CategoryMobile = () => {
   const requestProducts = options =>
     dispatch(productGetByCategoryRequest(options))
   return (
-    <div className={menuStyles}>
+    <div className={menuStyles}  onClick={()=>dispatch(mobileMenu())}>
       <div className={classes.blur}/>
-      <div className={classes.content}>
+      <div className={classes.content} onClick={e => e.stopPropagation()}>
         {isLoading && <div>Loading</div>}
       {error && <div>{error.message}</div>}
       <ul className={classes.nav}>
-        <li onClick ={()=> dispatch(ChangesMobileMenu(0))} className={classes.back}>повернутися</li>
+        <li onClick ={()=> dispatch(ChangesMobileMenu(0))} className={classes.back}><span>&larr;</span>повернутися</li>
       {category?.map(category => (
         // <div key={category.id}>
         <li key={category.id}

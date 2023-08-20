@@ -3,11 +3,13 @@ import SideBarAdmin from "../../components/SideBarAdmin/SideBarAdmin";
 import classes from "./AdminPage.module.scss";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import SideBarMobileAdmin from "../../components/MobileMenuAdmin/SideBarMobileAdmin/SideBarMobileAdmin";
 
 const AdminPage = () => {
   return (
     <div className={classes.main}>
       <Header />
+      <SideBarMobileAdmin/>
       <div className={classes.body}>
         <SideBarAdmin />
         <div className={classes.center}>

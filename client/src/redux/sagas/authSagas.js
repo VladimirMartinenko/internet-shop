@@ -26,7 +26,7 @@ function* refreshSaga(action) {
     } = yield HTTP_API.refresh(action.payload);
     yield put(AuthActionCreators.authSuccess(user));
   } catch (error) {
-    yield put(AuthActionCreators.authError(error));
+    yield put(AuthActionCreators.authRefreshError(error));
   }
 }
 function* signupSaga(action) {
@@ -39,7 +39,7 @@ function* signupSaga(action) {
 
     yield put(AuthActionCreators.authSuccess(user));
   } catch (error) {
-    yield put(AuthActionCreators.authError(error));
+    yield put(AuthActionCreators.authError(error.response.data.errors));
   }
 }
 

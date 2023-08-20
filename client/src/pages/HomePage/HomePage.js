@@ -16,10 +16,10 @@ const HomePage = () => {
   return (
     <div className={classes.main}>
       <Header/>
+      <SideBarMobile/>
+      <CategoryMobile/>
       <div className={classes.body}>
         <SideBar />
-        <SideBarMobile/>
-        <CategoryMobile/>
         <div className={classes.center}>
           <img
             className={classes.img}

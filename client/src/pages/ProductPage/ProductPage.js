@@ -10,9 +10,9 @@ const ProductPage = () => {
   return (
     <div className={classes.main}>
       <Header />
+      <SideBarMobile/>
+      <CategoryMobile/>
       <div className={classes.body}>
-        <SideBarMobile/>
-        <CategoryMobile/>
         <Product />
       </div>
       <div className={classes.footer}>
