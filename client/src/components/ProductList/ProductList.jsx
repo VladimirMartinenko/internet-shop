@@ -27,7 +27,7 @@ const ProductList = () => {
               className={classes.img}
             ></img>
             <div className={classes.text}>
-              {product.name} {product.price} $
+              {product.name} {product.price} грн.
             </div>
             <button
               className={classes.btn}

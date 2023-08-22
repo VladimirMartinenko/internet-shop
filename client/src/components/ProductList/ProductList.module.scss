@@ -37,6 +37,8 @@
   font-family: italic;
   font-size: 1em;
   text-transform: capitalize;
+  overflow-wrap: break-word;
+  text-align: center;
 }
 .error {
   display: flex;

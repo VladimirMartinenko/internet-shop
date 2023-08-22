@@ -36,9 +36,11 @@
   box-shadow: 7px -5px 20px 3px rgba(66, 68, 90, 1);
 }
 .list {
+  width: 40vw;
   color: white;
   text-decoration: none;
   margin: 10px 0;
+  text-align: center;
 }
 .back {
   color: rgb(39, 37, 37);
@@ -56,6 +58,8 @@
   font-size: 1.2em;
   text-transform: capitalize;
   text-shadow: 7px 6px 3px rgba(66, 68, 90, 1);
+  text-align: center;
+  overflow-wrap: break-word;
 }
 .nav{
   align-items: center;

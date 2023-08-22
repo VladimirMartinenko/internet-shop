@@ -34,14 +34,14 @@ const Product = () => {
       ></img>
       <div className={classes.conteiner}>
         <h1 className={classes.name}>{products.name}</h1>
-        <div>
+        {/* <div> */}
           {info &&
             info.map(i => (
               <div className={classes.text} key={i.id}>
                 {i.title}:{i.description}
               </div>
             ))}
-        </div>
+        {/* </div> */}
       </div>
       <div className={classes.conteiner2}>
         <p className={classes.price}>{products.price}грн.</p>

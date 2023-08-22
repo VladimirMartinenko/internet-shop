@@ -14,8 +14,8 @@
 .conteiner{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  align-items: center;
+  // flex-wrap: wrap;
   width: 40vw;
 }
 .name {
@@ -37,8 +37,9 @@ line-height: 1.5em;
 .text {
   font-family: italic;
   font-size: 2em;
-  line-height: 1.5em;
-  
+  width: 100vw;
+  overflow-wrap: break-word;
+  text-align: center;
 }
 .btn {
   font-family: italic;
@@ -68,7 +69,7 @@ line-height: 1.5em;
   text-align: center;
   color: red;
 }
-@media (min-width:375px) and (max-width: 900px){
+@media (min-width:300px) and (max-width: 900px){
   .mainProduct {
     display: flex;
     flex-direction: column;
@@ -77,8 +78,14 @@ line-height: 1.5em;
     margin: 1px 1px;
   }
   .conteiner{
-    width: 100vw;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // overflow-wrap: break-word;
+    // flex-wrap: wrap;
+    // width: 100%;
+    // align-items: center;
+    // white-space:pre-wrap;
   }
   .conteiner2{
     width: 100vw;

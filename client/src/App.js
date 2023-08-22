@@ -23,6 +23,10 @@ import AdminOrderPage from './pages/AdminOrderPage/AdminOrderPage';
 
 function App() {
   useEffect(() => {
+    document.title = "Medimplant";
+  }, []);
+  
+  useEffect(() => {
     const refreshToken = localStorage.getItem(CONSTANTS.REFRESH_TOKEN)
 
     if(refreshToken) {
