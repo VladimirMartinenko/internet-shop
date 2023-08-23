@@ -11,8 +11,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  // height: 200px;
   width: 20%;
-  // height: 40%;
   border: 1px solid rgba(128, 128, 128, 0.288);
   margin: 3px;
 }
@@ -32,12 +32,26 @@
   background-color: white;
   margin: 5px 0;
   box-shadow: 6px 5px 3px -2px rgba(66, 68, 90, 1);
+  height: 20%;
 }
 .text {
+  height: 20%;
+  width: 100%;
   font-family: italic;
   font-size: 1em;
   text-transform: capitalize;
   overflow-wrap: break-word;
+  text-align: center;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  white-space:nowrap ;
+}
+.price {
+  height: 20%;
+  font-family: italic;
+  font-size: 1em;
+  // text-transform: capitalize;
+  // overflow-wrap: break-word;
   text-align: center;
 }
 .error {
@@ -54,8 +68,8 @@
     display: flex;
   flex-direction: column;
   align-items: center;
-  width: 20%;
-  height: 40%;
+  width: 20vw;
+  height: 30vh;
   border: 1px solid rgba(128, 128, 128, 0.288);
   margin: 3px;
   }

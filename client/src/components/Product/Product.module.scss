@@ -1,7 +1,7 @@
 .mainProduct {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   margin: 10px 10px;
 }
 .img {
@@ -15,15 +15,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   // flex-wrap: wrap;
   width: 40vw;
 }
 .name {
-
+  text-align: center;
   font-family: italic;
   font-size: 3em;
   text-transform: capitalize;
   line-height: 1.5em;
+  width: 100%;
 }
 
 .price {
@@ -37,7 +39,7 @@ line-height: 1.5em;
 .text {
   font-family: italic;
   font-size: 2em;
-  width: 100vw;
+  width: 100%;
   overflow-wrap: break-word;
   text-align: center;
 }
@@ -81,6 +83,7 @@ line-height: 1.5em;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 100vw;
     // overflow-wrap: break-word;
     // flex-wrap: wrap;
     // width: 100%;
@@ -90,7 +93,22 @@ line-height: 1.5em;
   .conteiner2{
     width: 100vw;
   }
+  .name{
+    font-family: italic;
+    font-size: 3em;
+    text-transform: capitalize;
+    line-height: 1.5em;
+    text-align: center;
+  }
   .img{
-    width: 80vw;
+    width: 65vw;
+    // height: 70vh;
+  }
+  .text {
+    font-family: italic;
+    font-size: 2em;
+    width: 90vw;
+    overflow-wrap: break-word;
+    text-align: center;
   }
 }
