@@ -1,15 +1,12 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 .nav,
 .list {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  width: 20vw;
+  width: 100%;
+  z-index: 120;
+  // box-shadow: 6px 5px 3px -2px rgba(66, 68, 90, 1);
 }
 .nav {
   margin: 5vh 0 2vh 5vh;
@@ -22,22 +19,23 @@
 }
 .link {
   display: inline-block;
-  // min-width: 20vw;
-  // max-width: 25vw;
   width: 100%;
   padding: 10px 0 10px 0;
-  font-style: italic;
+  font-style: normal;
   font-size: 1.3em;
-  text-align: center;
+  text-align: start;
+  padding-left: 10%;
   text-decoration: none;
-  color: white;
-  border: 1px solid black;
+  color: rgb(51, 49, 49);
   word-wrap: break-word;
-  text-shadow: 7px 6px 3px rgba(66, 68, 90, 1);
   text-transform: capitalize;
 }
 .list {
-    background-color: rgb(8, 107, 121);
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 .listCat:hover > .nav2
  {
@@ -47,9 +45,19 @@
   position: relative;
 }
 .list:hover {
-  background-color: gray;
+  background-color: #eceff1;
 }
 .position{
   left:20vw;
   top: 0px;
+  z-index: 100;
+ }
+ .width{
+  width: 100%;
+ }
+ .section{
+  width: inherit;
+ }
+ .arrow{
+  padding-right: 10px ;
  }

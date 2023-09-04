@@ -6,7 +6,8 @@
   
 }
 html{
-  background-color: #83c9c6;
+  // background-color: #83c9c6;
+  background-color: #eceff1;
 }
 .main {
   display: flex;
@@ -16,10 +17,15 @@ html{
 }
 .body {
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   position: relative;
-
+}
+.section_with_menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: fla;
+  width: 100%;
 }
 .img {
   min-height:400px ;
@@ -36,7 +42,7 @@ html{
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  // width: 100%;
 }
 .footer{
   margin-top: auto;

@@ -28,18 +28,18 @@ const Section = () => {
       {isLoading && <div>Loading</div>}
       {error && <div>{error.message}</div>}
       {section?.map(section => (
-        <div key={section.id}>
-          {/* <li className={cx([classes.list],[classes.listCat])} onMouseEnter={() => requestCategory(section.id)} > */}
-          <li
+        <>
+          <li key={section.id}
             className={cx([classes.list], [classes.listCat])}
             onClick={() => filterCategory(section.id)}
           >
             <Link className={cx(classes.link)}>{section.name}</Link>
+            <span  className={classes.arrow}>{">"}</span>
             <ul className={cx([classes.nav2], [classes.position])}>
               <Category categoryFilter={filterCategory(section.id)} />
             </ul>
           </li>
-        </div>
+        </>
       ))}
     </>
   )
