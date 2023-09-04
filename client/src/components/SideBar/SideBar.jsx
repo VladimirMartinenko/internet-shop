@@ -21,7 +21,12 @@ const SideBar = () => {
     [classes.button]: active===false,
     [classes.buttonActive]: active===true,
   })
+  const buttonStyles2 = cx({
+    [classes.button2]: active===false,
+    [classes.buttonActive2]: active===true,
+  })
   return (
+    <div className={classes.div}>
     <nav className={mainStyles}>
       <ul className={navStyles}>
         <li className={classes.list}>
@@ -38,8 +43,9 @@ const SideBar = () => {
         </li>
         <button onClick={()=>setActive(!active)} className={buttonStyles}></button>
       </ul>
-     
     </nav>
+    <button onClick={()=>setActive(!active)} className={buttonStyles2}></button>
+    </div>
   )
 }
 

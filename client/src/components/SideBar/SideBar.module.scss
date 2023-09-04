@@ -5,7 +5,7 @@
  height: 400px ;
   overflow-y:clip;
   white-space:nowrap ;
- position: relative;
+//  position: relative;
  }
 .mainActive {
   height: 400px ;
@@ -16,13 +16,14 @@
  z-index: 120;
  }
  .button{
-  position: absolute;
-  bottom: -20px;
-  left: 40%;
-  height: 30px;
-  width: 30px;
-  cursor: pointer;
-  z-index: 120;
+  // position: absolute;
+  // bottom: -20px;
+  // left: 40%;
+  // height: 30px;
+  // width: 30px;
+  // cursor: pointer;
+  // z-index: 120;
+  display: none;
  }
  .button::before{
   content: url(../../../public/staticImages/arrow_down_circle_icon_183744.svg);
@@ -35,6 +36,31 @@
   width: 30px;
   cursor: pointer;
   z-index: 120;
+ }
+ .buttonActive::before{
+  content: url(../../../public/staticImages/arrow_down_circle_icon_183744.svg);
+ }
+ .button2{
+  position: absolute;
+  bottom: 0px;
+  left: 40%;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+  z-index: 120;
+ }
+ .button2::before{
+  content: url(../../../public/staticImages/arrow_down_circle_icon_183744.svg);
+ }
+ .buttonActive2{
+  // position: absolute;
+  // bottom:-20px;
+  // left: 40%;
+  // height: 30px;
+  // width: 30px;
+  // cursor: pointer;
+  // z-index: 120;
+  display: none;
  }
  .buttonActive::before{
   content: url(../../../public/staticImages/arrow_down_circle_icon_183744.svg);
@@ -84,6 +110,9 @@
 }
 .list:hover {
   background-color: #eceff1;
+}
+.div{
+  position: relative;
 }
 @media (min-width:375px) and (max-width: 900px){
   .nav{
