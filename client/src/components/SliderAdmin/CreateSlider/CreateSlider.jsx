@@ -27,12 +27,10 @@ const CreateSlider = () => {
     utils.resetForm()
   }
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>Створити слайд</h1>
       {error &&
-        error.map(error => (
-          <div className={classes.error}>{error.message}</div>
-        ))}
+        error.map(error => <p className={classes.error}>{error.message}</p>)}
       <Formik
         initialValues={initialValues}
         validationSchema={SLIDER_CREATE_CHEMA}
@@ -52,7 +50,7 @@ const CreateSlider = () => {
           </button>
         </Form>
       </Formik>
-    </div>
+    </section>
   )
 }
 

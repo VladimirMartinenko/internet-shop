@@ -8,19 +8,19 @@ import CategoryMobile from "../../components/MobileMeny/CategoryMobile/CategoryM
 
 const BasketPage = (props) => {
   return (
-    <div className={classes.main}>
+    <body className={classes.main}>
       <Header />
-      <SideBarMobile/>
-      <CategoryMobile/>
-      <div className={classes.body}>
+      <SideBarMobile />
+      <CategoryMobile />
+      <main className={classes.body}>
         {/* <SideBarMobile/>
         <CategoryMobile/> */}
         <Basket />
-      </div>
+      </main>
       <div className={classes.footer}>
         <Footer />
       </div>
-    </div>
+    </body>
   );
 };
 

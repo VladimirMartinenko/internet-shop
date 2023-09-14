@@ -3,6 +3,7 @@ import ACTION_TYPES from "../actions/types";
 
 const initialState = {
   category: [],
+  categoryById:[],
   isLoading: false,
   error: null,
   messagesCreate: null,
@@ -16,6 +17,7 @@ export default function categoryReducer(state = initialState, action) {
     case ACTION_TYPES.CATEGORY_CREATE_REQUEST:
     case ACTION_TYPES.CATEGORY_DELETE_REQUEST:
     case ACTION_TYPES.CATEGORY_UPDATE_REQUEST:
+    case ACTION_TYPES.CATEGORY_GET_BY_ID_REQUEST:
     case ACTION_TYPES.CATEGORY_GET_BY_SECTION_REQUEST:
       return produce(state, (draftState) => {
         draftState.isLoading = true;
@@ -28,6 +30,12 @@ export default function categoryReducer(state = initialState, action) {
         draftState.isLoading = false;
         draftState.error = null;
         draftState.category = action.payload.values;
+      });
+    case ACTION_TYPES.CATEGORY_GET_BY_ID_SUCCESS:
+      return produce(state, (draftState) => {
+        draftState.isLoading = false;
+        draftState.error = null;
+        draftState.categoryById = action.payload.values;
       });
     case ACTION_TYPES.CATEGORY_GET_SUCCESS:
       return produce(state, (draftState) => {
@@ -86,6 +94,11 @@ export default function categoryReducer(state = initialState, action) {
         return produce(state, (draftState) => {
           draftState.isLoading = false;
           draftState.messagesUpdate = 'Помилка';
+          draftState.error = action.payload.error;
+        });
+      case ACTION_TYPES.CATEGORY_GET_BY_ID_ERROR:
+        return produce(state, (draftState) => {
+          draftState.isLoading = false;
           draftState.error = action.payload.error;
         });
     default:

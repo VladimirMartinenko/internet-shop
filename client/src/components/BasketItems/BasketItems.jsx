@@ -14,7 +14,7 @@ const BasketItems = () => {
   const dispatch = useDispatch()
 
   return (
-    <div>
+    <details>
       {items?.map(i => (
         <div key={i.id} className={classes.containerMain}>
           <img
@@ -22,7 +22,7 @@ const BasketItems = () => {
             src={CONSTANTS.HTTP_SERVER_URL_images + i.img}
             alt={i.name}
           ></img>
-          <div className={classes.text}>назва : {i.name}</div>
+          <p className={classes.text}>назва : {i.name}</p>
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
@@ -40,8 +40,8 @@ const BasketItems = () => {
               -
             </button>
           </div>
-          <div className={classes.text}>ціна : {i.price}</div>
-          <div className={classes.text}>сума : {i.price * i.count}</div>
+          <p className={classes.text}>ціна : {i.price}</p>
+          <p className={classes.text}>сума : {i.price * i.count}</p>
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
@@ -52,8 +52,8 @@ const BasketItems = () => {
           </div>
         </div>
       ))}
-      <div className={classes.text2}>ЗАГАЛЬНА СУМА : {totalSumm}</div>
-    </div>
+      <p className={classes.text2}>ЗАГАЛЬНА СУМА : {totalSumm}</p>
+    </details>
   )
 }
 

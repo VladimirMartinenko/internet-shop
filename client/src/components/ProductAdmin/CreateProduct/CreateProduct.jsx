@@ -26,6 +26,14 @@ const initialValues = {
 }
 
 const CreateProduct = () => {
+  console.log(document.getElementsByName('img').length);
+  let text = 'виберіть файл'
+  const textF=()=>{
+    // console.log(document.getElementsByName('img'));
+    if(document.getElementsByName('img')[0].value===''){
+    return text= 'виберіть файл'
+    }else{ return text= document.getElementsByName('img')[0].value}
+  }
   useEffect(() => {
     requestCategorys()
   }, [])
@@ -50,7 +58,7 @@ const CreateProduct = () => {
     utils.resetForm()
   }
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>СТВОРИТИ ТОВАР</h1>
       {/* {error &&
         error.map(error => (
@@ -81,7 +89,8 @@ const CreateProduct = () => {
               <Input name='price' type='text' placeholder='ціна' />
               <Input name='quantity' type='text' placeholder='кількість' />
               <Input name='brand' type='text' placeholder='бренд' />
-              <label htmlFor='file' className={inputStyles}>
+              <label htmlFor='file' className={classes.inputStyles}  onChange={()=>textF()}>
+              <span className={classes.span}>{text}</span>
                 <Input
                   name='img'
                   type='file'
@@ -131,7 +140,7 @@ const CreateProduct = () => {
           )
         }}
       </Formik>
-    </div>
+    </section>
   )
 }
 

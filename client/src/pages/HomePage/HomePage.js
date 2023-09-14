@@ -11,42 +11,43 @@ import SliderProduct from "../../components/SliderProduct/SliderProduct";
 import About from "../../components/About/About";
 
 const HomePage = () => {
-//   const [menuActive,setMenuActive] = useState(false);
-//   function active (data){
-//     setMenuActive(data)
-// }
-// console.log (menuActive)
+  //   const [menuActive,setMenuActive] = useState(false);
+  //   function active (data){
+  //     setMenuActive(data)
+  // }
+  // console.log (menuActive)
   return (
-    <div className={classes.main}>
-      <Header/>
-      <SideBarMobile/>
-      <CategoryMobile/>
-      <div className={classes.body}>
-        <div className={classes.section_with_menu} >
-        <SideBar />
-        <div className={classes.center}>
+    <body className={classes.main}>
+      <Header />
+      <SideBarMobile />
+      <CategoryMobile />
+      <main className={classes.body}>
+        <div className={classes.section_with_menu}>
+          {/* <div className={classes.center}> */}
+          <SideBar />
+
           {/* <img
             className={classes.img}
             src="/staticImages/271345139_5121310647879578_4927642615570530009_n.jpg"
             alt="foto"
           ></img> */}
-          <ImageGalery/>
+          <ImageGalery />
           {/* <Slider /> */}
-         
-        </div>
+
+          {/* </div> */}
         </div>
         {/* <div> */}
-          <SliderProduct/>
-          {/* </div> */}
-          <About/>
-      </div>
+        <SliderProduct />
+        {/* </div> */}
+        <About />
+      </main>
       {/* <div>
       <Slider /> 
       </div> */}
       <div className={classes.footer}>
         <Footer />
       </div>
-    </div>
+    </body>
   );
 };
 

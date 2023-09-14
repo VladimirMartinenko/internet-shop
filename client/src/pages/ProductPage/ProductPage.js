@@ -1,24 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import Product from "../../components/Product/Product";
 import classes from "./ProductPage.module.scss";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import SideBarMobile from "../../components/MobileMeny/SideBarMobile/SideBarMobile";
 import CategoryMobile from "../../components/MobileMeny/CategoryMobile/CategoryMobile";
+import TopBlock from "../../components/TopBlock/TopBlock";
 
 const ProductPage = () => {
+  const [active, setActive] = useState(false);
+  const handlChange = (value) => {
+    setActive(value);
+  };
   return (
-    <div className={classes.main}>
+    <body className={classes.main}>
       <Header />
-      <SideBarMobile/>
-      <CategoryMobile/>
-      <div className={classes.body}>
+      <SideBarMobile />
+      <CategoryMobile />
+      <main className={classes.body}>
+        <TopBlock change={handlChange} active={active} />
         <Product />
-      </div>
+      </main>
       <div className={classes.footer}>
         <Footer />
       </div>
-    </div>
+    </body>
   );
 };
 

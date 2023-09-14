@@ -26,12 +26,10 @@ const DeleteSlider = () => {
     utils.resetForm()
   }
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>Видалити слайд</h1>
       {error &&
-        error.map(error => (
-          <div className={classes.error}>{error.message}</div>
-        ))}
+        error.map(error => <p className={classes.error}>{error.message}</p>)}
       <Formik
         initialValues={initialValues}
         validationSchema={SLIDER_DELETE_CHEMA}
@@ -51,7 +49,7 @@ const DeleteSlider = () => {
           </button>
         </Form>
       </Formik>
-    </div>
+    </section>
   )
 }
 

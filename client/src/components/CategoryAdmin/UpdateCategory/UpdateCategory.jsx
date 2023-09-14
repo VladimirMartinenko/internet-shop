@@ -23,7 +23,7 @@ const UpdateCategory = () => {
   }
 
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>Оновити підрозділ</h1>
       {/* {error &&
         error.map(error => (
@@ -50,7 +50,7 @@ const UpdateCategory = () => {
           </button>
         </Form>
       </Formik>
-    </div>
+    </section>
   )
 }
 

@@ -15,6 +15,23 @@ module.exports.createCategory = async (req, res, next) => {
     next(error);
   }
 };
+module.exports.findCategoryById = async (req, res, next) => {
+  try {
+    const {
+      params: { id },
+    } = req;
+
+    const category = await Category.findByPk(id);
+    if (!category) {
+      const err = createError(404, "Buyer not found");
+      return next(err);
+    }
+
+    res.send({ data: category });
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports.findAllCategory = async (req, res, next) => {
   try {

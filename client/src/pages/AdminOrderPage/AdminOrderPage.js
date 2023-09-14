@@ -8,19 +8,19 @@ import SideBarMobileAdmin from "../../components/MobileMenuAdmin/SideBarMobileAd
 
 const AdminOrderPage = () => {
   return (
-    <div className={classes.main}>
+    <body className={classes.main}>
       <Header />
-      <SideBarMobileAdmin/>
-      <div className={classes.body}>
+      <SideBarMobileAdmin />
+      <main className={classes.body}>
         <SideBarAdmin />
         <div className={classes.center}>
           <GetOrder />
         </div>
-      </div>
+      </main>
       <div className={classes.footer}>
         <Footer />
       </div>
-    </div>
+    </body>
   );
 };
 

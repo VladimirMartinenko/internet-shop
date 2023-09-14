@@ -8,11 +8,11 @@ const Burger = () => {
   const requestMobile = options =>
   dispatch(mobileMenu(options))
   return (
-    <div className={classes.main} onClick={()=> requestMobile() }>
+    <section className={classes.main} onClick={()=> requestMobile() }>
       <div className={classes.div}/>
       <div className={classes.div} />
       <div className={classes.div} />
-    </div>
+    </section>
   );
 }
 

@@ -1,5 +1,5 @@
 import {put, takeEvery} from 'redux-saga/effects'
-import {categoryError,categorySucces,categoryCreateSucces,categoryCreateError,categoryDeleteSucces,categoryDeleteError, categoryUpdateSucces, categoryUpdateError,categoryGetBySectionSucces,categoryGetBySectionError} from '../actions/categoryAction'
+import {categoryError,categorySucces,categoryCreateSucces,categoryCreateError,categoryDeleteSucces,categoryDeleteError, categoryUpdateSucces, categoryUpdateError,categoryGetBySectionSucces,categoryGetBySectionError, categoryGetByIdSucces, categoryGetByIdError} from '../actions/categoryAction'
 import ACTION_TYPES from '../actions/types'
 import * as API from '../../api/http'
 
@@ -71,11 +71,24 @@ function* categoryUpdateSaga(action) {
     yield put(categoryUpdateError(error.response.data.errors));
   }
  }
+ function* categoryGetByIdSaga(action) {
+  try {
+    const {
+      data: { data: product },
+    } = yield API.categoryGetById(action.payload.values);
+
+    yield put(categoryGetByIdSucces(product));
+  } catch (error) {
+    yield put(categoryGetByIdError(error.response.data.error));
+  }
+}
+
 
 export default function* categorysSagas() {
   yield takeEvery(ACTION_TYPES.CATEGORY_GET_REQUEST, categoryGetSaga);
   yield takeEvery(ACTION_TYPES.CATEGORY_CREATE_REQUEST, categoryCreateSaga);
   yield takeEvery(ACTION_TYPES.CATEGORY_DELETE_REQUEST, categoryDeleteSaga);
   yield takeEvery(ACTION_TYPES.CATEGORY_UPDATE_REQUEST, categoryUpdateSaga);
+  yield takeEvery(ACTION_TYPES.CATEGORY_GET_BY_ID_REQUEST, categoryGetByIdSaga);
   yield takeEvery(ACTION_TYPES.CATEGORY_GET_BY_SECTION_REQUEST, categoryGetBySectionSaga);
 }

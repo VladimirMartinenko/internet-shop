@@ -466,3 +466,43 @@ $ig-shadow: 0 2px 2px lighten($ig-black, 10%);
   height: 400px;
   cursor:pointer;
 }
+.description {
+  background: rgba(0, 0, 0, .4);
+    bottom: 70px;
+    color:  #fff;
+    left: 5%;
+    line-height: 1;
+    padding: 10px 20px;
+    position: absolute;
+    white-space: normal;
+    font-size: 1.2em;
+
+    
+}
+@media (max-width: 768px) {
+  .description{
+      bottom: 45px;
+      font-size: .8em;
+      padding: 8px 15px;
+  }
+  .slide {
+    // height: 300px;
+    // overflow: hidden;
+    // white-space:nowrap ;
+    // border: 7px solid  #5bb1ac;
+    margin: 0 0 0 0;
+  }
+    }
+    @media (min-width:50px) and (max-width: 900px){
+      .slide {
+        margin: 0 0 0 0;
+      }
+      .img{
+        object-fit:cover;
+        // width: 90%;
+        // height: 80%;
+        width: 100vw;
+        height: 400px;
+        cursor:pointer;
+      }
+    }

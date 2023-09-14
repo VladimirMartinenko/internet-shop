@@ -7,20 +7,20 @@ import SideBarMobileAdmin from "../../components/MobileMenuAdmin/SideBarMobileAd
 
 const AdminPage = () => {
   return (
-    <div className={classes.main}>
+    <body className={classes.main}>
       <Header />
       <SideBarMobileAdmin/>
-      <div className={classes.body}>
+      <main className={classes.body}>
         <SideBarAdmin />
-        <div className={classes.center}>
+        <article className={classes.center}>
           <p className={classes.text}>Вітаємо в Адмінпанелі</p>
           <p className={classes.text}>Оберіть пункт меню для редагування</p>
-        </div>
-      </div>
+        </article>
+      </main>
       <div className={classes.footer}>
         <Footer />
       </div>
-    </div>
+    </body>
   );
 };
 

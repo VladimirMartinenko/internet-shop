@@ -29,7 +29,7 @@ const DeleteCategory = () => {
   }
 
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>Видалити підрозділ</h1>
       {/* {error &&
         error.map(error => (
@@ -55,7 +55,7 @@ const DeleteCategory = () => {
           </button>
         </Form>
       </Formik>
-    </div>
+    </section>
   )
 }
 

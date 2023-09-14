@@ -42,7 +42,7 @@ const Basket = () => {
   useEffect(() => {
     examinationBasket()
   }, [])
-  
+
   useEffect(() => {
     dispatch(buyerCreate(user))
   }, [])
@@ -82,14 +82,14 @@ const Basket = () => {
       for (const [key, value] of data) {
         console.log(`${key}: ${value}\n`)
       }
-      await httpClient.post(`mailer`, data ,console.log(data))
+      await httpClient.post(`mailer`, data, console.log(data))
       // await httpClient.post(`mailer`)
       await dispatch(basketClear())
       await setMessage('замовлення створено успішно')
     } catch (err) {
-      console.log(err);
+      console.log(err)
       if (err.response.status === 500) {
-        setHasError('проблема при створенні');
+        setHasError('проблема при створенні')
       } else {
         setError(err.response.data.errors)
       }
@@ -110,15 +110,13 @@ const Basket = () => {
   }
   const dispatch = useDispatch()
   return (
-    <div>
+    <section>
       {hasError && <div className={classes.error}>{hasError}</div>}
       {Error &&
-        Error.map(error => (
-          <div className={classes.error}>{error.message}</div>
-        ))}
+        Error.map(error => <p className={classes.error}>{error.message}</p>)}
       {Message && <div className={classes.valid}>{Message}</div>}
       <BasketItems />
-      <div>
+      <form>
         <Formik
           initialValues={initialValues}
           validationSchema={BAYER_CHEMA}
@@ -132,7 +130,7 @@ const Basket = () => {
                     name='firstName'
                     type='text'
                     placeholder="І'мя"
-                    value={buyer.firstName || ""}
+                    value={buyer.firstName || ''}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
                     onChange={e => dispatch(buyerLocalUpdate(e.target))}
@@ -141,7 +139,7 @@ const Basket = () => {
                     name='lastName'
                     type='text'
                     placeholder='Фамілія'
-                    value={buyer.lastName || ""}
+                    value={buyer.lastName || ''}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
                     onChange={e => dispatch(buyerLocalUpdate(e.target))}
@@ -150,7 +148,7 @@ const Basket = () => {
                     name='email'
                     type='email'
                     placeholder='email'
-                    value={buyer.email || ""}
+                    value={buyer.email || ''}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
                     onChange={e => dispatch(buyerLocalUpdate(e.target))}
@@ -159,7 +157,7 @@ const Basket = () => {
                     name='phone'
                     type='phone'
                     placeholder='телефон(380)'
-                    value={buyer.phone || ""}
+                    value={buyer.phone || ''}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
                     onChange={e => dispatch(buyerLocalUpdate(e.target))}
@@ -182,8 +180,8 @@ const Basket = () => {
                 </Form>
               )}
         </Formik>
-      </div>
-    </div>
+      </form>
+    </section>
   )
 }
 

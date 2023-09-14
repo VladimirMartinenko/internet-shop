@@ -6,15 +6,15 @@ import classes from "./RegistrationPage.module.scss";
 const RegistrationPage = () => {
   const { error } = useSelector((state) => state.auth);
   return (
-    <div className={classes.containerMain}>
+    <main className={classes.containerMain}>
       <h1 className={classes.text}>РЕЄСТРАЦІЯ</h1>
       {error &&
         error.map((error) => (
           error.errors.map((errors)=>
-          <div className={classes.error}>{errors.message}</div>
+          <p className={classes.error}>{errors.message}</p>
         )))}
       <RegistrationForm />
-    </div>
+    </main>
   );
 };
 

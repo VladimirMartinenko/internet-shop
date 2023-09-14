@@ -21,7 +21,7 @@ const Product = () => {
   const { products, isLoading, error } = useSelector(state => state.product)
   let info = products.ProductInfos
   return (
-    <div className={cx(classes.mainProduct)}>
+    <main className={cx(classes.mainProduct)}>
       {isLoading && <div>Loading</div>}
       {error &&
         error.map(error => (
@@ -29,21 +29,25 @@ const Product = () => {
         ))}
       <img
         className={classes.img}
-        src={products.img === undefined ? CONSTANTS.PRODUCT_IMAGE_PATH: CONSTANTS.HTTP_SERVER_URL_images + products.img}
+        src={
+          products.img === undefined
+            ? CONSTANTS.PRODUCT_IMAGE_PATH
+            : CONSTANTS.HTTP_SERVER_URL_images + products.img
+        }
         alt={products.name}
       ></img>
-      <div className={classes.conteiner}>
+      <section className={classes.conteiner}>
         <h1 className={classes.name}>{products.name}</h1>
         {/* <div> */}
-          {info &&
-            info.map(i => (
-              <div className={classes.text} key={i.id}>
-                {i.title}:{i.description}
-              </div>
-            ))}
+        {info &&
+          info.map(i => (
+            <div className={classes.text} key={i.id}>
+              {i.title}:{i.description}
+            </div>
+          ))}
         {/* </div> */}
-      </div>
-      <div className={classes.conteiner2}>
+      </section>
+      <section className={classes.conteiner2}>
         <p className={classes.price}>{products.price}грн.</p>
         <button
           className={cx(classes.btn)}
@@ -51,8 +55,8 @@ const Product = () => {
         >
           До кошика
         </button>
-      </div>
-    </div>
+      </section>
+    </main>
   )
 }
 export default Product

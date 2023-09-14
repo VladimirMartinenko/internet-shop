@@ -20,14 +20,15 @@ const initialValues = {
   categoryId: '',
   brand: '',
   img: '',
-  info: [
-    {
-      title: '',
-      description: '',
-      id: ''
-    }
-  ]
+  // info: [
+  //   {
+  //     title: '',
+  //     description: '',
+  //     id: ''
+  //   }
+  // ]
 }
+console.log(initialValues)
 
 const UpdateProduct = () => {
   const { category } = useSelector(state => state.category)
@@ -42,11 +43,11 @@ const UpdateProduct = () => {
       setFieldValue('quantity', products.quantity)
       setFieldValue('categoryId', products.categoryId)
       setFieldValue('brand', products.brand)
-      products.ProductInfos?.map((info, index) => {
-        setFieldValue(`info[${index}].title`, info.title)
-        setFieldValue(`info.${index}.description`, info.description)
-        setFieldValue(`info.${index}.id`, info.id)
-      })
+      // products.ProductInfos?.map((info, index) => {
+      //   setFieldValue(`info[${index}].title`, info.title)
+      //   setFieldValue(`info.${index}.description`, info.description)
+      //   setFieldValue(`info.${index}.id`, info.id)
+      // })
     }, [products])
   }
 
@@ -66,7 +67,11 @@ const UpdateProduct = () => {
     } else {
       data.append('img', document.getElementsByName('img')[0].value)
     }
-    data.append('info', JSON.stringify(values.info))
+    // if(values.info===undefined){
+    //   return
+    // }else{
+    // data.append('info', JSON.stringify(values.info))
+    // }
     for (const [key, value] of data) {
       console.log(`${key}: ${value}\n`)
     }
@@ -88,7 +93,7 @@ const UpdateProduct = () => {
   }
 
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>ОНОВИТИ ТОВАР</h1>
       {/* {error &&
         error.map(error => (
@@ -235,7 +240,7 @@ const UpdateProduct = () => {
           )
         }}
       </Formik>
-    </div>
+    </section>
   )
 }
 

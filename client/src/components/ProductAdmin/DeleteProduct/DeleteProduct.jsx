@@ -27,7 +27,7 @@ const DeleteProduct = () => {
   }
 
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>ВИДАЛИТИ ТОВАР</h1>
       {/* {error &&
         error.map(error => (
@@ -53,7 +53,7 @@ const DeleteProduct = () => {
           </button>
         </Form>
       </Formik>
-    </div>
+    </section>
   )
 }
 

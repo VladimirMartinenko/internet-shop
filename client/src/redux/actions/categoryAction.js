@@ -59,3 +59,15 @@ export const categoryUpdateError = (error) => ({
   type: ACTION_TYPES.CATEGORY_UPDATE_ERROR,
   payload: { error },
 });
+export const categoryGetByIdRequest = (id) => ({
+  type: ACTION_TYPES.CATEGORY_GET_BY_ID_REQUEST,
+  payload: {values: id}
+});
+export const categoryGetByIdSucces = (category) => ({
+  type: ACTION_TYPES.CATEGORY_GET_BY_ID_SUCCESS,
+  payload: { values: category },
+  });
+export const categoryGetByIdError = (error) => ({
+  type: ACTION_TYPES.CATEGORY_GET_BY_ID_ERROR,
+  payload: { error },
+});

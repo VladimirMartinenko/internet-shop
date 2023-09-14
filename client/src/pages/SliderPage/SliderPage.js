@@ -9,20 +9,20 @@ import SideBarMobileAdmin from "../../components/MobileMenuAdmin/SideBarMobileAd
 
 const SliderPage = () => {
   return (
-    <div className={classes.main}>
+    <body className={classes.main}>
       <Header />
-      <SideBarMobileAdmin/>
-      <div className={classes.body}>
+      <SideBarMobileAdmin />
+      <main className={classes.body}>
         <SideBarAdmin />
         <div className={classes.center}>
           <CreateSlider />
           <DeleteSlider />
         </div>
-      </div>
+      </main>
       <div className={classes.footer}>
         <Footer />
       </div>
-    </div>
+    </body>
   );
 };
 

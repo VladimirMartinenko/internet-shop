@@ -70,6 +70,8 @@ export const categoryCreate = (values) => httpClient.post(`category`,values );
 
 export const categoryDelete = (id) => httpClient.delete(`category/${id}`);
 
+export const categoryGetById = (id) => httpClient.get(`category/${id}`);
+
 export const categoryUpdate = (values) => httpClient.put(`category/${values.categoryId}`,values);
 
 export const sectionGet = () => httpClient.get(`section`);

@@ -11,7 +11,9 @@ const initialValues = {
   name: ''
 }
 const CreateSection = () => {
-  const { section, isLoading, error, messagesCreate } = useSelector(state => state.section)
+  const { section, isLoading, error, messagesCreate } = useSelector(
+    state => state.section
+  )
 
   const dispatch = useDispatch()
   const onSubmit = (values, utils) => {
@@ -20,13 +22,13 @@ const CreateSection = () => {
   }
 
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>Створити розділ</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
         ))} */}
-        < ValidationMessages  message={messagesCreate}/>
+      <ValidationMessages message={messagesCreate} />
       <Formik
         initialValues={initialValues}
         validationSchema={SECTION_CREATE_CHEMA}
@@ -39,7 +41,7 @@ const CreateSection = () => {
           </button>
         </Form>
       </Formik>
-    </div>
+    </section>
   )
 }
 

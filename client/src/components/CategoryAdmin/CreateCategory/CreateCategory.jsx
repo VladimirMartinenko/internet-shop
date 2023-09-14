@@ -30,7 +30,7 @@ const CreateCategory = () => {
   }
 
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>Створити підрозділ</h1>
       {/* {error &&
         error.map(error => (
@@ -57,7 +57,7 @@ const CreateCategory = () => {
           </button>
         </Form>
       </Formik>
-    </div>
+    </section>
   )
 }
 

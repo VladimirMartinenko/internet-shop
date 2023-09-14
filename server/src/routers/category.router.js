@@ -6,5 +6,6 @@ categoryRouter.get('/all',categoryController.findAllCategory);
 categoryRouter.get('/',categoryController.findCategoryBySection);
 categoryRouter.delete('/:id',categoryController.deleteCategory);
 categoryRouter.put('/:id',categoryController.updateCategory);
+categoryRouter.get('/:id',categoryController.findCategoryById);
 
 module.exports = categoryRouter;

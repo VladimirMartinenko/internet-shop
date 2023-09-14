@@ -21,7 +21,7 @@ const SectionMobile = () => {
       {isLoading && <div>Loading</div>}
       {error && <div>{error.message}</div>}
       {section?.map(section => (
-        <div key={section.id}>
+        <ul key={section.id}>
           {/* <li className={cx([classes.list],[classes.listCat])} onMouseEnter={() => requestCategory(section.id)} > */}
           <li
             className={classes.list}
@@ -29,12 +29,12 @@ const SectionMobile = () => {
             onClick ={()=> {dispatch(ChangesMobileMenu(1));dispatch(categoryGetBySectionRequest(section.id)) }}
             // onClick ={()=> dispatch(categoryGetBySectionRequest(section.id)) }
           >
-            <Link className={classes.link}>{section.name}</Link>
+            <Link to='' className={classes.link}>{section.name}</Link>
             {/* <ul className={cx([classes.nav2], [classes.position])}>
               <Category categoryFilter={filterCategory(section.id)} />
             </ul> */}
           </li>
-        </div>
+        </ul>
       ))}
     </>
   );

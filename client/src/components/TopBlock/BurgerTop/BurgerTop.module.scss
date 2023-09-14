@@ -1,0 +1,27 @@
+.main {
+  // position: fixed;
+  left: 6vw;
+  right: 10vw;
+  top: 5vw;
+  width: 3rem;
+  height: 2rem;
+  padding: 5 px;
+  // background: rgb(10, 143, 39);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  z-index: 1;
+
+}
+.div {
+  position: relative;
+  width: 2rem;
+  height: 0.25rem;
+  border-radius: 10px;
+  background-color:white;
+  box-shadow: 7px 7px 15px 2px rgba(66, 68, 90, 1);
+}

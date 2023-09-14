@@ -14,9 +14,9 @@ const SideBarMobileAdmin = () => {
     [classes.menuActive]: menu===true && level===0
   })
   return (
-    <div className={menuStyles} onClick={()=>dispatch(mobileMenu())}>
+    <main className={menuStyles} onClick={()=>dispatch(mobileMenu())}>
       <div className={classes.blur}/>
-      <div className={classes.content} onClick={e => e.stopPropagation()}>
+      <nav className={classes.content} onClick={e => e.stopPropagation()}>
       <ul className={classes.nav}>
         <li className={classes.list}>
           <Link to='/' className={classes.link}  onClick={()=>dispatch(mobileMenu())}>
@@ -49,9 +49,9 @@ const SideBarMobileAdmin = () => {
           </Link>
         </li>
       </ul>
-      </div>
+      </nav>
       
-    </div>
+    </main>
   );
 }
 

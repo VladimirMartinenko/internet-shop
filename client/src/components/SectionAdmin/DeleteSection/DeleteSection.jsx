@@ -15,7 +15,9 @@ const initialValues = {
 }
 
 const DeleteSection = () => {
-  const { section, isLoading, error, messagesDelete } = useSelector(state => state.section)
+  const { section, isLoading, error, messagesDelete } = useSelector(
+    state => state.section
+  )
   const dispatch = useDispatch()
   useEffect(() => {
     requestSection()
@@ -26,13 +28,13 @@ const DeleteSection = () => {
     utils.resetForm()
   }
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>Видалити розділ</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
         ))} */}
-         < ValidationMessages  message={messagesDelete}/>
+      <ValidationMessages message={messagesDelete} />
       <Formik
         initialValues={initialValues}
         validationSchema={SECTION_DELETE_CHEMA}
@@ -52,7 +54,7 @@ const DeleteSection = () => {
           </button>
         </Form>
       </Formik>
-    </div>
+    </section>
   )
 }
 

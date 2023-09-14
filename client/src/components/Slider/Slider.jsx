@@ -32,7 +32,11 @@ const Slider = () => {
                   <>
                     <img
                       className={classes.image}
-                      src={image.Product.img === undefined ? CONSTANTS.PRODUCT_IMAGE_PATH: CONSTANTS.HTTP_SERVER_URL_images + image.Product.img}
+                      src={
+                        image.Product.img === undefined
+                          ? CONSTANTS.PRODUCT_IMAGE_PATH
+                          : CONSTANTS.HTTP_SERVER_URL_images + image.Product.img
+                      }
                       alt={image.Product.name}
                       onClick={() =>
                         history.push('/product/' + image.Product.id)

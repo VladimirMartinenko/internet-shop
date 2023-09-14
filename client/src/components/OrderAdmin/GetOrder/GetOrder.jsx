@@ -14,42 +14,42 @@ const GetOrder = () => {
   const { buyers, isLoading, error } = useSelector(state => state.buyers)
 
   return (
-    <div className={classes.form}>
+    <main className={classes.form}>
       {isLoading && <div>Loading</div>}
       {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
         ))}
       {buyers?.map(buyers => (
-        <div key={buyers.id} className={classes.containerMain}>
+        <section key={buyers.id} className={classes.containerMain}>
           <div className={classes.container}>
-          <div className={classes.text}>{buyers.firstName}</div>
-          <div className={classes.text}>{buyers.lastName}</div>
-          <div className={classes.text}>{buyers.email}</div>
-          <div className={classes.text}>{buyers.phone}</div>
+          <p className={classes.text}>{buyers.firstName}</p>
+          <p className={classes.text}>{buyers.lastName}</p>
+          <p className={classes.text}>{buyers.email}</p>
+          <p className={classes.text}>{buyers.phone}</p>
           </div>
           <div className={classes.form}>
             <div className={classes.container}>
               {buyers.Orders?.map(order => (
-                <div key={order.id} className={classes.container}>
-                  <div className={classes.text}> номер:{order.id}</div>
-                  <div className={classes.text}> Сума:{order.sum}</div>
+                <section key={order.id} className={classes.container}>
+                  <p className={classes.text}> номер:{order.id}</p>
+                  <p className={classes.text}> Сума:{order.sum}</p>
                   <div>
                     {order.Products?.map(products => (
-                      <div key={products.name} className={classes.container}>
-                        <div className={classes.text}>
+                      <section key={products.name} className={classes.container}>
+                        <p className={classes.text}>
                           назва:{products.name}
-                        </div>
-                        <div className={classes.text}>
+                        </p>
+                        <p className={classes.text}>
                           кількість:{products.products_to_rders.quantity}
-                        </div>
-                        <div className={classes.text}>
+                        </p>
+                        <p className={classes.text}>
                           ціна:{products.price}
-                        </div>
-                      </div>
+                        </p>
+                      </section>
                     ))}
                   </div>
-                </div>
+                </section>
               ))}
             </div>
           </div>
@@ -59,9 +59,9 @@ const GetOrder = () => {
           >
             ВИДАЛИТИ
           </button>
-        </div>
+        </section>
       ))}
-    </div>
+    </main>
   )
 }
 

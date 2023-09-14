@@ -14,20 +14,22 @@ const initialValues = {
 }
 
 const UpdateSection = () => {
-  const { section, isLoading, error, messagesUpdate } = useSelector(state => state.section)
+  const { section, isLoading, error, messagesUpdate } = useSelector(
+    state => state.section
+  )
   const dispatch = useDispatch()
   const onSubmit = (values, utils) => {
     dispatch(sectionUpdateRequest(values))
     utils.resetForm()
   }
   return (
-    <div>
+    <section>
       <h1 className={classes.text}>Оновити розділ</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
         ))} */}
-        < ValidationMessages  message={messagesUpdate}/>
+      <ValidationMessages message={messagesUpdate} />
       <Formik
         initialValues={initialValues}
         validationSchema={SECTION_UPDATE_CHEMA}
@@ -48,7 +50,7 @@ const UpdateSection = () => {
           </button>
         </Form>
       </Formik>
-    </div>
+    </section>
   )
 }
 
