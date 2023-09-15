@@ -8,8 +8,10 @@ import {
   ChangesMobileMenu,
   mobileMenu
 } from '../../../redux/actions/moboleAction'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
 const CategoryMobile = () => {
+  const history = useHistory()
   const { menu, level } = useSelector(state => state.mobile)
   console.log(menu)
   const menuStyles = cx({
@@ -35,7 +37,6 @@ const CategoryMobile = () => {
             <span>&larr;</span>повернутися
           </li>
           {category?.map(category => (
-            // <div key={category.id}>
             <li
               key={category.id}
               className={classes.list}
@@ -45,11 +46,14 @@ const CategoryMobile = () => {
                 dispatch(mobileMenu())
               }}
             >
-              <Link to='/shop' className={classes.link}>
+              <Link
+              to='#'
+                onClick={() => history.push('/shop/' + category.id)}
+                className={classes.link}
+              >
                 {category.name}
               </Link>
             </li>
-            // </div>
           ))}
         </ul>
       </nav>

@@ -15,7 +15,7 @@ const ShopPage = () => {
   };
   console.log(active);
   return (
-    <body className={classes.main} onClick={() => setActive(false)}>
+    <div className={classes.main} onClick={() => setActive(false)}>
       <Header />
       <SideBarMobile />
       <CategoryMobile />
@@ -27,7 +27,7 @@ const ShopPage = () => {
       <div className={classes.footer}>
         <Footer />
       </div>
-    </body>
+    </div>
   );
 };
 

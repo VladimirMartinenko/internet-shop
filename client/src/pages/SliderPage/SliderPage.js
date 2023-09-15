@@ -9,7 +9,7 @@ import SideBarMobileAdmin from "../../components/MobileMenuAdmin/SideBarMobileAd
 
 const SliderPage = () => {
   return (
-    <body className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <SideBarMobileAdmin />
       <main className={classes.body}>
@@ -22,7 +22,7 @@ const SliderPage = () => {
       <div className={classes.footer}>
         <Footer />
       </div>
-    </body>
+    </div>
   );
 };
 

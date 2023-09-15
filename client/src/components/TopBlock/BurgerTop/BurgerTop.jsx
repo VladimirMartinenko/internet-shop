@@ -8,11 +8,11 @@ const BurgerTop = () => {
   // const requestMobile = options =>
   // dispatch(mobileMenu(options))
   return (
-    <sectio className={classes.main}>
+    <section className={classes.main}>
       <div className={classes.div} />
       <div className={classes.div} />
       <div className={classes.div} />
-    </sectio>
+    </section>
   )
 }
 

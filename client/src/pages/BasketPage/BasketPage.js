@@ -8,7 +8,7 @@ import CategoryMobile from "../../components/MobileMeny/CategoryMobile/CategoryM
 
 const BasketPage = (props) => {
   return (
-    <body className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <SideBarMobile />
       <CategoryMobile />
@@ -20,7 +20,7 @@ const BasketPage = (props) => {
       <div className={classes.footer}>
         <Footer />
       </div>
-    </body>
+    </div>
   );
 };
 

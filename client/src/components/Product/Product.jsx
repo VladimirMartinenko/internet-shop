@@ -25,7 +25,7 @@ const Product = () => {
       {isLoading && <div>Loading</div>}
       {error &&
         error.map(error => (
-          <div className={cx(classes.error)}>{error.message}</div>
+          <p className={cx(classes.error)}>{error.message}</p>
         ))}
       <img
         className={classes.img}

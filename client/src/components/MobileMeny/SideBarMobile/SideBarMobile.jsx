@@ -30,10 +30,10 @@ const SideBarMobile = () => {
           </li>
           <SectionMobile />
           <li className={classes.list}>
-            <Link className={classes.link}>Про компанію</Link>
+            <Link to='/' className={classes.link}>Про компанію</Link>
           </li>
           <li className={classes.list}>
-            <Link className={classes.link}>Контакти</Link>
+            <Link to='/' className={classes.link}>Контакти</Link>
           </li>
         </ul>
       </nav>

@@ -7,7 +7,7 @@ import SideBarMobileAdmin from "../../components/MobileMenuAdmin/SideBarMobileAd
 
 const AdminPage = () => {
   return (
-    <body className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <SideBarMobileAdmin/>
       <main className={classes.body}>
@@ -20,7 +20,7 @@ const AdminPage = () => {
       <div className={classes.footer}>
         <Footer />
       </div>
-    </body>
+    </div>
   );
 };
 

@@ -14,7 +14,7 @@ const BasketItems = () => {
   const dispatch = useDispatch()
 
   return (
-    <details>
+    <>
       {items?.map(i => (
         <div key={i.id} className={classes.containerMain}>
           <img
@@ -31,7 +31,7 @@ const BasketItems = () => {
               +
             </button>
           </div>
-          <div className={classes.text}>кількість : {i.count}</div>
+          <p className={classes.text}>кількість : {i.count}</p>
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
@@ -53,7 +53,7 @@ const BasketItems = () => {
         </div>
       ))}
       <p className={classes.text2}>ЗАГАЛЬНА СУМА : {totalSumm}</p>
-    </details>
+    </>
   )
 }
 

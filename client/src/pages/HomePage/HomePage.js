@@ -17,7 +17,7 @@ const HomePage = () => {
   // }
   // console.log (menuActive)
   return (
-    <body className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <SideBarMobile />
       <CategoryMobile />
@@ -47,7 +47,7 @@ const HomePage = () => {
       <div className={classes.footer}>
         <Footer />
       </div>
-    </body>
+    </div>
   );
 };
 

@@ -39,6 +39,7 @@ const Category = props => {
           onClick={() => request(category.id)}
         >
           <Link
+          to='#'
             className={cx(classes.link)}
             onClick={() => history.push('/shop/' + category.id)}
           >

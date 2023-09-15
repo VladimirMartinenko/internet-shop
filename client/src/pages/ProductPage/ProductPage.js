@@ -13,7 +13,7 @@ const ProductPage = () => {
     setActive(value);
   };
   return (
-    <body className={classes.main}>
+    <div className={classes.main}>
       <Header />
       <SideBarMobile />
       <CategoryMobile />
@@ -24,7 +24,7 @@ const ProductPage = () => {
       <div className={classes.footer}>
         <Footer />
       </div>
-    </body>
+    </div>
   );
 };
 
