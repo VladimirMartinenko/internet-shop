@@ -101,7 +101,7 @@ const SliderProduct = () => {
                     alt={image.Product.name}
                     onClick={() => history.push('/product/' + image.Product.id)}
                   />
-                  <h3 className={classes.slideShowLink}>
+                  <h3 className={classes.slideShowName}>
                     {image.Product.name}
                   </h3>
                   <p className={classes.slideShowLink}>

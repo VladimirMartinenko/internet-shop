@@ -37,7 +37,7 @@ const Product = () => {
         alt={products.name}
       ></img>
       <section className={classes.conteiner}>
-        <h1 className={classes.name}>{products.name}</h1>
+        <h1 className={classes.text}>{products.name}</h1>
         {/* <div> */}
         {info &&
           info.map(i => (

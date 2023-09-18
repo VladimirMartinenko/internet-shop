@@ -79,8 +79,7 @@ const ImageGalery = () => {
         showFullscreenButton={false}
         showPlayButton={false}
         autoPlay={true}
-        // slideInterval={10000}
-        // slideDuration={10000}
+        slideDuration={2000}
       />
     </section>
   )

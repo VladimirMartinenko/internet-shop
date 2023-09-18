@@ -20,14 +20,14 @@
   // flex-wrap: wrap;
   width: 40vw;
 }
-.name {
-  text-align: center;
-  font-family: italic;
-  font-size: 3em;
-  text-transform: capitalize;
-  line-height: 1.5em;
-  width: 100%;
-}
+// .name {
+//   text-align: center;
+//   font-family: italic;
+//   font-size: 3em;
+//   text-transform: capitalize;
+//   line-height: 1.5em;
+//   width: 100%;
+// }
 
 .price {
   font-family: italic;
@@ -39,7 +39,9 @@ line-height: 1.5em;
 
 .text {
   font-family: italic;
-  font-size: 2em;
+  font-size: 3em;
+  text-transform: capitalize;
+  line-height: 1.5em;
   width: 100%;
   overflow-wrap: break-word;
   text-align: center;
