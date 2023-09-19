@@ -76,6 +76,7 @@ export default function categoryReducer(state = initialState, action) {
     case ACTION_TYPES.CATEGORY_GET_BY_SECTION_ERROR:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
+        draftState.category = [];
         draftState.error = action.payload.error;
       });
       case ACTION_TYPES.CATEGORY_CREATE_ERROR:
@@ -99,6 +100,7 @@ export default function categoryReducer(state = initialState, action) {
       case ACTION_TYPES.CATEGORY_GET_BY_ID_ERROR:
         return produce(state, (draftState) => {
           draftState.isLoading = false;
+          draftState.categoryById = [];
           draftState.error = action.payload.error;
         });
     default:
