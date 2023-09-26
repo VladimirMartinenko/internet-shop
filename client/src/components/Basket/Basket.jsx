@@ -62,6 +62,7 @@ const Basket = () => {
   const data = new FormData()
 
   async function createOrder (values) {
+    console.log('ghgh');
     try {
       let res = await httpClient.post(`buyer`, values, console.log(values))
       let order = await httpClient.post(
@@ -114,9 +115,9 @@ const Basket = () => {
       {hasError && <div className={classes.error}>{hasError}</div>}
       {Error &&
         Error.map(error => <p className={classes.error}>{error.message}</p>)}
-      {Message && <div className={classes.valid}>{Message}</div>}
+      {Message && <p className={classes.valid}>{Message}</p>}
       <BasketItems />
-      <form>
+      <div>
         <Formik
           initialValues={initialValues}
           validationSchema={BAYER_CHEMA}
@@ -180,7 +181,7 @@ const Basket = () => {
                 </Form>
               )}
         </Formik>
-      </form>
+      </div>
     </section>
   )
 }
