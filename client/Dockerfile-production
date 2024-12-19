@@ -25,9 +25,8 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 
 COPY ./nginx.vh.default.conf /etc/nginx/nginx.vh.default.conf
 
-RUN mkdir -p /etc/letsencrypt
+COPY ./../data/certbot/conf/ssl-dhparams.pem /etc/letsencrypt/ssl-dhparams.pem
 
-RUN mkdir -p /var/www/certbot
 
 
 STOPSIGNAL SIGTERM
