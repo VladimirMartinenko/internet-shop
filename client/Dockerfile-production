@@ -25,9 +25,6 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 
 COPY ./nginx.vh.default.conf /etc/nginx/nginx.vh.default.conf
 
-# COPY ../data/certbot/conf/ssl-dhparams.pem /etc/letsencrypt/ssl-dhparams.pem
-
-# COPY ../data/certbot/conf/options-ssl-nginx.conf /etc/letsencrypt/options-ssl-nginx.conf
 
 
 
