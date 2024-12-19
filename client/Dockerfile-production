@@ -25,6 +25,10 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 
 COPY ./nginx.vh.default.conf /etc/nginx/nginx.vh.default.conf
 
+COPY ../../data/certbot/conf /etc/letsencrypt
+
+COPY ../../data/certbot/www /var/www/certbot
+
 STOPSIGNAL SIGTERM
 
 EXPOSE 80
