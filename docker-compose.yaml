@@ -10,8 +10,6 @@ services:
       - "80:80"
       - "443:443"
     restart: unless-stopped 
-    depends_on:
-      - server-prod
     volumes_from:
       - server-prod:ro
       - ./data/certbot/conf:/etc/letsencrypt
