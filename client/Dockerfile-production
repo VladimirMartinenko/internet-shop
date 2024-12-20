@@ -19,6 +19,8 @@ FROM nginx:1.13.12-alpine as production-stage
 
 RUN mkdir -p /var/www/html/
 
+RUN mkdir -p /var/www/certbot
+
 COPY --from=build-stage /client/build /var/www/html/
 
 COPY ./nginx.conf /etc/nginx/nginx.conf
