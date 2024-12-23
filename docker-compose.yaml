@@ -14,7 +14,7 @@ services:
     depends_on:
       - server-prod
     volumes:
-      - server-prod:ro
+      # - server-prod:ro
       # - /var/www/html/images:/var/www/html/images
       # - ./data/certbot/conf:/etc/letsencrypt
       # - ./data/certbot/www:/var/www/certbot
