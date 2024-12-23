@@ -13,20 +13,20 @@ services:
     restart: always
     depends_on:
       - server-prod
-    # volumes:
-      # - server-prod:ro
+    volumes:
+      - server-prod:ro
       # - /var/www/html/images:/var/www/html/images
       # - ./data/certbot/conf:/etc/letsencrypt
       # - ./data/certbot/www:/var/www/certbot
     # command: /bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'  
     
-  certbot:  
-    image: certbot/certbot:latest
-    restart: unless-stopped
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    entrypoint: /bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'
+  # certbot:  
+  #   image: certbot/certbot:latest
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./data/certbot/conf:/etc/letsencrypt
+  #     - ./data/certbot/www:/var/www/certbot
+  #   entrypoint: /bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'
 
   server-prod:
     restart: always
