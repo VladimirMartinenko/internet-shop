@@ -10,13 +10,14 @@ services:
       - "80:80"
       # - "443:443"
     # restart: unless-stopped 
+    restart: always
     depends_on:
       - server-prod
     volumes:
-      # - server-prod:ro
-      - /var/www/html/images:/var/www/html/images
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
+      - server-prod:ro
+      # - /var/www/html/images:/var/www/html/images
+      # - ./data/certbot/conf:/etc/letsencrypt
+      # - ./data/certbot/www:/var/www/certbot
     # command: /bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'  
     
   certbot:  
