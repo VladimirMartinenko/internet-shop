@@ -13,7 +13,7 @@ services:
     restart: always
     depends_on:
       - server-prod
-    volumes:
+    # volumes:
       # - server-prod:ro
       # - /var/www/html/images:/var/www/html/images
       # - ./data/certbot/conf:/etc/letsencrypt
