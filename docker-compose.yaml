@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 services:
 
   client-prod:
@@ -18,6 +18,7 @@ services:
       - /var/www/html/images:/var/www/html/images
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
+      - ./client:/usr/share/nginx/html
     # command: /bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'  
     
   certbot:  
