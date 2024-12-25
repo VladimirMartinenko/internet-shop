@@ -73,6 +73,7 @@ docker-compose run --rm --entrypoint "\
     $domain_args \
     --rsa-key-size $rsa_key_size \
     --agree-tos 
+    " certbot
 echo
 
 echo "### Reloading nginx ..."
