@@ -72,7 +72,7 @@ docker-compose run --rm --entrypoint "\
     $email_arg \
     $domain_args \
     --rsa-key-size $rsa_key_size \
-    --agree-tos \
+    --agree-tos 
 echo
 
 echo "### Reloading nginx ..."
