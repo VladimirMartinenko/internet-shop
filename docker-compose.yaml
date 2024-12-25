@@ -18,7 +18,7 @@ services:
       - /var/www/html/images:/var/www/html/images
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
-      - /var/www/html:/usr/share/nginx/html
+      - ./client/public:/usr/share/nginx/html
     # command: /bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'  
     
   certbot:  
