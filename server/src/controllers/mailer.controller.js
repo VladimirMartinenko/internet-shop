@@ -108,7 +108,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
 <!--[if (gte mso 9)|(IE)]>
     <style type="text/css">
@@ -330,7 +330,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
 <!--[if (gte mso 9)|(IE)]>
     <style type="text/css">
@@ -526,7 +526,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
 <!--[if (gte mso 9)|(IE)]>
     <style type="text/css">
@@ -785,7 +785,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
 <!--[if (gte mso 9)|(IE)]>
     <style type="text/css">
@@ -796,10 +796,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 
 
     <!-- Preheader (remove comment) -->
-    <div
-      style="font-size: 0px;color: #fafdfe;line-height: 1px;mso-line-height-rule:exactly;display: none;max-width: 0px;max-height: 0px;opacity: 0;overflow: hidden;mso-hide:all;">
-      Стартовое описание
-    </div>
+   
     <!-- End Preheader (remove comment) -->
 
     <!--[if (gte mso 9)|(IE)]>
@@ -985,7 +982,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
 <!--[if (gte mso 9)|(IE)]>
     <style type="text/css">
@@ -1253,7 +1250,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
 <!--[if (gte mso 9)|(IE)]>
     <style type="text/css">
@@ -1467,7 +1464,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
 <!--[if (gte mso 9)|(IE)]>
     <style type="text/css">
@@ -1479,9 +1476,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 
 
     <!-- Preheader (remove comment) -->
-    <div
-      style="font-size: 0px;color: #fafdfe;line-height: 1px ; mso-line-height-rule:exactly;display: none;max-width: 0px;max-height: 0px;opacity: 0;overflow: hidden;mso-hide:all;">
-    </div>
+   
     <!-- End Preheader (remove comment) -->
 
     <!--[if (gte mso 9)|(IE)]>
@@ -1698,7 +1693,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
 <!--[if (gte mso 9)|(IE)]>
     <style type="text/css">
@@ -1710,10 +1705,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 
 
     <!-- Preheader (remove comment) -->
-    <div
-      style="font-size: 0px;color: #fafdfe;line-height: 1px;mso-line-height-rule:exactly;display: none;max-width: 0px;max-height: 0px;opacity: 0;overflow: hidden;mso-hide:all;">
-      Стартовое описание
-    </div>
+   
     <!-- End Preheader (remove comment) -->
 
     <!--[if (gte mso 9)|(IE)]>
@@ -1917,7 +1909,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
 <!--[if (gte mso 9)|(IE)]>
     <style type="text/css">
@@ -2145,7 +2137,7 @@ xmlns:o="urn:schemas-microsoft-com:office:office" lang="ru">
 <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
 <!--[if (gte mso 9)|(IE)]>
     <style type="text/css">
@@ -2388,7 +2380,7 @@ const n =`
   <![endif]-->
 </head>
 
-<body style="Margin:0;padding:0;min-width:100%;background-color:#dde0e1;">
+<body style="Margin:0;padding:0;min-width:100%;">
 
   <!--[if (gte mso 9)|(IE)]>
       <style type="text/css">
@@ -2655,7 +2647,6 @@ const s= `
       margin: 0;
       padding: 0;
       min-width: 100%;
-      background-color: #dde0e1;
       width: 100%;
     "
   >
@@ -3015,7 +3006,7 @@ module.exports.send = async (req, res, next) => {
     // );
 
     let message = await smtpTransport.sendMail({
-      from:"Medimplant <medimplant2023@ukr.net>",
+      from:"test <medimplant2023@ukr.net>",
       to: email,
       subject: `signature `,
       html: bodyItem
