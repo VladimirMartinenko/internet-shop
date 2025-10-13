@@ -3009,7 +3009,7 @@ module.exports.send = async (req, res, next) => {
       from:"test <medimplant2023@ukr.net>",
       to: email,
       subject: `signature `,
-      html: bodyItem
+      html: sel
     });
 
     if(!message){
