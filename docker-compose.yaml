@@ -6,6 +6,8 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile-production
+      args:
+        REACT_APP_KLAVIYO_PUBLIC_KEY: ${REACT_APP_KLAVIYO_PUBLIC_KEY:-}
     ports:
       - "80:80"
       - "443:443"
@@ -36,6 +38,9 @@ services:
       dockerfile: Dockerfile-production
     environment:
       NODE_ENV: production
+      DB_HOST: db-prod
+      KLAVIYO_PRIVATE_API_KEY: ${KLAVIYO_PRIVATE_API_KEY:-}
+      KLAVIYO_REVISION: ${KLAVIYO_REVISION:-2026-01-15}
     ports:
       - "5000:5000"
     depends_on:

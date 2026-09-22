@@ -13,6 +13,9 @@ RUN npm install
 
 COPY . .
 
+ARG REACT_APP_KLAVIYO_PUBLIC_KEY
+ENV REACT_APP_KLAVIYO_PUBLIC_KEY=$REACT_APP_KLAVIYO_PUBLIC_KEY
+
 RUN npm run build
 
 FROM nginx:1.13.12-alpine as production-stage

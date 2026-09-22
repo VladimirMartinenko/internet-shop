@@ -20,6 +20,7 @@ import SectionPage from './pages/SectionPage/SectionPage';
 import SliderPage from './pages/SliderPage/SliderPage';
 import ProductAdminPage from './pages/ProductAdminPage/ProductAdminPage';
 import AdminOrderPage from './pages/AdminOrderPage/AdminOrderPage';
+import { identifyKlaviyo, initKlaviyo } from './utils/klaviyo';
 
 function App() {
   useEffect(() => {
@@ -35,6 +36,7 @@ function App() {
   }, []);
  
   const { items } = useSelector(state => state.basket);
+  const { user } = useSelector(state => state.auth);
   useEffect(() => {
     window.localStorage.setItem('basket', JSON.stringify(items));
   }, [items]);
@@ -46,6 +48,17 @@ function App() {
   useEffect(() => {
    dispatch(sliderGetRequest())
   }, []);
+
+  useEffect(() => {
+    initKlaviyo();
+  }, []);
+
+  useEffect(() => {
+    if (user && user.email) {
+      identifyKlaviyo(user);
+    }
+  }, [user]);
+
   const dispatch = useDispatch();
   return (
     <Router>
