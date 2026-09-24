@@ -3,6 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import CONSTANTS from '../../constants'
 import { useHistory } from 'react-router-dom'
 import { basketCreate } from '../../redux/actions/basketActionCreators'
+import { trackKlaviyo } from '../../utils/klaviyo'
+import {
+  addedToCartPayload,
+  cartWithAddedItem,
+  viewedCategoryPayload
+} from '../../utils/klaviyoPayloads'
 import classes from './ProductList.module.scss'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { productGetByCategoryRequest } from '../../redux/actions/productActionCreators'
@@ -22,8 +28,24 @@ const ProductList = () => {
 
   const history = useHistory()
   const { product, isLoading, error } = useSelector(state => state.products)
+  const { categoryById } = useSelector(state => state.category)
+  const { items } = useSelector(state => state.basket)
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!categoryById || !categoryById.id) {
+      return
+    }
+    trackKlaviyo('Viewed Category', viewedCategoryPayload(categoryById))
+  }, [categoryById && categoryById.id])
+
+  const addToCart = addedProduct => {
+    dispatch(basketCreate(addedProduct))
+    const nextItems = cartWithAddedItem(items, addedProduct)
+    const added = nextItems.find(item => item.id === addedProduct.id)
+    trackKlaviyo('Added to Cart', addedToCartPayload(added, nextItems))
+  }
   return (
     <section className={classes.main}>
       {isLoading && <div>Loading</div>}
@@ -42,14 +64,14 @@ const ProductList = () => {
               alt={product.name}
               className={classes.img}
             ></img>
-            <p className={classes.span}>В наявності</p>
+            <p className={classes.span}>In stock</p>
             <p className={classes.text}>{product.name}</p>
-            <p className={classes.price}>{product.price} грн.</p>
+            <p className={classes.price}>{product.price} UAH</p>
             <button
               className={classes.btn}
-              onClick={() => dispatch(basketCreate(product))}
+              onClick={() => addToCart(product)}
             >
-              До кошика
+              Add to cart
             </button>
           </div>
         ))}

@@ -20,11 +20,11 @@ const ImageGalery = () => {
         <img
           style={{}}
           className={styles.img}
-          src='/staticImages/osteo4.png'
-          title='Сучасне протезування'
+          src='/staticImages/slide-new-collection.jpg'
+          title='New season collection'
         />
         <p style={{}} className={styles.description}>
-          Сучасне протезування
+          New season collection
         </p>
       </>
     )
@@ -35,11 +35,11 @@ const ImageGalery = () => {
         <img
           style={{}}
           className={styles.img}
-          src='/staticImages/original-1ugp.jpg'
-          title='Консультування'
+          src='/staticImages/slide-footwear.jpg'
+          title='Footwear that fits'
         />
         <p style={{}} className={styles.description}>
-          Консультування
+          Footwear that fits
         </p>
       </>
     )
@@ -50,11 +50,11 @@ const ImageGalery = () => {
         <img
           style={{}}
           className={styles.img}
-          src='/staticImages/istockphoto-470454993-612x612.jpg'
-          title='Новітні методи остеосинтезу'
+          src='/staticImages/slide-street-style.jpg'
+          title='Street style looks'
         />
         <p style={{}} className={styles.description}>
-          Новітні методи остеосинтезу
+          Street style looks
         </p>
       </>
     )

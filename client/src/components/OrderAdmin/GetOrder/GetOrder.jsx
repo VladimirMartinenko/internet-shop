@@ -32,19 +32,19 @@ const GetOrder = () => {
             <div className={classes.container}>
               {buyers.Orders?.map(order => (
                 <section key={order.id} className={classes.container}>
-                  <p className={classes.text}> номер:{order.id}</p>
-                  <p className={classes.text}> Сума:{order.sum}</p>
+                  <p className={classes.text}> number:{order.id}</p>
+                  <p className={classes.text}> Total:{order.sum}</p>
                   <div>
                     {order.Products?.map(products => (
                       <section key={products.name} className={classes.container}>
                         <p className={classes.text}>
-                          назва:{products.name}
+                          name:{products.name}
                         </p>
                         <p className={classes.text}>
-                          кількість:{products.products_to_rders.quantity}
+                          quantity:{products.products_to_rders.quantity}
                         </p>
                         <p className={classes.text}>
-                          ціна:{products.price}
+                          price:{products.price}
                         </p>
                       </section>
                     ))}
@@ -57,7 +57,7 @@ const GetOrder = () => {
             className={classes.btn}
             onClick={() => dispatch(buyersDeleteRequest(buyers.id))}
           >
-            ВИДАЛИТИ
+            DELETE
           </button>
         </section>
       ))}

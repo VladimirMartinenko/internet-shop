@@ -11,6 +11,7 @@ const authRouter = require('./auth.router');
 const sliderRouter = require('./slider.router');
 const sectionRouter =require('./section.router')
 const mailerRouter = require('./mailer.router');
+const klaviyoRouter = require('./klaviyo.router');
 // const authRouter = require('./user.router');
 
 router.use('/user', userRouter);
@@ -22,6 +23,7 @@ router.use('/product', productRouter);
 router.use('/productInfo', productInfoRouter);
 router.use('/productToOrder', productToOrderRouter);
 router.use('/mailer', mailerRouter);
+router.use('/klaviyo', klaviyoRouter);
 router.use('/section', sectionRouter);
 router.use('/slider', sliderRouter);
 module.exports = router;

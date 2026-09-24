@@ -9,7 +9,6 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const configPath = path.join(__dirname, '..', '..', 'config', 'db.js');
 const config = require(configPath)[env];
-console.log(config);
 const db = {};
 
 let sequelize;

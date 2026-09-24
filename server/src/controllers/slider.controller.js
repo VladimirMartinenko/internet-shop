@@ -12,7 +12,7 @@ module.exports.createSlider = async (req, res, next) => {
       include: { model: Product },
     });
     if (!slider) {
-      const err = createError(404, "невдала спроба");
+      const err = createError(404, "failed to create slide");
       return next(err);
     }
     res.send({ data: slider });
@@ -28,7 +28,7 @@ module.exports.findAllSlider = async (req, res, next) => {
       include: { model: Product },
     });
     if (!slider) {
-      const err = createError(404, "не знайдено");
+      const err = createError(404, "slides not found");
       return next(err);
     }
     res.send({ data: slider });
@@ -44,7 +44,7 @@ module.exports.deleteSlider = async (req, res, next) => {
     } = req;
     const deleteRows = await Slider.destroy({ where: { id } });
     if (deleteRows != 1) {
-      const err = createError(404, "неможливо видалити");
+      const err = createError(404, "failed to delete slide");
       return next(err);
     }
     res.send({ data: { id } });

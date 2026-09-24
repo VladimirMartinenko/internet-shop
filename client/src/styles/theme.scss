@@ -1,0 +1,25 @@
+:root {
+  --velora-ink: #1c1917;
+  --velora-ink-soft: #2c2622;
+  --velora-cream: #f6f1ea;
+  --velora-paper: #fdfbf8;
+  --velora-sand: #e8dfd4;
+  --velora-camel: #b08968;
+  --velora-camel-dark: #8c6a4a;
+  --velora-terracotta: #c45c4a;
+  --velora-text: #1c1917;
+  --velora-muted: #6b635b;
+  --velora-line: #ddd4c8;
+  --velora-white: #ffffff;
+}
+
+html,
+body {
+  background-color: var(--velora-cream);
+  color: var(--velora-text);
+}
+
+button,
+.btn {
+  cursor: pointer;
+}

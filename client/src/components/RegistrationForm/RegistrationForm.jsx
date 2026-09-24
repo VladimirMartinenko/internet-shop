@@ -26,13 +26,13 @@ const RegistrationForm = () => {
       onSubmit={onSubmit}
     >
       <Form className={classes.form}>
-        <Input name='firstName' type='text' placeholder="ім'я" />
-        <Input name='lastName' type='text' placeholder='фамілія' />
+        <Input name='firstName' type='text' placeholder="first name" />
+        <Input name='lastName' type='text' placeholder='last name' />
         <Input name='email' type='email' placeholder='email' />
-        <Input name='phone' type='phone' placeholder='телефон (380)' />
-        <Input name='password' type='password' placeholder='пароль' />
+        <Input name='phone' type='phone' placeholder='phone (380)' />
+        <Input name='password' type='password' placeholder='password' />
         <button type='submit' className={classes.btn}>
-          ЗАРЕЄСТРУВАТИСЯ
+          REGISTER
         </button>
       </Form>
     </Formik>

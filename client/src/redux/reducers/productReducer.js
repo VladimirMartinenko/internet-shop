@@ -26,7 +26,7 @@ export default function productReducer(state = initialState, action) {
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = null;
-        draftState.messagesUpdate = 'Успішно';
+        draftState.messagesUpdate = 'Success';
         draftState.products = action.payload.values;
       });
     case ACTION_TYPES.PRODUCT_LOCAL_UPDATE:
@@ -48,7 +48,7 @@ export default function productReducer(state = initialState, action) {
         return produce(state, (draftState) => {
           draftState.isLoading = false;
           draftState.error = action.payload.error;
-          draftState.messagesUpdate = 'Помилка';
+          draftState.messagesUpdate = 'Error';
         });
 
     default:

@@ -19,8 +19,8 @@
   font-size: 1.5em;
   // text-shadow: 6px 4px 4px rgba(66, 68, 90, 1);
   margin-top: 40px;
-  color: #08928d;
+  color: var(--velora-camel);
 }
 .link:hover{
-  color:blue
+  color: var(--velora-camel-dark)
 }

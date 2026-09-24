@@ -24,7 +24,7 @@ import { identifyKlaviyo, initKlaviyo } from './utils/klaviyo';
 
 function App() {
   useEffect(() => {
-    document.title = "Medimplant";
+    document.title = "VELORA";
   }, []);
   
   useEffect(() => {

@@ -24,7 +24,7 @@ const UpdateSection = () => {
   }
   return (
     <section>
-      <h1 className={classes.text}>Оновити розділ</h1>
+      <h1 className={classes.text}>Update section</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
@@ -36,9 +36,9 @@ const UpdateSection = () => {
         onSubmit={onSubmit}
       >
         <Form className={classes.form}>
-          <Input name='name' type='text' placeholder='розділ' />
+          <Input name='name' type='text' placeholder='section' />
           <MySelect name='sectionId' placeholder='sectionId' as='select'>
-            <option value=''>виберіть категорію</option>
+            <option value=''>select a category</option>
             {section.map(section => (
               <option key={section.id} value={JSON.stringify(section.id)}>
                 {section.name}
@@ -46,7 +46,7 @@ const UpdateSection = () => {
             ))}
           </MySelect>
           <button type='submit' className={classes.btn}>
-            ОНОВИТИ
+            UPDATE
           </button>
         </Form>
       </Formik>

@@ -39,15 +39,15 @@ const SideBar = () => {
         <ul className={navStyles}>
           <li className={classes.list}>
             <Link to='/' className={classes.link}>
-              Домашня
+              Home
             </Link>
           </li>
           <Section />
           <li className={classes.list}>
-            <Link to='/' className={classes.link}>Про компанію</Link>
+            <Link to='/' className={classes.link}>About</Link>
           </li>
           <li className={classes.list}>
-            <Link to='/' className={classes.link}>Контакти</Link>
+            <Link to='/' className={classes.link}>Contacts</Link>
           </li>
           <button
             onClick={() => setActive(!active)}

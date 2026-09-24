@@ -1,5 +1,11 @@
 const createError = require("http-errors");
-const { Order } = require("../db/models");
+const { Order, Buyer, Product, ProductToOrder, Category } = require("../db/models");
+const klaviyo = require("../services/klaviyo.service");
+const {
+  placedOrderProperties,
+  orderedProductProperties,
+  mapLine,
+} = require("../utils/klaviyoPayloads");
 
 module.exports.createOrderUser = async (req, res, next) => {
   try {
@@ -121,6 +127,81 @@ module.exports.deleteOrderUser = async (req, res, next) => {
     next(error);
   }
 };
+module.exports.trackPlacedOrder = async (req, res, next) => {
+  try {
+    const {
+      params: { orderId },
+    } = req;
+    const order = await Order.findByPk(orderId, {
+      include: [{ model: Buyer }],
+    });
+    if (!order || !order.Buyer) {
+      return next(createError(404, "Order not found"));
+    }
+
+    const lines = await ProductToOrder.findAll({
+      where: { orderId },
+      include: [{ model: Product, include: [{ model: Category }] }],
+    });
+    if (!lines.length) {
+      return res.status(202).send({ data: { skipped: true, reason: "no line items" } });
+    }
+
+    const buyer = order.Buyer;
+    const kx = req.body && req.body._kx;
+    const marketingConsent = Boolean(req.body && req.body.marketingConsent);
+    const properties = placedOrderProperties(order, lines);
+    const profile = {
+      email: buyer.email,
+      phone: buyer.phone,
+      firstName: buyer.firstName,
+      lastName: buyer.lastName,
+      kx,
+    };
+
+    await klaviyo.upsertProfile({
+      ...profile,
+      properties: {
+        source: "medimplant-shop",
+        last_order_id: String(order.id),
+        last_buyer_id: String(buyer.id),
+      },
+    });
+
+    await klaviyo.createEvent({
+      metric: "Placed Order",
+      ...profile,
+      properties,
+      value: Number(order.sum) || 0,
+      uniqueId: String(order.id),
+    });
+
+    await Promise.all(
+      lines.map((line) => {
+        const item = mapLine(line);
+        return klaviyo.createEvent({
+          metric: "Ordered Product",
+          ...profile,
+          properties: orderedProductProperties(order, line),
+          value: item.RowTotal,
+          uniqueId: `${order.id}:${item.ProductID}`,
+        });
+      })
+    );
+
+    if (marketingConsent) {
+      await klaviyo.subscribeProfile({
+        email: buyer.email,
+        phone: buyer.phone,
+      });
+    }
+
+    res.send({ data: { ok: true } });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports.deleteOrderBuyer = async (req, res, next) => {
   try {
     const {

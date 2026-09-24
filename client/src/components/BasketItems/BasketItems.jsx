@@ -22,7 +22,7 @@ const BasketItems = () => {
             src={CONSTANTS.HTTP_SERVER_URL_images + i.img}
             alt={i.name}
           ></img>
-          <p className={classes.text}>назва : {i.name}</p>
+          <p className={classes.text}>name : {i.name}</p>
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
@@ -31,7 +31,7 @@ const BasketItems = () => {
               +
             </button>
           </div>
-          <p className={classes.text}>кількість : {i.count}</p>
+          <p className={classes.text}>quantity : {i.count}</p>
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
@@ -40,19 +40,19 @@ const BasketItems = () => {
               -
             </button>
           </div>
-          <p className={classes.text}>ціна : {i.price}</p>
-          <p className={classes.text}>сума : {i.price * i.count}</p>
+          <p className={classes.text}>price : {i.price}</p>
+          <p className={classes.text}>subtotal : {i.price * i.count}</p>
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
               onClick={() => dispatch(basketDelete(i.id))}
             >
-              ВИДАЛИТИ
+              DELETE
             </button>
           </div>
         </div>
       ))}
-      <p className={classes.text2}>ЗАГАЛЬНА СУМА : {totalSumm}</p>
+      <p className={classes.text2}>TOTAL : {totalSumm}</p>
     </>
   )
 }

@@ -1,2 +1,12 @@
 [
+  "20221212191552-create-user.js",
+  "20221212191553-create-refresh-token.js",
+  "20221212194107-create-buyer.js",
+  "20221214195131-create-section.js",
+  "20221214195132-create-category.js",
+  "20221214195133-create-products.js",
+  "20221214195725-create-orders.js",
+  "20221214195951-create-product-to-orders.js",
+  "20221214200548-create-product-info.js",
+  "20230414171758-create-slider.js"
 ]

@@ -7,7 +7,7 @@ services:
 
     environment:
       NODE_ENV: development
-      REACT_APP_KLAVIYO_PUBLIC_KEY: ${REACT_APP_KLAVIYO_PUBLIC_KEY:-}
+      REACT_APP_KLAVIYO_PUBLIC_KEY: ${REACT_APP_KLAVIYO_PUBLIC_KEY:-TNSDu9}
     depends_on:
       - server-dev
     volumes:

@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(684713-vds-teslabest87.gmhost.pp.ua)
+domains=(829470-vds-teslabest87.gmhost.pp.ua)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="teslabest87@gmail.com" # Adding a valid address is strongly recommended

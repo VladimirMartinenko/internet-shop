@@ -19,7 +19,7 @@ const TopBlock = ({ change, active }) => {
     <section className={classes.main} onClick={e => e.stopPropagation()}>
       <button onClick={() => handlChange(!active)} className={classes.span}>
         <BurgerTop />
-        <h1 className={classes.h1}>Меню</h1>
+        <h1 className={classes.h1}>Menu</h1>
         <SideBarTop active={active} />
       </button>
       <h1 onClick={() => handlChange(false)} className={classes.h2}>

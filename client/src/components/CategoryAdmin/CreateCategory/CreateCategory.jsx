@@ -31,7 +31,7 @@ const CreateCategory = () => {
 
   return (
     <section>
-      <h1 className={classes.text}>Створити підрозділ</h1>
+      <h1 className={classes.text}>Create category</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
@@ -44,16 +44,16 @@ const CreateCategory = () => {
       >
         <Form className={classes.form}>
           <MySelect name='sectionId' placeholder='sectionId' as='select'>
-            <option value=''>виберіть розділ</option>
+            <option value=''>select a section</option>
             {section.map(section => (
               <option key={section.id} value={JSON.stringify(section.id)}>
                 {section.name}
               </option>
             ))}
           </MySelect>
-          <Input name='name' type='text' placeholder='підрозділ' />
+          <Input name='name' type='text' placeholder='category' />
           <button type='submit' className={classes.btn}>
-            СТВОРИТИ
+            CREATE
           </button>
         </Form>
       </Formik>

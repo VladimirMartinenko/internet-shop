@@ -30,7 +30,7 @@ const DeleteCategory = () => {
 
   return (
     <section>
-      <h1 className={classes.text}>Видалити підрозділ</h1>
+      <h1 className={classes.text}>Delete category</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
@@ -43,7 +43,7 @@ const DeleteCategory = () => {
       >
         <Form className={classes.form}>
           <MySelect name='categoryId' placeholder='categoryId' as='select'>
-            <option value=''>виберіть підрозділ</option>
+            <option value=''>select a category</option>
             {category.map(category => (
               <option key={category.id} value={JSON.stringify(category.id)}>
                 {category.name}
@@ -51,7 +51,7 @@ const DeleteCategory = () => {
             ))}
           </MySelect>
           <button type='submit' className={classes.btn}>
-            Видалити
+            Delete
           </button>
         </Form>
       </Formik>

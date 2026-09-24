@@ -11,6 +11,7 @@
   font-weight: 400;
   padding: 15px 0 15px 0;
   font-style: italic;
+  color: var(--velora-muted);
 }
 .header{
   // margin-top: 10vh;
@@ -19,7 +20,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  background-color:#08928d;
+  background-color: var(--velora-ink);
   min-height: 12vh;
   // max-height: 15vh;
 }
@@ -27,8 +28,8 @@
   {text-decoration: none;
   font-size: 2.2em;
   font-style: italic;
-  color: white;
-  text-shadow: 6px 7px 4px rgba(66, 68, 90, 1);
+  color: var(--velora-cream);
+  letter-spacing: 0.12em;
 }
 
 .textPosition
@@ -51,7 +52,7 @@
   padding: 1px 15px 1px 15px;
   text-decoration: none;
   font-size: 1em;
-  color: white;
+  color: var(--velora-cream);
   // box-shadow: 6px 5px 3px -2px rgba(66, 68, 90, 1);
 }
 .btn::before{
@@ -73,10 +74,8 @@
   width: 220px;
 }
 .btn:hover{
-  border: 1px solid black;
-  box-shadow: 6px 5px 3px -2px rgba(66, 68, 90, 1);
-  // margin: 0 5px 0 5px;
-  // background-color: rgb(8, 107, 121);
+  border: 1px solid var(--velora-camel);
+  color: var(--velora-camel);
 }
 .btn2
   {
@@ -92,17 +91,16 @@
   padding: 10px 15px 10px 15px;
   text-decoration: none;
   font-size: 1.1em;
-  color: white;
+  color: var(--velora-cream);
   // box-shadow: 6px 5px 3px -2px rgba(66, 68, 90, 1);
 }
 // .btn::before{
 //   content: url(../../../public/staticImages/user_icon_150670.svg);
 // }
 .btn2:hover{
-  border: 1px solid black;
-  box-shadow: 6px 5px 3px -2px rgba(66, 68, 90, 1);
+  border: 1px solid var(--velora-camel);
+  color: var(--velora-camel);
   border-radius: 5px;
-  // background-color: rgb(8, 107, 121);
 }
 
 .containerImg
@@ -132,13 +130,13 @@
   width: 50%;
   height: 40%;
   position: absolute;
-  background-color: rgb(255, 51, 0);
+  background-color: var(--velora-terracotta);
   border-radius: 100px;
   right: 12px;
   top:-2px;
   font-size: 1.2em;
   font-style: italic;
-  color: black;
+  color: var(--velora-cream);
   text-align:center;
   font-weight: bold;
 }

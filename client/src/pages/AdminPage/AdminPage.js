@@ -13,8 +13,8 @@ const AdminPage = () => {
       <main className={classes.body}>
         <SideBarAdmin />
         <article className={classes.center}>
-          <p className={classes.text}>Вітаємо в Адмінпанелі</p>
-          <p className={classes.text}>Оберіть пункт меню для редагування</p>
+          <p className={classes.text}>Welcome to the admin panel</p>
+          <p className={classes.text}>Choose a menu item to edit</p>
         </article>
       </main>
       <div className={classes.footer}>

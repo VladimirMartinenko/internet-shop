@@ -28,7 +28,7 @@ const DeleteProduct = () => {
 
   return (
     <section>
-      <h1 className={classes.text}>ВИДАЛИТИ ТОВАР</h1>
+      <h1 className={classes.text}>DELETE PRODUCT</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
@@ -41,7 +41,7 @@ const DeleteProduct = () => {
       >
         <Form className={classes.form}>
           <MySelect name='productId' placeholder='productId' as='select'>
-            <option value=''>виберіть товар</option>
+            <option value=''>select a product</option>
             {product.map(products => (
               <option key={products.id} value={JSON.stringify(products.id)}>
                 {products.name}
@@ -49,7 +49,7 @@ const DeleteProduct = () => {
             ))}
           </MySelect>
           <button className={classes.btn} type='submit'>
-            ВИДАЛИТИ
+            DELETE
           </button>
         </Form>
       </Formik>

@@ -23,15 +23,15 @@ const Header = () => {
             logOut();
           }}
         >
-          Вийти
+          Log out
         </button>
       ) : (
         <>
           {/* <Link className={style.btn} to="/registration">
-            Реєстрація
+            Register
           </Link> */}
           <Link className={style.btn} to="/login">
-            Вхід
+            Sign in
           </Link>
         </>
       )}
@@ -41,7 +41,7 @@ const Header = () => {
     <>
       {user && user.role === "admin" ? (
         <Link className={style.btn2} to="/admin">
-          АдмінПанель
+          Admin panel
         </Link>
       ) : (
         <></>
@@ -50,11 +50,11 @@ const Header = () => {
   );
   return (
     <header>
-      <p className={style.h1}>Якісні медичні товари та послуги !</p>
+      <p className={style.h1}>Clothing and footwear for every day</p>
       <section className={style.header}>
         <Burger className={style.burger} />
         <Link className={style.textPosition} to="/">
-          <p className={style.text}>МЕДІМПЛАНТ</p>
+          <p className={style.text}>VELORA</p>
         </Link>
         <nav className={style.btnPosition}>
           <div className={style.btnPosition2}>

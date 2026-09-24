@@ -33,14 +33,14 @@ export default function sectionReducer(state = initialState, action) {
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = null;
-        draftState.messagesCreate = 'Успішно';
+        draftState.messagesCreate = 'Success';
         draftState.section.push(action.payload.values);
       });
     case ACTION_TYPES.SECTION_DELETE_SUCCESS:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = null;
-        draftState.messagesDelete = 'Успішно';
+        draftState.messagesDelete = 'Success';
         draftState.section = draftState.section.filter(
           (section) => section.id !== Number(action.payload.values)
         );
@@ -50,7 +50,7 @@ export default function sectionReducer(state = initialState, action) {
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = null;
-        draftState.messagesUpdate = 'Успішно';
+        draftState.messagesUpdate = 'Success';
         draftState.section = draftState.section.map((section) => {
           if (section.id === Number(action.payload.values.id)) {
             return action.payload.values;
@@ -68,19 +68,19 @@ export default function sectionReducer(state = initialState, action) {
       case ACTION_TYPES.SECTION_CREATE_ERROR:
         return produce(state, (draftState) => {
           draftState.isLoading = false;
-          draftState.messagesCreate = 'Помилка';
+          draftState.messagesCreate = 'Error';
           draftState.error = action.payload.error;
         });
       case ACTION_TYPES.SECTION_DELETE_ERROR:
         return produce(state, (draftState) => {
           draftState.isLoading = false;
-          draftState.messagesDelete = 'Помилка';
+          draftState.messagesDelete = 'Error';
           draftState.error = action.payload.error;
         });
       case ACTION_TYPES.SECTION_UPDATE_ERROR:
         return produce(state, (draftState) => {
           draftState.isLoading = false;
-          draftState.messagesUpdate = 'Помилка';
+          draftState.messagesUpdate = 'Error';
           draftState.error = action.payload.error;
         });
     default:

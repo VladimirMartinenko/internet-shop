@@ -7,7 +7,7 @@ const RegistrationPage = () => {
   const { error } = useSelector((state) => state.auth);
   return (
     <main className={classes.containerMain}>
-      <h1 className={classes.text}>РЕЄСТРАЦІЯ</h1>
+      <h1 className={classes.text}>REGISTRATION</h1>
       {error &&
         error.map((error) => (
           error.errors.map((errors)=>

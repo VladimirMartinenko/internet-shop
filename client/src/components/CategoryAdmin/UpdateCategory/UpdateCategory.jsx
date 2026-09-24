@@ -24,7 +24,7 @@ const UpdateCategory = () => {
 
   return (
     <section>
-      <h1 className={classes.text}>Оновити підрозділ</h1>
+      <h1 className={classes.text}>Update category</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
@@ -36,9 +36,9 @@ const UpdateCategory = () => {
         onSubmit={onSubmit}
       >
         <Form className={classes.form}>
-          <Input name='name' type='text' placeholder='підрозділ' />
+          <Input name='name' type='text' placeholder='category' />
           <MySelect name='categoryId' placeholder='categoryId' as='select'>
-            <option value=''>виберіть підрозділ</option>
+            <option value=''>select a category</option>
             {category.map(category => (
               <option key={category.id} value={JSON.stringify(category.id)}>
                 {category.name}
@@ -46,7 +46,7 @@ const UpdateCategory = () => {
             ))}
           </MySelect>
           <button type='submit' className={classes.btn}>
-            ОНОВИТИ
+            UPDATE
           </button>
         </Form>
       </Formik>

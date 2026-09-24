@@ -8,32 +8,32 @@ const SideBarAdmin = () => {
       <ul className={classes.nav}>
         <li className={classes.list}>
           <Link to='/' className={classes.link}>
-            Домашня
+            Home
           </Link>
         </li>
         <li className={classes.list}>
           <Link to='/admin/section' className={classes.link}>
-            Розділи
+            Sections
           </Link>
         </li>
         <li className={classes.list}>
           <Link to='/admin/category' className={classes.link}>
-            Підрозділи
+            Categories
           </Link>
         </li>
         <li className={classes.list}>
           <Link to='/admin/product' className={classes.link}>
-            Товари
+            Products
           </Link>
         </li>
         <li className={classes.list}>
           <Link to='/admin/slider' className={classes.link}>
-            Слайдер
+            Slider
           </Link>
         </li>
         <li className={classes.list}>
           <Link to='/admin/order' className={classes.link}>
-            Замовлення
+            Orders
           </Link>
         </li>
       </ul>

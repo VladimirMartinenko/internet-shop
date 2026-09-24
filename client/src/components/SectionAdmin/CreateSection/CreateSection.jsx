@@ -23,7 +23,7 @@ const CreateSection = () => {
 
   return (
     <section>
-      <h1 className={classes.text}>Створити розділ</h1>
+      <h1 className={classes.text}>Create section</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
@@ -35,9 +35,9 @@ const CreateSection = () => {
         onSubmit={onSubmit}
       >
         <Form className={classes.form}>
-          <Input name='name' type='text' placeholder='розділ' />
+          <Input name='name' type='text' placeholder='section' />
           <button type='submit' className={classes.btn}>
-            СТВОРИТИ
+            CREATE
           </button>
         </Form>
       </Formik>

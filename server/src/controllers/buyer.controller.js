@@ -1,15 +1,29 @@
 const createError = require("http-errors");
 const { Buyer, Order, ProductToOrder, Product } = require("../db/models");
 const createHttpError = require("http-errors");
+const klaviyo = require("../services/klaviyo.service");
 
 module.exports.createBuyer = async (req, res, next) => {
   try {
     const { body } = req;
     console.log(req);
-    const buyer = await Buyer.create(body);
+    const { firstName, lastName, email, phone, _kx } = body;
+    const buyer = await Buyer.create({ firstName, lastName, email, phone });
     if (!buyer) {
-      return next(createHttpError(401, "помилка при створенні"));
+      return next(createHttpError(401, "error creating buyer"));
     }
+
+    klaviyo.upsertProfile({
+      email: buyer.email,
+      phone: buyer.phone,
+      firstName: buyer.firstName,
+      lastName: buyer.lastName,
+      kx: _kx,
+      properties: {
+        source: "medimplant-shop",
+        last_buyer_id: String(buyer.id),
+      },
+    });
 
     res.send({ data: buyer });
   } catch (error) {
@@ -35,7 +49,7 @@ module.exports.findBuyers = async (req, res, next) => {
       ],
     });
     if ((!buyer, buyer.length == 0)) {
-      const err = createError(404, "Покупців не знайдено");
+      const err = createError(404, "Buyers not found");
       return next(err);
     }
 

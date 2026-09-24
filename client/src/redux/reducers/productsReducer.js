@@ -37,7 +37,7 @@ export default function productsReducer(state = initialState, action) {
         draftState.isLoading = false;
         draftState.product.push(action.payload.values);
         draftState.error = null;
-        draftState.messagesCreate = 'Успішно';
+        draftState.messagesCreate = 'Success';
       });
     case ACTION_TYPES.PRODUCT_DELETE_SUCCESS:
       return produce(state, (draftState) => {
@@ -46,7 +46,7 @@ export default function productsReducer(state = initialState, action) {
           (products) => products.id !== Number(action.payload.values)
         );
         draftState.error = null;
-        draftState.messagesDelete = 'Успішно';
+        draftState.messagesDelete = 'Success';
       });
     case ACTION_TYPES.PRODUCT_GET_ERROR:
     case ACTION_TYPES.PRODUCT_GET_BY_CATEGORY_ERROR:
@@ -60,14 +60,14 @@ export default function productsReducer(state = initialState, action) {
           draftState.isLoading = false;
           draftState.error = action.payload.error;
           draftState.product = [];
-          draftState.messagesCreate = 'Помилка';
+          draftState.messagesCreate = 'Error';
         });
         case ACTION_TYPES.PRODUCT_DELETE_ERROR:
       return produce(state, (draftState) => {
         draftState.isLoading = false;
         draftState.error = action.payload.error;
         draftState.product = [];
-        draftState.messagesDelete = 'Помилка';
+        draftState.messagesDelete = 'Error';
       });
     default:
       return state;

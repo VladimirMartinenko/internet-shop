@@ -94,7 +94,7 @@ const UpdateProduct = () => {
 
   return (
     <section>
-      <h1 className={classes.text}>ОНОВИТИ ТОВАР</h1>
+      <h1 className={classes.text}>UPDATE PRODUCT</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
@@ -114,7 +114,7 @@ const UpdateProduct = () => {
                 component='select'
                 onClick={() => handleProductChange(formikProps.values)}
               >
-                <option value=''>виберіть товар</option>
+                <option value=''>select a product</option>
                 {product?.map(products => (
                   <option key={products.id} value={JSON.stringify(products.id) || ""}>
                     {products.name}
@@ -124,7 +124,7 @@ const UpdateProduct = () => {
               <Input
                 name='name'
                 type='text'
-                placeholder='назва'
+                placeholder='name'
                 value={products.name || ""}
                 onFocus={e => handlValueChanges(e)}
                 // onBlur={e => handlValueChange(e)}
@@ -133,7 +133,7 @@ const UpdateProduct = () => {
               <Input
                 name='price'
                 type='text'
-                placeholder='ціна'
+                placeholder='price'
                 value={products.price || ""}
                 onFocus={e => handlValueChanges(e)}
                 // onBlur={e => handlValueChange(e)}
@@ -142,7 +142,7 @@ const UpdateProduct = () => {
               <Input
                 name='quantity'
                 type='text'
-                placeholder='кількість'
+                placeholder='quantity'
                 value={products.quantity || ""}
                 onFocus={e => handlValueChanges(e)}
                 // onBlur={e => handlValueChange(e)}
@@ -150,12 +150,12 @@ const UpdateProduct = () => {
               />
               <MySelect
                 name='categoryId'
-                placeholder='підрозділ'
+                placeholder='category'
                 as='select'
                 value={products.categoryId || ""}
                 onChange={e => dispatch(productLocalUpdate(e.target))}
               >
-                <option value=''>виберіть підрозділ</option>
+                <option value=''>select a category</option>
                 {category?.map(category => (
                   <option key={category.id} value={JSON.stringify(category.id) || ""}>
                     {category.name}
@@ -165,7 +165,7 @@ const UpdateProduct = () => {
               <Input
                 name='brand'
                 type='text'
-                placeholder='бренд'
+                placeholder='brand'
                 value={products.brand || ""}
                 onFocus={e => handlValueChanges(e)}
                 // onBlur={e => handlValueChange(e)}
@@ -234,7 +234,7 @@ const UpdateProduct = () => {
                 )}
               />
               <button className={classes.btn} type='submit'>
-                оновити
+                update
               </button>
             </Form>
           )

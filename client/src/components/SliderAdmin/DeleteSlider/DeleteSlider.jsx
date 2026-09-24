@@ -27,7 +27,7 @@ const DeleteSlider = () => {
   }
   return (
     <section>
-      <h1 className={classes.text}>Видалити слайд</h1>
+      <h1 className={classes.text}>Delete slide</h1>
       {error &&
         error.map(error => <p className={classes.error}>{error.message}</p>)}
       <Formik
@@ -37,7 +37,7 @@ const DeleteSlider = () => {
       >
         <Form className={classes.form}>
           <MySelect name='sliderId' placeholder='sliderId' as='select'>
-            <option value=''>виберіть розділ</option>
+            <option value=''>select a slide</option>
             {slider.map(slider => (
               <option key={slider.id} value={JSON.stringify(slider.id)}>
                 {slider.Product.name}
@@ -45,7 +45,7 @@ const DeleteSlider = () => {
             ))}
           </MySelect>
           <button type='submit' className={classes.btn}>
-            Видалити
+            Delete
           </button>
         </Form>
       </Formik>

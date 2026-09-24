@@ -20,32 +20,32 @@ const SideBarMobileAdmin = () => {
       <ul className={classes.nav}>
         <li className={classes.list}>
           <Link to='/' className={classes.link}  onClick={()=>dispatch(mobileMenu())}>
-            Домашня
+            Home
           </Link>
         </li>
         <li className={classes.list}>
           <Link to='/admin/section' className={classes.link} onClick={()=>dispatch(mobileMenu())}>
-            Розділи
+            Sections
           </Link>
         </li>
         <li className={classes.list}>
           <Link to='/admin/category' className={classes.link} onClick={()=>dispatch(mobileMenu())}>
-            Підрозділи
+            Categories
           </Link>
         </li>
         <li className={classes.list}>
           <Link to='/admin/product' className={classes.link} onClick={()=>dispatch(mobileMenu())}>
-            Товари
+            Products
           </Link>
         </li>
         <li className={classes.list}>
           <Link to='/admin/slider' className={classes.link} onClick={()=>dispatch(mobileMenu())}>
-            Слайдер
+            Slider
           </Link>
         </li>
         <li className={classes.list}>
           <Link to='/admin/order' className={classes.link} onClick={()=>dispatch(mobileMenu())}>
-            Замовлення
+            Orders
           </Link>
         </li>
       </ul>

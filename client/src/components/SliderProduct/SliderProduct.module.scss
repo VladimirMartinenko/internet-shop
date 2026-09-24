@@ -17,7 +17,7 @@
   align-items: center;
   width: 100%;
   text-align: center;
-  border-right: 3px solid   #d8dde0;
+  border-right: 3px solid   var(--velora-line);
 }
 
 .image {
@@ -61,11 +61,11 @@
   // text-shadow: 6px 4px 4px rgba(66, 68, 90, 1);
   text-align:start;
   // margin: 0 0 40px 0;
-  border-bottom: 1px solid   #d8dde0;
+  border-bottom: 1px solid   var(--velora-line);
   line-height: 60px;
   font-weight: 600;
   padding-left: 20px;
-  background-color:  #eceff1;
+  background-color:  var(--velora-sand);
 }
 
 

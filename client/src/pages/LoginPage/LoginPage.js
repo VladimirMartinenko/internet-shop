@@ -8,12 +8,12 @@ const LoginPage = () => {
   const { error } = useSelector((state) => state.auth);
   return (
     <main className={classes.containerMain}>
-      <h1 className={classes.text}>ВХІД</h1>
+      <h1 className={classes.text}>SIGN IN</h1>
       {error &&
         error.map((error) => <p className={classes.error}>{error.message}</p>)}
       <LoginForm />
       <Link className={classes.link} to="/registration">
-        Зареєструватися
+        Register
       </Link>
     </main>
   );

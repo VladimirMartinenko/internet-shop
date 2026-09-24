@@ -1,5 +1,6 @@
 const createError = require("http-errors");
 const { Product, ProductInfo } = require("../db/models");
+const klaviyo = require("../services/klaviyo.service");
 
 module.exports.createProduct = async (req, res, next) => {
   try {
@@ -20,14 +21,17 @@ module.exports.createProduct = async (req, res, next) => {
     if (info) {
       info = JSON.parse(info);
       console.log(info);
-      info.forEach((i) =>
-        ProductInfo.create({
-          title: i.title,
-          description: i.description,
-          productId: product.id,
-        })
+      await Promise.all(
+        info.map((i) =>
+          ProductInfo.create({
+            title: i.title,
+            description: i.description,
+            productId: product.id,
+          })
+        )
       );
     }
+    klaviyo.syncProductToCatalog(product.id);
     res.send({ data: product });
   } catch (error) {
     next(error);
@@ -44,7 +48,7 @@ module.exports.findProductByCategory = async (req, res, next) => {
     if (!categoryId) {
       products = await Product.findAll();
       if (!products) {
-        const err = createError(404, "товари не знайдені");
+        const err = createError(404, "products not found");
         return next(err);
       }
     }
@@ -52,7 +56,7 @@ module.exports.findProductByCategory = async (req, res, next) => {
       products = await Product.findAll({ where: { categoryId } });
       console.log(products);
       if ((!products, products.length == 0)) {
-        const err = createError(404, "товари не знайдені");
+        const err = createError(404, "products not found");
         return next(err);
       }
     }
@@ -70,7 +74,7 @@ module.exports.findAllProduct = async (req, res, next) => {
     let products;
     products = await Product.findAll();
     if (!products) {
-      const err = createError(404, "товари не знайдені");
+      const err = createError(404, "products not found");
       return next(err);
     }
     res.send({ data: products, limit, offset });
@@ -89,7 +93,7 @@ module.exports.findProductbyId = async (req, res, next) => {
       include: [{ model: ProductInfo }],
     });
     if (!product) {
-      const err = createError(404, "товар не знайден");
+      const err = createError(404, "product not found");
       return next(err);
     }
     res.send({ data: product });
@@ -103,6 +107,9 @@ module.exports.updateProduct = async (req, res, next) => {
       params: { id },
       body,
     } = req;
+    if (req.file && req.file.filename) {
+      body.img = req.file.filename;
+    }
     const [rowsUpdatet, [updateProduct]] = await Product.update(body, {
       where: { id },
       returning: true,
@@ -120,6 +127,7 @@ module.exports.updateProduct = async (req, res, next) => {
         })
       );
     }
+    klaviyo.syncProductToCatalog(id);
     res.send({ data: updateProduct });
   } catch (error) {
     next(error);
@@ -136,6 +144,7 @@ module.exports.deleteProduct = async (req, res, next) => {
       const err = createError(404, "cant delete product");
       return next(err);
     }
+    klaviyo.deleteProductFromCatalog(id);
     res.send({ data: { id } });
   } catch (error) {
     next(error);

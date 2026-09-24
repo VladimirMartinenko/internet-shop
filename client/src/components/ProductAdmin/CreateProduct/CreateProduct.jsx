@@ -27,11 +27,11 @@ const initialValues = {
 
 const CreateProduct = () => {
   console.log(document.getElementsByName('img').length);
-  let text = 'виберіть файл'
+  let text = 'choose a file'
   const textF=()=>{
     // console.log(document.getElementsByName('img'));
     if(document.getElementsByName('img')[0].value===''){
-    return text= 'виберіть файл'
+    return text= 'choose a file'
     }else{ return text= document.getElementsByName('img')[0].value}
   }
   useEffect(() => {
@@ -59,7 +59,7 @@ const CreateProduct = () => {
   }
   return (
     <section>
-      <h1 className={classes.text}>СТВОРИТИ ТОВАР</h1>
+      <h1 className={classes.text}>CREATE PRODUCT</h1>
       {/* {error &&
         error.map(error => (
           <div className={classes.error}>{error.message}</div>
@@ -78,17 +78,17 @@ const CreateProduct = () => {
           return (
             <Form className={classes.form}>
               <MySelect name='categoryId' placeholder='category' as='select'>
-                <option value=''>виберіть підрозділ</option>
+                <option value=''>select a category</option>
                 {category.map(category => (
                   <option key={category.id} value={JSON.stringify(category.id)}>
                     {category.name}
                   </option>
                 ))}
               </MySelect>
-              <Input name='name' type='text' placeholder='назва' />
-              <Input name='price' type='text' placeholder='ціна' />
-              <Input name='quantity' type='text' placeholder='кількість' />
-              <Input name='brand' type='text' placeholder='бренд' />
+              <Input name='name' type='text' placeholder='name' />
+              <Input name='price' type='text' placeholder='price' />
+              <Input name='quantity' type='text' placeholder='quantity' />
+              <Input name='brand' type='text' placeholder='brand' />
               <label htmlFor='file' className={classes.inputStyles}  onChange={()=>textF()}>
               <span className={classes.span}>{text}</span>
                 <Input
@@ -106,18 +106,18 @@ const CreateProduct = () => {
                       <div key={index}>
                         <Input
                           name={`info[${index}].title`}
-                          placeholder='властивість'
+                          placeholder='property'
                         />
                         <Input
                           name={`info.${index}.description`}
-                          placeholder='опис'
+                          placeholder='description'
                         />
                         <button
                           className={classes.button_long}
                           type='button'
                           onClick={() => arrayHelpers.remove(index)}
                         >
-                          видалити
+                          remove
                         </button>
                       </div>
                     ))}
@@ -128,13 +128,13 @@ const CreateProduct = () => {
                         arrayHelpers.push({ title: '', description: '' })
                       }
                     >
-                      добавити
+                      add
                     </button>
                   </div>
                 )}
               />
               <button className={classes.btn} type='submit'>
-                СТВОРИТИ
+                CREATE
               </button>
             </Form>
           )

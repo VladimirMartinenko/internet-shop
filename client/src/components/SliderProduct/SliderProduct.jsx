@@ -84,7 +84,7 @@ const SliderProduct = () => {
   return (
     <section className={classes.main}>
       <div className={classes.slider}>
-        <h3 className={classes.slideShowLinkMain}> спеціальна пропозиція</h3>
+        <h3 className={classes.slideShowLinkMain}> New arrivals</h3>
         <Slider {...settings}>
           {slider &&
             slider.map((image, index) => {
@@ -105,7 +105,7 @@ const SliderProduct = () => {
                     {image.Product.name}
                   </h3>
                   <p className={classes.slideShowLink}>
-                    {image.Product.price} грн.
+                    {image.Product.price} UAH
                   </p>
                 </div>
                 // </div>

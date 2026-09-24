@@ -13,8 +13,11 @@ function* loginSaga(action) {
     yield put(AuthActionCreators.authSuccess(user));
    
   } catch (error) {
-    yield put(AuthActionCreators.authError(error.response.data.errors));
-    console.log(error.response.data.errors)
+    const errors =
+      (error.response && error.response.data && error.response.data.errors) ||
+      [{ message: "server unavailable" }];
+    yield put(AuthActionCreators.authError(errors));
+    console.log(errors);
   }
 }
 function* refreshSaga(action) {
@@ -39,7 +42,10 @@ function* signupSaga(action) {
 
     yield put(AuthActionCreators.authSuccess(user));
   } catch (error) {
-    yield put(AuthActionCreators.authError(error.response.data.errors));
+    const errors =
+      (error.response && error.response.data && error.response.data.errors) ||
+      [{ message: "server unavailable" }];
+    yield put(AuthActionCreators.authError(errors));
   }
 }
 

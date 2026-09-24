@@ -39,18 +39,18 @@ const SideBarTop = ({ active }) => {
         <ul className={classes.navActive}>
           <li className={classes.list}>
             <Link to='/' className={classes.link}>
-              Домашня
+              Home
             </Link>
           </li>
           <Section />
           <li className={classes.list}>
             <Link to='' className={classes.link}>
-              Про компанію
+              About
             </Link>
           </li>
           <li className={classes.list}>
             <Link to='' className={classes.link}>
-              Контакти
+              Contacts
             </Link>
           </li>
           {/* <button onClick={()=>setActive(!active)} className={buttonStyles}></button> */}

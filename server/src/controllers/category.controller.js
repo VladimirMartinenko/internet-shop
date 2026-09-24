@@ -7,7 +7,7 @@ module.exports.createCategory = async (req, res, next) => {
     const category = await Category.create(body);
 
     if (!category) {
-      const err = createError(404, "проблема при створенні");
+      const err = createError(404, "failed to create category");
       return next(err);
     }
     res.send({ data: category });
@@ -53,7 +53,7 @@ module.exports.deleteCategory = async (req, res, next) => {
     } = req;
     const deleteRows = await Category.destroy({ where: { id } });
     if (deleteRows != 1) {
-      const err = createError(404, "не вдалося видалити підрозділ");
+      const err = createError(404, "failed to delete category");
       return next(err);
     }
     res.send({ data: { id } });

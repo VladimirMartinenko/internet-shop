@@ -7,6 +7,16 @@ import classes from './Product.module.scss'
 
 import CONSTANTS from '../../constants'
 import { basketCreate } from '../../redux/actions/basketActionCreators'
+import {
+  trackKlaviyo,
+  trackViewedItemKlaviyo
+} from '../../utils/klaviyo'
+import {
+  addedToCartPayload,
+  cartWithAddedItem,
+  viewedItemPayload,
+  viewedProductPayload
+} from '../../utils/klaviyoPayloads'
 
 const Product = () => {
   const { id } = useParams()
@@ -19,7 +29,23 @@ const Product = () => {
   const dispatch = useDispatch()
 
   const { products, isLoading, error } = useSelector(state => state.product)
+  const { items } = useSelector(state => state.basket)
   let info = products.ProductInfos
+
+  useEffect(() => {
+    if (!products || !products.id) {
+      return
+    }
+    trackKlaviyo('Viewed Product', viewedProductPayload(products))
+    trackViewedItemKlaviyo(viewedItemPayload(products))
+  }, [products && products.id])
+
+  const addToCart = () => {
+    dispatch(basketCreate(products))
+    const nextItems = cartWithAddedItem(items, products)
+    const added = nextItems.find(item => item.id === products.id)
+    trackKlaviyo('Added to Cart', addedToCartPayload(added, nextItems))
+  }
   return (
     <main className={cx(classes.mainProduct)}>
       {isLoading && <div>Loading</div>}
@@ -48,12 +74,12 @@ const Product = () => {
         {/* </div> */}
       </section>
       <section className={classes.conteiner2}>
-        <p className={classes.price}>{products.price}грн.</p>
+        <p className={classes.price}>{products.price} UAH</p>
         <button
           className={cx(classes.btn)}
-          onClick={() => dispatch(basketCreate(products))}
+          onClick={addToCart}
         >
-          До кошика
+          Add to cart
         </button>
       </section>
     </main>

@@ -26,7 +26,7 @@ const LoginPage = () => {
         <Input name='email' placeholder='email' type='email' />
         <Input name='password' placeholder='password' type='password' />
         <button className={classes.btn} type='submit'>
-          ВВІЙТИ
+          SIGN IN
         </button>
       </Form>
     </Formik>

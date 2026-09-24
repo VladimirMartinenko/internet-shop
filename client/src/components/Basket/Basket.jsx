@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CONSTANTS from '../../constants'
 import BasketItems from '../BasketItems/BasketItems'
@@ -11,24 +11,72 @@ import {
   buyerCreate,
   buyerLocalUpdate
 } from '../../redux/actions/buyerActionCreators'
-import { Formik, Form, useFormikContext } from 'formik'
+import { Formik, Form, Field, useFormikContext } from 'formik'
 import axios from 'axios'
 import Input from '../Input/Input'
 import classes from './Basket.module.scss'
+import {
+  getKlaviyoExchangeId,
+  identifyKlaviyo,
+  trackKlaviyo
+} from '../../utils/klaviyo'
+import { startedCheckoutPayload } from '../../utils/klaviyoPayloads'
 
 const initialValues = {
   email: '',
   firstName: '',
   lastName: '',
-  phone: ''
+  phone: '',
+  marketingConsent: false
 }
+
+const KlaviyoCheckoutIdentify = ({ items, totalSumm }) => {
+  const { values } = useFormikContext()
+  const startedEmail = useRef(null)
+  const identifyTimer = useRef(null)
+
+  useEffect(() => {
+    const email = values && values.email && String(values.email).trim()
+    if (!email || !/.+@.+\..+/.test(email)) {
+      return
+    }
+
+    clearTimeout(identifyTimer.current)
+    identifyTimer.current = setTimeout(() => {
+      identifyKlaviyo(values)
+      if (items.length && startedEmail.current !== email) {
+        startedEmail.current = email
+        trackKlaviyo('Started Checkout', startedCheckoutPayload(items, totalSumm))
+      }
+    }, 700)
+
+    return () => clearTimeout(identifyTimer.current)
+  }, [
+    values.email,
+    values.firstName,
+    values.lastName,
+    values.phone,
+    items,
+    totalSumm
+  ])
+
+  return null
+}
+
+const ConsentCheckbox = () => (
+  <label className={classes.consent}>
+    <Field type='checkbox' name='marketingConsent' />
+    <span>I want to receive news and offers by email</span>
+  </label>
+)
 
 const Basket = () => {
   let [hasError, setHasError] = useState(null)
   let [Error, setError] = useState(null)
   let [Message, setMessage] = useState(null)
   const { user } = useSelector(state => state.auth)
-  const { items } = useSelector(state => state.basket)
+  const { items, totalSumm } = useSelector(state => state.basket)
+  const { buyer } = useSelector(state => state.buyer)
 
   async function examinationBasket () {
     items?.map(async items => {
@@ -46,6 +94,7 @@ const Basket = () => {
   useEffect(() => {
     dispatch(buyerCreate(user))
   }, [])
+
   const AutoSubmitToken = () => {
     const { setFieldValue } = useFormikContext()
     useEffect(() => {
@@ -64,16 +113,34 @@ const Basket = () => {
   async function createOrder (values) {
     console.log('ghgh');
     try {
-      let res = await httpClient.post(`buyer`, values, console.log(values))
+      const { marketingConsent, ...buyerFields } = values
+      identifyKlaviyo(buyerFields)
+      trackKlaviyo('Started Checkout', startedCheckoutPayload(items, totalSumm))
+      const kx = getKlaviyoExchangeId()
+      let res = await httpClient.post(
+        `buyer`,
+        { ...buyerFields, _kx: kx },
+        console.log(values)
+      )
       let order = await httpClient.post(
         `order/buyer?sum=${totalSumm}`,
         res.data.data
       )
-      await items.map(product =>
-        httpClient.post(
-          `productToOrder/${order.data.data.id}/${product.id}?quantity=${product.count}`
+      await Promise.all(
+        items.map(product =>
+          httpClient.post(
+            `productToOrder/${order.data.data.id}/${product.id}?quantity=${product.count}`
+          )
         )
       )
+      try {
+        await httpClient.post(`order/${order.data.data.id}/placed`, {
+          _kx: kx,
+          marketingConsent: Boolean(marketingConsent)
+        })
+      } catch (klaviyoError) {
+        console.error(klaviyoError)
+      }
       data.append('firstName', values.firstName)
       data.append('lastName', values.lastName)
       data.append('phone', values.phone)
@@ -86,20 +153,16 @@ const Basket = () => {
       await httpClient.post(`mailer`, data, console.log(data))
       // await httpClient.post(`mailer`)
       await dispatch(basketClear())
-      await setMessage('замовлення створено успішно')
+      await setMessage('order created successfully')
     } catch (err) {
       console.log(err)
       if (err.response.status === 500) {
-        setHasError('проблема при створенні')
+        setHasError('problem creating the order')
       } else {
         setError(err.response.data.errors)
       }
     }
   }
-
-  const { buyer } = useSelector(state => state.buyer)
-  const basket = JSON.parse(localStorage.getItem('basket'))
-  const { totalSumm } = useSelector(state => state.basket)
 
   const handlValueChanges = (value, products) => {
     value.target.value = ''
@@ -127,10 +190,11 @@ const Basket = () => {
             ? ({ values }) => (
                 <Form className={classes.form}>
                   <AutoSubmitToken />
+                  <KlaviyoCheckoutIdentify items={items} totalSumm={totalSumm} />
                   <Input
                     name='firstName'
                     type='text'
-                    placeholder="І'мя"
+                    placeholder="First name"
                     value={buyer.firstName || ''}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
@@ -139,7 +203,7 @@ const Basket = () => {
                   <Input
                     name='lastName'
                     type='text'
-                    placeholder='Фамілія'
+                    placeholder='Last name'
                     value={buyer.lastName || ''}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
@@ -157,26 +221,29 @@ const Basket = () => {
                   <Input
                     name='phone'
                     type='phone'
-                    placeholder='телефон(380)'
+                    placeholder='Phone (380)'
                     value={buyer.phone || ''}
                     onFocus={e => handlValueChanges(e)}
                     // onBlur={e => handlValueChange(e)}
                     onChange={e => dispatch(buyerLocalUpdate(e.target))}
                   />
+                  <ConsentCheckbox />
                   {/* <button type='submit'>LOGIN</button> */}
                   <button type='submit' className={classes.btn}>
-                    ОФОРМИТИ
+                    CHECKOUT
                   </button>
                 </Form>
               )
             : ({ values }) => (
                 <Form className={classes.form}>
-                  <Input name='firstName' type='text' placeholder="І'мя" />
-                  <Input name='lastName' type='text' placeholder='Фамілія' />
+                  <KlaviyoCheckoutIdentify items={items} totalSumm={totalSumm} />
+                  <Input name='firstName' type='text' placeholder="First name" />
+                  <Input name='lastName' type='text' placeholder='Last name' />
                   <Input name='email' type='email' placeholder='email' />
-                  <Input name='phone' type='phone' placeholder='телефон(380)' />
+                  <Input name='phone' type='phone' placeholder='Phone (380)' />
+                  <ConsentCheckbox />
                   <button type='submit' className={classes.btn}>
-                    ОФОРМИТИ
+                    CHECKOUT
                   </button>
                 </Form>
               )}

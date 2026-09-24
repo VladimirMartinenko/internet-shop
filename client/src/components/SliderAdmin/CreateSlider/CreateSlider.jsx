@@ -28,7 +28,7 @@ const CreateSlider = () => {
   }
   return (
     <section>
-      <h1 className={classes.text}>Створити слайд</h1>
+      <h1 className={classes.text}>Create slide</h1>
       {error &&
         error.map(error => <p className={classes.error}>{error.message}</p>)}
       <Formik
@@ -38,7 +38,7 @@ const CreateSlider = () => {
       >
         <Form className={classes.form}>
           <MySelect name='productId' placeholder='productId' as='select'>
-            <option value=''>виберіть товар</option>
+            <option value=''>select a product</option>
             {product.map(product => (
               <option key={product.id} value={JSON.stringify(product.id)}>
                 {product.name}
@@ -46,7 +46,7 @@ const CreateSlider = () => {
             ))}
           </MySelect>
           <button type='submit' className={classes.btn}>
-            СТВОРИТИ
+            CREATE
           </button>
         </Form>
       </Formik>

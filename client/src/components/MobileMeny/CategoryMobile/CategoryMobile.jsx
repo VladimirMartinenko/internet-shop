@@ -34,7 +34,7 @@ const CategoryMobile = () => {
             onClick={() => dispatch(ChangesMobileMenu(0))}
             className={classes.back}
           >
-            <span>&larr;</span>повернутися
+            <span>&larr;</span>back
           </li>
           {category?.map(category => (
             <li

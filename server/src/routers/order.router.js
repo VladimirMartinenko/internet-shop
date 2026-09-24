@@ -4,6 +4,7 @@ const orderController = require('../controllers/order.controller')
 
 orderRouter.post('/', orderController.createOrderUser);
 orderRouter.post('/buyer', orderController.createOrderBuyer);
+orderRouter.post('/:orderId/placed', orderController.trackPlacedOrder);
 
 orderRouter.get('/', orderController.getOrdersUser);
 orderRouter.get('/', orderController.getOrdersBuyer);

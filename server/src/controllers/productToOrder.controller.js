@@ -17,7 +17,7 @@ module.exports.createProductToOrder = async (req, res, next) => {
       quantity,
     });
     if (!productToOrder) {
-      return next(createError(404, "неправильні дані"));
+      return next(createHttpError(404, "invalid data"));
     }
 
     res.status(201).send({ data: productToOrder });
@@ -33,7 +33,7 @@ module.exports.getProductToOrders = async (req, res, next) => {
     console.log(req);
     const productToOrder = await ProductToOrder.findAll({ where: { orderId } });
     if (!productToOrder) {
-      return next(createHttpError(404, "замовлення не знайдено"));
+      return next(createHttpError(404, "order not found"));
     }
     res.send({ data: productToOrder });
   } catch (error) {

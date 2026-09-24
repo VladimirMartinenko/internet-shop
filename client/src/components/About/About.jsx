@@ -4,23 +4,20 @@ import classes from './About.module.scss'
 const About = () => {
   return (
     <section className={classes.main}>
-      <h1 className={classes.textH1}>Небагато про нас</h1>
+      <h1 className={classes.textH1}>A little about us</h1>
       <figure className={classes.position}>
         <img
           className={classes.img}
-          src='/staticImages/коллектив-врачей-и-медсестер-создал-плоский-стиль-символов-193849561.webp'
-          alt='foto'
+          src='/staticImages/slide-new-collection.jpg'
+          alt='VELORA store'
         ></img>
         <article className={classes.text}>
-          Всі товари, представлені на сайті Ви можете побачити в магазинах. Для
-          Вашої зручності ми працюємо без вихідних, тому Ви можете відвідати нас
-          в найбільш зручне для Вас час, а салони-магазини розташовані в
-          найбільш зручних для відвідування районах міста. У мережі магазинів
-          працюють досвідчені фахівці, які завжди раді відповісти на всі Ваші
-          запитання та надати кваліфіковану консультацію. Також до Ваших послуг
-          - можливість прокату реабілітаційної техніки (милиці, палиці, ходунки,
-          інвалідні візки та ін.), індивідуальне виготовлення ортопедичних
-          устілок, безкоштовні консультації лікарів та профільних фахівців.
+          VELORA is a clothing and footwear store for everyday looks and
+          seasonal collections. Everything you see on the website is also
+          available in our shops. We are open every day, so you can drop by
+          whenever it suits you. Our showrooms are easy to reach, and the team
+          is happy to help you choose sizes, styles, and complete outfits —
+          from casual wear and sneakers to jackets, bags, and boots.
         </article>
       </figure>
     </section>

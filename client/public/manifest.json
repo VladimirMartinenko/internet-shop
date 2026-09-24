@@ -1,6 +1,6 @@
 {
-  "short_name": "Medimplant",
-  "name": "Medimplant",
+  "short_name": "VELORA",
+  "name": "VELORA",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#1c1917",
+  "background_color": "#f6f1ea"
 }
