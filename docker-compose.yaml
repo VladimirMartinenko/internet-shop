@@ -58,10 +58,9 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_DB=internet_shop_db
-    # ports:
-    #   - "5432:5432"  
-    # volumes:
-    #       - data:/var/lib/postgres/data  
+    volumes:
+      - pgdata:/var/lib/postgresql/data
 volumes:
   server-prod:
   nginx-server-prod:
+  pgdata:
