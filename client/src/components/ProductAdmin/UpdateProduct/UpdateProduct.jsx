@@ -20,6 +20,7 @@ const initialValues = {
   categoryId: '',
   brand: '',
   img: '',
+  img2: '',
   // info: [
   //   {
   //     title: '',
@@ -62,10 +63,13 @@ const UpdateProduct = () => {
     data.append('quantity', `${values.quantity}`)
     data.append('categoryId', values.categoryId)
     data.append('brand', values.brand)
-    if (document.getElementsByName('img')[0].value === '') {
-      data.append('img', products.img)
-    } else {
-      data.append('img', document.getElementsByName('img')[0].value)
+    const imgFile = document.getElementsByName('img')[0]
+    const img2File = document.getElementsByName('img2')[0]
+    if (imgFile && imgFile.files[0]) {
+      data.append('img', imgFile.files[0])
+    }
+    if (img2File && img2File.files[0]) {
+      data.append('img2', img2File.files[0])
     }
     // if(values.info===undefined){
     //   return
@@ -171,7 +175,24 @@ const UpdateProduct = () => {
                 // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdate(e.target))}
               />
-              {/* <Field name='img' type='file' placeholder='img' /> */}
+              <label htmlFor='file' className={classes.inputStyles}>
+                <span className={classes.span}>image 1 (optional)</span>
+                <Input
+                  name='img'
+                  type='file'
+                  id='file'
+                  className={classes.feedback__file}
+                />
+              </label>
+              <label htmlFor='file2' className={classes.inputStyles}>
+                <span className={classes.span}>image 2 (optional)</span>
+                <Input
+                  name='img2'
+                  type='file'
+                  id='file2'
+                  className={classes.feedback__file}
+                />
+              </label>
 
               {/* { products.ProductInfos?.map((products,index) =>(
                       <div key={index}>

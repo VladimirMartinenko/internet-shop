@@ -320,9 +320,9 @@ async function ensureCatalogCategory(category) {
 function catalogItemAttributes(product, { includeExternalId } = {}) {
   const {
     productPublicUrl,
-    productImagePublicUrl,
+    productImagePublicUrls,
   } = require("../utils/klaviyoPayloads");
-  const imageUrl = productImagePublicUrl(product.img);
+  const images = productImagePublicUrls(product);
   const attributes = {
     title: product.name,
     description: productDescription(product),
@@ -339,10 +339,10 @@ function catalogItemAttributes(product, { includeExternalId } = {}) {
   if (includeExternalId) {
     attributes.external_id = String(product.id);
   }
-  if (imageUrl) {
-    attributes.image_full_url = imageUrl;
-    attributes.image_thumbnail_url = imageUrl;
-    attributes.images = [imageUrl];
+  if (images.length) {
+    attributes.image_full_url = images[0];
+    attributes.image_thumbnail_url = images[0];
+    attributes.images = images;
   }
   return attributes;
 }
@@ -350,9 +350,9 @@ function catalogItemAttributes(product, { includeExternalId } = {}) {
 function catalogVariantAttributes(product, { includeExternalId } = {}) {
   const {
     productPublicUrl,
-    productImagePublicUrl,
+    productImagePublicUrls,
   } = require("../utils/klaviyoPayloads");
-  const imageUrl = productImagePublicUrl(product.img);
+  const images = productImagePublicUrls(product);
   const attributes = {
     title: product.name,
     description: productDescription(product),
@@ -368,10 +368,10 @@ function catalogVariantAttributes(product, { includeExternalId } = {}) {
   if (includeExternalId) {
     attributes.external_id = `${product.id}-default`;
   }
-  if (imageUrl) {
-    attributes.image_full_url = imageUrl;
-    attributes.image_thumbnail_url = imageUrl;
-    attributes.images = [imageUrl];
+  if (images.length) {
+    attributes.image_full_url = images[0];
+    attributes.image_thumbnail_url = images[0];
+    attributes.images = images;
   }
   return attributes;
 }

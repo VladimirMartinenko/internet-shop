@@ -54,6 +54,7 @@ export const PRODUCT_CREATE_CHEMA = yup.object({
     .string("must be a string")
     .required("this field is required"),
   img: yup.string().required("this field is required"),
+  img2: yup.string(),
   info: yup.array().of(
     yup.object({
       title: yup

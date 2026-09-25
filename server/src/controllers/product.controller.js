@@ -2,20 +2,29 @@ const createError = require("http-errors");
 const { Product, ProductInfo } = require("../db/models");
 const klaviyo = require("../services/klaviyo.service");
 
+function uploadedName(files, field) {
+  return files && files[field] && files[field][0] && files[field][0].filename;
+}
+
 module.exports.createProduct = async (req, res, next) => {
   try {
     let {
-      file: { filename },
       body: { name, price, quantity, categoryId, brand, info },
     } = req;
-    console.log(req);
+    const img = uploadedName(req.files, "img");
+    const img2 = uploadedName(req.files, "img2");
+    if (!img) {
+      const err = createError(400, "product image is required");
+      return next(err);
+    }
     const product = await Product.create({
       name,
       price,
       quantity,
       brand,
       categoryId,
-      img: filename,
+      img,
+      img2: img2 || null,
     });
     console.log(info);
     if (info) {
@@ -107,10 +116,22 @@ module.exports.updateProduct = async (req, res, next) => {
       params: { id },
       body,
     } = req;
-    if (req.file && req.file.filename) {
-      body.img = req.file.filename;
+    const img = uploadedName(req.files, "img");
+    const img2 = uploadedName(req.files, "img2");
+    const payload = {
+      name: body.name,
+      price: body.price,
+      quantity: body.quantity,
+      categoryId: body.categoryId,
+      brand: body.brand,
+    };
+    if (img) {
+      payload.img = img;
     }
-    const [rowsUpdatet, [updateProduct]] = await Product.update(body, {
+    if (img2) {
+      payload.img2 = img2;
+    }
+    const [rowsUpdatet, [updateProduct]] = await Product.update(payload, {
       where: { id },
       returning: true,
     });

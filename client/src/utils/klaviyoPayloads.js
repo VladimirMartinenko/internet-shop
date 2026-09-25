@@ -14,6 +14,16 @@ export function productImageUrl(img) {
   return `${CONSTANTS.HTTP_SERVER_URL_images}${img}`;
 }
 
+export function productImageUrls(product) {
+  if (!product) {
+    return [productImageUrl()];
+  }
+  const urls = [product.img, product.img2]
+    .filter(Boolean)
+    .map((img) => productImageUrl(img));
+  return urls.length ? urls : [productImageUrl()];
+}
+
 export function productPageUrl(id) {
   return `${siteOrigin()}/product/${id}`;
 }
@@ -32,6 +42,7 @@ export function cartWithAddedItem(items, product) {
 export function mapCartItem(item) {
   const quantity = Number(item.count || item.quantity || 1);
   const price = Number(item.price) || 0;
+  const images = productImageUrls(item);
   return {
     ProductID: String(item.id),
     SKU: String(item.id),
@@ -40,18 +51,23 @@ export function mapCartItem(item) {
     ItemPrice: price,
     RowTotal: price * quantity,
     ProductURL: productPageUrl(item.id),
-    ImageURL: productImageUrl(item.img),
+    ImageURL: images[0],
+    ImageURL2: images[1],
+    Images: images,
     ProductCategories: item.brand ? [item.brand] : [],
   };
 }
 
 export function viewedProductPayload(product) {
+  const images = productImageUrls(product);
   return {
     ProductName: product.name,
     ProductID: String(product.id),
     SKU: String(product.id),
     Categories: product.brand ? [product.brand] : [],
-    ImageURL: productImageUrl(product.img),
+    ImageURL: images[0],
+    ImageURL2: images[1],
+    Images: images,
     URL: productPageUrl(product.id),
     Brand: product.brand,
     Price: Number(product.price) || 0,
@@ -61,11 +77,14 @@ export function viewedProductPayload(product) {
 }
 
 export function viewedItemPayload(product) {
+  const images = productImageUrls(product);
   return {
     Title: product.name,
     ItemId: String(product.id),
     Categories: product.brand ? [product.brand] : [],
-    ImageUrl: productImageUrl(product.img),
+    ImageUrl: images[0],
+    ImageUrl2: images[1],
+    Images: images,
     Url: productPageUrl(product.id),
     Metadata: {
       Brand: product.brand,
@@ -94,6 +113,8 @@ export function addedToCartPayload(addedProduct, items) {
     AddedItemSKU: added.SKU,
     AddedItemCategories: added.ProductCategories,
     AddedItemImageURL: added.ImageURL,
+    AddedItemImageURL2: added.ImageURL2,
+    AddedItemImages: added.Images,
     AddedItemURL: added.ProductURL,
     AddedItemPrice: added.ItemPrice,
     AddedItemQuantity: added.Quantity,

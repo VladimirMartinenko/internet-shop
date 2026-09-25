@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import cx from 'classnames'
 import classes from './Product.module.scss'
 
-import CONSTANTS from '../../constants'
+import ProductImageSlider from './ProductImageSlider'
 import { basketCreate } from '../../redux/actions/basketActionCreators'
 import {
   trackKlaviyo,
@@ -53,15 +53,7 @@ const Product = () => {
         error.map(error => (
           <p className={cx(classes.error)}>{error.message}</p>
         ))}
-      <img
-        className={classes.img}
-        src={
-          products.img === undefined
-            ? CONSTANTS.PRODUCT_IMAGE_PATH
-            : CONSTANTS.HTTP_SERVER_URL_images + products.img
-        }
-        alt={products.name}
-      ></img>
+      <ProductImageSlider product={products} />
       <section className={classes.conteiner}>
         <h1 className={classes.text}>{products.name}</h1>
         {/* <div> */}

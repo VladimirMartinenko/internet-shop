@@ -17,6 +17,7 @@ const initialValues = {
   categoryId: '',
   brand: '',
   img: '',
+  img2: '',
   info: [
     {
       title: '',
@@ -50,6 +51,10 @@ const CreateProduct = () => {
     data.append('categoryId', values.categoryId)
     data.append('brand', values.brand)
     data.append('img', document.getElementsByName('img')[0].files[0])
+    const secondImage = document.getElementsByName('img2')[0]
+    if (secondImage && secondImage.files[0]) {
+      data.append('img2', secondImage.files[0])
+    }
     data.append('info', JSON.stringify(values.info))
     for (const [key, value] of data) {
       console.log(`${key}: ${value}\n`)
@@ -90,11 +95,20 @@ const CreateProduct = () => {
               <Input name='quantity' type='text' placeholder='quantity' />
               <Input name='brand' type='text' placeholder='brand' />
               <label htmlFor='file' className={classes.inputStyles}  onChange={()=>textF()}>
-              <span className={classes.span}>{text}</span>
+              <span className={classes.span}>image 1</span>
                 <Input
                   name='img'
                   type='file'
                   id='file'
+                  className={classes.feedback__file}
+                />
+              </label>
+              <label htmlFor='file2' className={classes.inputStyles}>
+                <span className={classes.span}>image 2 (optional)</span>
+                <Input
+                  name='img2'
+                  type='file'
+                  id='file2'
                   className={classes.feedback__file}
                 />
               </label>

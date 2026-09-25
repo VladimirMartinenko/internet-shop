@@ -72,6 +72,10 @@ module.exports = (sequelize, DataTypes) => {
           notNull: true,
         },
       },
+      img2: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       sequelize,

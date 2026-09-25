@@ -18,11 +18,33 @@ function storeImagesUrl() {
   return "http://localhost:5000/images/";
 }
 
+function productPublicUrl(id) {
+  return `${storeBaseUrl()}/product/${id}`;
+}
+
+function productImagePublicUrl(img) {
+  if (!img) {
+    return undefined;
+  }
+  return `${storeImagesUrl()}${encodeURIComponent(img)}`;
+}
+
+function productImagePublicUrls(product) {
+  if (!product) {
+    return [];
+  }
+  return [product.img, product.img2]
+    .filter(Boolean)
+    .map((img) => productImagePublicUrl(img))
+    .filter(Boolean);
+}
+
 function mapLine(line) {
   const product = line.Product || {};
   const quantity = Number(line.quantity || 1);
   const price = Number(product.price) || 0;
   const categoryName = product.Category && product.Category.name;
+  const images = productImagePublicUrls(product);
   return {
     ProductID: String(product.id),
     SKU: String(product.id),
@@ -31,8 +53,14 @@ function mapLine(line) {
     ItemPrice: price,
     RowTotal: price * quantity,
     ProductURL: `${storeBaseUrl()}/product/${product.id}`,
-    ImageURL: product.img ? `${storeImagesUrl()}${product.img}` : undefined,
-    Categories: categoryName ? [categoryName] : product.brand ? [product.brand] : [],
+    ImageURL: images[0],
+    ImageURL2: images[1],
+    Images: images,
+    Categories: categoryName
+      ? [categoryName]
+      : product.brand
+      ? [product.brand]
+      : [],
     Brand: product.brand,
   };
 }
@@ -60,20 +88,11 @@ function orderedProductProperties(order, line) {
     Quantity: item.Quantity,
     ProductURL: item.ProductURL,
     ImageURL: item.ImageURL,
+    ImageURL2: item.ImageURL2,
+    Images: item.Images,
     Categories: item.Categories,
     ProductBrand: item.Brand,
   };
-}
-
-function productPublicUrl(id) {
-  return `${storeBaseUrl()}/product/${id}`;
-}
-
-function productImagePublicUrl(img) {
-  if (!img) {
-    return undefined;
-  }
-  return `${storeImagesUrl()}${encodeURIComponent(img)}`;
 }
 
 module.exports = {
@@ -82,4 +101,5 @@ module.exports = {
   orderedProductProperties,
   productPublicUrl,
   productImagePublicUrl,
+  productImagePublicUrls,
 };
