@@ -1,8 +1,7 @@
 import { Formik, Form, FieldArray } from 'formik'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { productCreateRequest } from '../../../redux/actions/productActionCreators'
-import cx from 'classnames'
 import classes from './CreateProduct.module.scss'
 import Input from '../../Input/Input'
 import MySelect from '../../MySelect/MySelect'
@@ -27,20 +26,13 @@ const initialValues = {
 }
 
 const CreateProduct = () => {
-  console.log(document.getElementsByName('img').length);
-  let text = 'choose a file'
-  const textF=()=>{
-    // console.log(document.getElementsByName('img'));
-    if(document.getElementsByName('img')[0].value===''){
-    return text= 'choose a file'
-    }else{ return text= document.getElementsByName('img')[0].value}
-  }
+  const imgRef = useRef(null)
+  const img2Ref = useRef(null)
   useEffect(() => {
     requestCategorys()
   }, [])
   const requestCategorys = options => dispatch(categoryRequest(options))
   const { category } = useSelector(state => state.category)
-  const { product, isLoading, error } = useSelector(state => state.product)
   const { messagesCreate } = useSelector(state => state.products)
   const dispatch = useDispatch()
   const addProduct = (values, utils) => {
@@ -50,36 +42,28 @@ const CreateProduct = () => {
     data.append('quantity', `${values.quantity}`)
     data.append('categoryId', values.categoryId)
     data.append('brand', values.brand)
-    data.append('img', document.getElementsByName('img')[0].files[0])
-    const secondImage = document.getElementsByName('img2')[0]
-    if (secondImage && secondImage.files[0]) {
-      data.append('img2', secondImage.files[0])
+    if (imgRef.current && imgRef.current.files[0]) {
+      data.append('img', imgRef.current.files[0])
+    }
+    if (img2Ref.current && img2Ref.current.files[0]) {
+      data.append('img2', img2Ref.current.files[0])
     }
     data.append('info', JSON.stringify(values.info))
-    for (const [key, value] of data) {
-      console.log(`${key}: ${value}\n`)
-    }
     dispatch(productCreateRequest(data))
     utils.resetForm()
+    if (imgRef.current) imgRef.current.value = ''
+    if (img2Ref.current) img2Ref.current.value = ''
   }
   return (
     <section>
       <h1 className={classes.text}>CREATE PRODUCT</h1>
-      {/* {error &&
-        error.map(error => (
-          <div className={classes.error}>{error.message}</div>
-        ))} */}
-        < ValidationMessages  message={messagesCreate}/>
+      <ValidationMessages message={messagesCreate} />
       <Formik
         initialValues={initialValues}
         validationSchema={PRODUCT_CREATE_CHEMA}
         onSubmit={addProduct}
       >
-        {({ values, errors, touched }) => {
-          const inputStyles = cx(classes.feedback__label, {
-            [classes.validInput]: errors.img && !touched.img,
-            [classes.invalidInput]: errors.img && touched.img
-          })
+        {({ values, setFieldValue }) => {
           return (
             <Form className={classes.form}>
               <MySelect name='categoryId' placeholder='category' as='select'>
@@ -94,22 +78,40 @@ const CreateProduct = () => {
               <Input name='price' type='text' placeholder='price' />
               <Input name='quantity' type='text' placeholder='quantity' />
               <Input name='brand' type='text' placeholder='brand' />
-              <label htmlFor='file' className={classes.inputStyles}  onChange={()=>textF()}>
-              <span className={classes.span}>image 1</span>
-                <Input
+              <label className={classes.fileLabel}>
+                Image 1 (required)
+                <input
+                  ref={imgRef}
                   name='img'
                   type='file'
-                  id='file'
-                  className={classes.feedback__file}
+                  accept='image/*'
+                  className={classes.fileInput}
+                  onChange={e =>
+                    setFieldValue(
+                      'img',
+                      e.currentTarget.files[0]
+                        ? e.currentTarget.files[0].name
+                        : ''
+                    )
+                  }
                 />
               </label>
-              <label htmlFor='file2' className={classes.inputStyles}>
-                <span className={classes.span}>image 2 (optional)</span>
-                <Input
+              <label className={classes.fileLabel}>
+                Image 2 (optional)
+                <input
+                  ref={img2Ref}
                   name='img2'
                   type='file'
-                  id='file2'
-                  className={classes.feedback__file}
+                  accept='image/*'
+                  className={classes.fileInput}
+                  onChange={e =>
+                    setFieldValue(
+                      'img2',
+                      e.currentTarget.files[0]
+                        ? e.currentTarget.files[0].name
+                        : ''
+                    )
+                  }
                 />
               </label>
               <FieldArray

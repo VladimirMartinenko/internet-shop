@@ -54,8 +54,6 @@ const UpdateProduct = () => {
 
   const dispatch = useDispatch()
   const addProduct = (values, { resetForm }) => {
-    console.log(values);
-    console.log(document.getElementsByName('img')[0].value)
   try {
      const data = new FormData()
     data.append('name', values.name)
@@ -63,21 +61,13 @@ const UpdateProduct = () => {
     data.append('quantity', `${values.quantity}`)
     data.append('categoryId', values.categoryId)
     data.append('brand', values.brand)
-    const imgFile = document.getElementsByName('img')[0]
-    const img2File = document.getElementsByName('img2')[0]
+    const imgFile = document.querySelector('input[name="img"]')
+    const img2File = document.querySelector('input[name="img2"]')
     if (imgFile && imgFile.files[0]) {
       data.append('img', imgFile.files[0])
     }
     if (img2File && img2File.files[0]) {
       data.append('img2', img2File.files[0])
-    }
-    // if(values.info===undefined){
-    //   return
-    // }else{
-    // data.append('info', JSON.stringify(values.info))
-    // }
-    for (const [key, value] of data) {
-      console.log(`${key}: ${value}\n`)
     }
     dispatch(productUpdateRequest(data, values.productId))
   }catch(err){
@@ -175,22 +165,22 @@ const UpdateProduct = () => {
                 // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdate(e.target))}
               />
-              <label htmlFor='file' className={classes.inputStyles}>
-                <span className={classes.span}>image 1 (optional)</span>
-                <Input
+              <label className={classes.fileLabel}>
+                Image 1 (optional)
+                <input
                   name='img'
                   type='file'
-                  id='file'
-                  className={classes.feedback__file}
+                  accept='image/*'
+                  className={classes.fileInput}
                 />
               </label>
-              <label htmlFor='file2' className={classes.inputStyles}>
-                <span className={classes.span}>image 2 (optional)</span>
-                <Input
+              <label className={classes.fileLabel}>
+                Image 2 (optional)
+                <input
                   name='img2'
                   type='file'
-                  id='file2'
-                  className={classes.feedback__file}
+                  accept='image/*'
+                  className={classes.fileInput}
                 />
               </label>
 
