@@ -45,10 +45,12 @@ function mapLine(line) {
   const price = Number(product.price) || 0;
   const categoryName = product.Category && product.Category.name;
   const images = productImagePublicUrls(product);
+  const size = line.size || undefined;
   return {
     ProductID: String(product.id),
-    SKU: String(product.id),
+    SKU: size ? `${product.id}-${size}` : String(product.id),
     ProductName: product.name,
+    Size: size,
     Quantity: quantity,
     ItemPrice: price,
     RowTotal: price * quantity,
@@ -85,6 +87,7 @@ function orderedProductProperties(order, line) {
     ProductID: item.ProductID,
     SKU: item.SKU,
     ProductName: item.ProductName,
+    Size: item.Size,
     Quantity: item.Quantity,
     ProductURL: item.ProductURL,
     ImageURL: item.ImageURL,

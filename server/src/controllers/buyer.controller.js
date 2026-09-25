@@ -41,8 +41,8 @@ module.exports.findBuyers = async (req, res, next) => {
           include: [
             {
               model: Product,
-              attributes: ["name", "price"],
-              through: { attributes: ["quantity"] },
+              attributes: ["id", "name", "price"],
+              through: { attributes: ["quantity", "size"] },
             },
           ],
         },

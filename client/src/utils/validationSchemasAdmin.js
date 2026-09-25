@@ -44,9 +44,18 @@ export const SLIDER_DELETE_CHEMA = yup.object({
 export const PRODUCT_CREATE_CHEMA = yup.object({
   name: yup.string("must be a string").required("this field is required"),
   price: yup.number().typeError("must be a number").required("this field is required"),
+  hasSizes: yup.boolean(),
   quantity: yup
-    .number().typeError("must be a number")
-    .required("this field is required"),
+    .number()
+    .transform((value, originalValue) =>
+      originalValue === "" || originalValue === null ? undefined : value
+    )
+    .when("hasSizes", {
+      is: true,
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) =>
+        schema.typeError("must be a number").required("this field is required"),
+    }),
   categoryId: yup
     .string("must be a string")
     .required("this field is required"),
@@ -55,6 +64,17 @@ export const PRODUCT_CREATE_CHEMA = yup.object({
     .required("this field is required"),
   img: yup.string().required("this field is required"),
   img2: yup.string(),
+  sizes: yup.array().when("hasSizes", {
+    is: true,
+    then: (schema) =>
+      schema.test(
+        "named-size",
+        "add at least one size",
+        (value) =>
+          Array.isArray(value) &&
+          value.some((row) => row && String(row.name || "").trim())
+      ),
+  }),
   info: yup.array().of(
     yup.object({
       title: yup
@@ -69,15 +89,35 @@ export const PRODUCT_CREATE_CHEMA = yup.object({
 export const PRODUCT_UPDATE_CHEMA = yup.object({
   name: yup.string("must be a string").required("this field is required"),
   price: yup.number().typeError("must be a number").required("this field is required"),
+  hasSizes: yup.boolean(),
   quantity: yup
-    .number().typeError("must be a number")
-    .required("this field is required"),
+    .number()
+    .transform((value, originalValue) =>
+      originalValue === "" || originalValue === null ? undefined : value
+    )
+    .when("hasSizes", {
+      is: true,
+      then: (schema) => schema.notRequired(),
+      otherwise: (schema) =>
+        schema.typeError("must be a number").required("this field is required"),
+    }),
   categoryId: yup
     .string("must be a string")
     .required("this field is required"),
   brand: yup
     .string("must be a string")
     .required("this field is required"),
+  sizes: yup.array().when("hasSizes", {
+    is: true,
+    then: (schema) =>
+      schema.test(
+        "named-size",
+        "add at least one size",
+        (value) =>
+          Array.isArray(value) &&
+          value.some((row) => row && String(row.name || "").trim())
+      ),
+  }),
   info: yup.array().of(
     yup.object({
       title: yup

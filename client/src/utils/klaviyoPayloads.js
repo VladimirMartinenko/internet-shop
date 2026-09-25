@@ -30,23 +30,30 @@ export function productPageUrl(id) {
 
 export function cartWithAddedItem(items, product) {
   const current = items || [];
-  const existing = current.find((item) => item.id === product.id);
+  const key = product.cartKey || (product.size ? `${product.id}::${product.size}` : String(product.id));
+  const existing = current.find((item) => {
+    const itemKey = item.cartKey || (item.size ? `${item.id}::${item.size}` : String(item.id));
+    return itemKey === key;
+  });
   if (existing) {
-    return current.map((item) =>
-      item.id === product.id ? { ...item, count: item.count + 1 } : item
-    );
+    return current.map((item) => {
+      const itemKey = item.cartKey || (item.size ? `${item.id}::${item.size}` : String(item.id));
+      return itemKey === key ? { ...item, count: item.count + 1 } : item;
+    });
   }
-  return [...current, { ...product, count: 1 }];
+  return [...current, { ...product, cartKey: key, count: 1 }];
 }
 
 export function mapCartItem(item) {
   const quantity = Number(item.count || item.quantity || 1);
   const price = Number(item.price) || 0;
   const images = productImageUrls(item);
+  const size = item.size || undefined;
   return {
     ProductID: String(item.id),
-    SKU: String(item.id),
+    SKU: size ? `${item.id}-${size}` : String(item.id),
     ProductName: item.name,
+    Size: size,
     Quantity: quantity,
     ItemPrice: price,
     RowTotal: price * quantity,
@@ -118,6 +125,7 @@ export function addedToCartPayload(addedProduct, items) {
     AddedItemURL: added.ProductURL,
     AddedItemPrice: added.ItemPrice,
     AddedItemQuantity: added.Quantity,
+    AddedItemSize: added.Size,
     ItemNames: cartItems.map((item) => item.ProductName),
     CheckoutURL: `${siteOrigin()}/basket`,
     Items: cartItems,

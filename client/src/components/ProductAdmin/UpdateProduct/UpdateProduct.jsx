@@ -11,12 +11,16 @@ import Input from '../../Input/Input'
 import classes from './UpdateProduct.module.scss'
 import { PRODUCT_UPDATE_CHEMA } from '../../../utils/validationSchemasAdmin'
 import ValidationMessages from '../../validator/validationMessages'
+import ProductSizeEditor from '../ProductSizeEditor/ProductSizeEditor'
+import { parseSizes } from '../../../utils/productSizes'
 
 const initialValues = {
   productId: '',
   name: '',
   price: '',
   quantity: '',
+  hasSizes: false,
+  sizes: [],
   categoryId: '',
   brand: '',
   img: '',
@@ -41,9 +45,11 @@ const UpdateProduct = () => {
       setFieldValue('name', products.name)
       setFieldValue('price', products.price)
       setFieldValue('quantity', products.quantity)
-      setFieldValue('quantity', products.quantity)
       setFieldValue('categoryId', products.categoryId)
       setFieldValue('brand', products.brand)
+      const parsed = parseSizes(products)
+      setFieldValue('hasSizes', parsed.length > 0)
+      setFieldValue('sizes', parsed)
       // products.ProductInfos?.map((info, index) => {
       //   setFieldValue(`info[${index}].title`, info.title)
       //   setFieldValue(`info.${index}.description`, info.description)
@@ -56,9 +62,21 @@ const UpdateProduct = () => {
   const addProduct = (values, { resetForm }) => {
   try {
      const data = new FormData()
+    const sizes = values.hasSizes
+      ? (values.sizes || [])
+          .map(row => ({
+            name: String(row.name || '').trim(),
+            quantity: Number(row.quantity || 0)
+          }))
+          .filter(row => row.name)
+      : []
+    const quantity = sizes.length
+      ? sizes.reduce((sum, row) => sum + Number(row.quantity || 0), 0)
+      : values.quantity
     data.append('name', values.name)
     data.append('price', `${values.price}`)
-    data.append('quantity', `${values.quantity}`)
+    data.append('quantity', `${quantity}`)
+    data.append('sizes', JSON.stringify(sizes))
     data.append('categoryId', values.categoryId)
     data.append('brand', values.brand)
     const imgFile = document.querySelector('input[name="img"]')
@@ -133,15 +151,17 @@ const UpdateProduct = () => {
                 // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdate(e.target))}
               />
-              <Input
-                name='quantity'
-                type='text'
-                placeholder='quantity'
-                value={products.quantity || ""}
-                onFocus={e => handlValueChanges(e)}
-                // onBlur={e => handlValueChange(e)}
-                onChange={e => dispatch(productLocalUpdate(e.target))}
-              />
+              {!formikProps.values.hasSizes && (
+                <Input
+                  name='quantity'
+                  type='text'
+                  placeholder='quantity'
+                  value={products.quantity || ""}
+                  onFocus={e => handlValueChanges(e)}
+                  // onBlur={e => handlValueChange(e)}
+                  onChange={e => dispatch(productLocalUpdate(e.target))}
+                />
+              )}
               <MySelect
                 name='categoryId'
                 placeholder='category'
@@ -164,6 +184,10 @@ const UpdateProduct = () => {
                 onFocus={e => handlValueChanges(e)}
                 // onBlur={e => handlValueChange(e)}
                 onChange={e => dispatch(productLocalUpdate(e.target))}
+              />
+              <ProductSizeEditor
+                values={formikProps.values}
+                setFieldValue={formikProps.setFieldValue}
               />
               <label className={classes.fileLabel}>
                 Image 1 (optional)

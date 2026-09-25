@@ -6,6 +6,7 @@ import classes from './CreateProduct.module.scss'
 import Input from '../../Input/Input'
 import MySelect from '../../MySelect/MySelect'
 import { categoryRequest } from '../../../redux/actions/categoryAction'
+import ProductSizeEditor from '../ProductSizeEditor/ProductSizeEditor'
 import { PRODUCT_CREATE_CHEMA } from '../../../utils/validationSchemasAdmin'
 import ValidationMessages from '../../validator/validationMessages'
 
@@ -13,6 +14,8 @@ const initialValues = {
   name: '',
   price: '',
   quantity: '',
+  hasSizes: false,
+  sizes: [],
   categoryId: '',
   brand: '',
   img: '',
@@ -37,9 +40,21 @@ const CreateProduct = () => {
   const dispatch = useDispatch()
   const addProduct = (values, utils) => {
     const data = new FormData()
+    const sizes = values.hasSizes
+      ? (values.sizes || [])
+          .map(row => ({
+            name: String(row.name || '').trim(),
+            quantity: Number(row.quantity || 0)
+          }))
+          .filter(row => row.name)
+      : []
+    const quantity = sizes.length
+      ? sizes.reduce((sum, row) => sum + Number(row.quantity || 0), 0)
+      : values.quantity
     data.append('name', values.name)
     data.append('price', `${values.price}`)
-    data.append('quantity', `${values.quantity}`)
+    data.append('quantity', `${quantity}`)
+    data.append('sizes', JSON.stringify(sizes))
     data.append('categoryId', values.categoryId)
     data.append('brand', values.brand)
     if (imgRef.current && imgRef.current.files[0]) {
@@ -76,8 +91,14 @@ const CreateProduct = () => {
               </MySelect>
               <Input name='name' type='text' placeholder='name' />
               <Input name='price' type='text' placeholder='price' />
-              <Input name='quantity' type='text' placeholder='quantity' />
+              {!values.hasSizes && (
+                <Input name='quantity' type='text' placeholder='quantity' />
+              )}
               <Input name='brand' type='text' placeholder='brand' />
+              <ProductSizeEditor
+                values={values}
+                setFieldValue={setFieldValue}
+              />
               <label className={classes.fileLabel}>
                 Image 1 (required)
                 <input

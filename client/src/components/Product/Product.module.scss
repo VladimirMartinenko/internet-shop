@@ -6,26 +6,54 @@
   background-color: white;
 }
 .img {
-  width: 30vw;
-  height: 50vh;
-  object-fit: cover;
-  // border: 2px solid gray;
-  margin: 0 50px ;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  background-color: #fff;
 }
 .gallery {
-  width: 30vw;
+  width: 32vw;
+  max-width: 520px;
+  height: min(68vh, 640px);
   position: relative;
-  margin: 0 50px;
+  z-index: 0;
+  isolation: isolate;
+  margin: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
 }
-.gallery .img {
+.slide {
+  height: min(68vh, 640px);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+.gallery :global(.slick-slider),
+.gallery :global(.slick-list) {
   width: 100%;
-  margin: 0;
+  height: 100%;
+}
+.gallery :global(.slick-slide img),
+.gallery img {
+  max-width: 100%;
+  max-height: min(68vh, 640px);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  margin: 0 auto;
 }
 .arrowNext,
 .arrowPrev {
   position: absolute;
   top: 45%;
-  z-index: 2;
+  z-index: 1;
   width: 40px;
   height: 40px;
   cursor: pointer;
@@ -97,6 +125,37 @@ line-height: 1.5em;
   width: 40vw;
   padding-top: 50px;
 }
+.sizes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+  max-width: 90%;
+}
+.sizeBtn {
+  min-width: 48px;
+  padding: 8px 12px;
+  border: 1px solid var(--velora-ink);
+  border-radius: 5px;
+  background: white;
+  color: var(--velora-ink);
+  font-style: italic;
+  cursor: pointer;
+}
+.sizeBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.sizeBtnActive {
+  background: var(--velora-ink);
+  color: var(--velora-cream);
+}
+.sizeError {
+  color: #c45c4a;
+  font-style: italic;
+  margin-top: 8px;
+}
 .error {
   display: flex;
   justify-content: center;
@@ -135,13 +194,18 @@ line-height: 1.5em;
     line-height: 1.5em;
     text-align: center;
   }
-  .img{
-    width: 65vw;
-    // height: 70vh;
-  }
   .gallery {
-    width: 65vw;
-    margin: 0;
+    width: 90vw;
+    max-width: none;
+    height: min(58vh, 520px);
+    margin: 12px 0;
+  }
+  .slide {
+    height: min(58vh, 520px);
+  }
+  .gallery :global(.slick-slide img),
+  .gallery img {
+    max-height: min(58vh, 520px);
   }
   .text {
     font-family: italic;

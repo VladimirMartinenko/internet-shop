@@ -36,10 +36,15 @@ const GetOrder = () => {
                   <p className={classes.text}> Total:{order.sum}</p>
                   <div>
                     {order.Products?.map(products => (
-                      <section key={products.name} className={classes.container}>
+                      <section key={`${products.id}-${products.products_to_rders?.size || ''}`} className={classes.container}>
                         <p className={classes.text}>
                           name:{products.name}
                         </p>
+                        {products.products_to_rders?.size && (
+                          <p className={classes.text}>
+                            size:{products.products_to_rders.size}
+                          </p>
+                        )}
                         <p className={classes.text}>
                           quantity:{products.products_to_rders.quantity}
                         </p>

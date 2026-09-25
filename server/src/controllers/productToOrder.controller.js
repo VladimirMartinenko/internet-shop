@@ -1,27 +1,81 @@
 const createHttpError = require("http-errors");
-const { ProductToOrder } = require("../db/models");
+const { ProductToOrder, Product, sequelize } = require("../db/models");
+const { parseSizes, totalQuantity } = require("../utils/sizes");
 
 module.exports.createProductToOrder = async (req, res, next) => {
+  const t = await sequelize.transaction();
   try {
     const {
-      // order: { id: orderId },
-      // product: {id: productId},
       params: { orderId, productId },
-      query: { quantity },
+      query: { quantity, size },
     } = req;
-    console.log(req);
+    const qty = Number(quantity || 1);
+    const sizeName = size ? String(size).trim() : null;
+    if (!qty || qty < 1) {
+      await t.rollback();
+      return next(createHttpError(400, "invalid quantity"));
+    }
 
-    const productToOrder = await ProductToOrder.create({
-      orderId,
-      productId,
-      quantity,
-    });
+    const product = await Product.findByPk(productId, { transaction: t });
+    if (!product) {
+      await t.rollback();
+      return next(createHttpError(404, "product not found"));
+    }
+
+    const sizes = parseSizes(product.sizes);
+    if (sizes.length) {
+      if (!sizeName) {
+        await t.rollback();
+        return next(createHttpError(400, "size is required"));
+      }
+      const row = sizes.find((item) => item.name === sizeName);
+      if (!row) {
+        await t.rollback();
+        return next(createHttpError(400, "invalid size"));
+      }
+      if (Number(row.quantity) < qty) {
+        await t.rollback();
+        return next(createHttpError(400, "not enough stock for this size"));
+      }
+      const nextSizes = sizes.map((item) =>
+        item.name === sizeName
+          ? { ...item, quantity: Number(item.quantity) - qty }
+          : item
+      );
+      await Product.update(
+        { sizes: nextSizes, quantity: totalQuantity(nextSizes) },
+        { where: { id: productId }, transaction: t }
+      );
+    } else {
+      if (Number(product.quantity) < qty) {
+        await t.rollback();
+        return next(createHttpError(400, "not enough stock"));
+      }
+      await Product.decrement("quantity", {
+        by: qty,
+        where: { id: productId },
+        transaction: t,
+      });
+    }
+
+    const productToOrder = await ProductToOrder.create(
+      {
+        orderId,
+        productId,
+        quantity: qty,
+        size: sizeName,
+      },
+      { transaction: t }
+    );
     if (!productToOrder) {
+      await t.rollback();
       return next(createHttpError(404, "invalid data"));
     }
 
+    await t.commit();
     res.status(201).send({ data: productToOrder });
   } catch (error) {
+    await t.rollback();
     next(error);
   }
 };
@@ -30,7 +84,6 @@ module.exports.getProductToOrders = async (req, res, next) => {
     const {
       params: { orderId },
     } = req;
-    console.log(req);
     const productToOrder = await ProductToOrder.findAll({ where: { orderId } });
     if (!productToOrder) {
       return next(createHttpError(404, "order not found"));

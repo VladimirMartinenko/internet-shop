@@ -13,6 +13,8 @@ import classes from './ProductList.module.scss'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { productGetByCategoryRequest } from '../../redux/actions/productActionCreators'
 import { categoryGetByIdRequest } from '../../redux/actions/categoryAction'
+import store from '../../redux'
+import { productHasSizes } from '../../utils/productSizes'
 
 const ProductList = () => {
   const { id } = useParams()
@@ -29,7 +31,6 @@ const ProductList = () => {
   const history = useHistory()
   const { product, isLoading, error } = useSelector(state => state.products)
   const { categoryById } = useSelector(state => state.category)
-  const { items } = useSelector(state => state.basket)
 
   const dispatch = useDispatch()
 
@@ -41,8 +42,19 @@ const ProductList = () => {
   }, [categoryById && categoryById.id])
 
   const addToCart = addedProduct => {
-    dispatch(basketCreate(addedProduct))
-    const nextItems = cartWithAddedItem(items, addedProduct)
+    const items = store.getState().basket.items
+    const line = {
+      id: addedProduct.id,
+      name: addedProduct.name,
+      price: addedProduct.price,
+      img: addedProduct.img,
+      img2: addedProduct.img2,
+      brand: addedProduct.brand,
+      quantity: addedProduct.quantity,
+      sizes: addedProduct.sizes
+    }
+    dispatch(basketCreate(line))
+    const nextItems = cartWithAddedItem(items, line)
     const added = nextItems.find(item => item.id === addedProduct.id)
     trackKlaviyo('Added to Cart', addedToCartPayload(added, nextItems))
   }
@@ -69,9 +81,13 @@ const ProductList = () => {
             <p className={classes.price}>{product.price} UAH</p>
             <button
               className={classes.btn}
-              onClick={() => addToCart(product)}
+              onClick={() =>
+                productHasSizes(product)
+                  ? history.push('/product/' + product.id)
+                  : addToCart(product)
+              }
             >
-              Add to cart
+              {productHasSizes(product) ? 'Select size' : 'Add to cart'}
             </button>
           </div>
         ))}

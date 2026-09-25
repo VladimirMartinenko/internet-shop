@@ -22,6 +22,21 @@ import ProductAdminPage from './pages/ProductAdminPage/ProductAdminPage';
 import AdminOrderPage from './pages/AdminOrderPage/AdminOrderPage';
 import { identifyKlaviyo, initKlaviyo } from './utils/klaviyo';
 
+function BasketPersist() {
+  const items = useSelector(state => state.basket.items)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    window.localStorage.setItem('basket', JSON.stringify(items))
+  }, [items])
+
+  useEffect(() => {
+    dispatch(basketSum())
+  }, [items, dispatch])
+
+  return null
+}
+
 function App() {
   useEffect(() => {
     document.title = "VELORA";
@@ -35,15 +50,7 @@ function App() {
     }
   }, []);
  
-  const { items } = useSelector(state => state.basket);
   const { user } = useSelector(state => state.auth);
-  useEffect(() => {
-    window.localStorage.setItem('basket', JSON.stringify(items));
-  }, [items]);
-
-  useEffect(() => {
-   dispatch(basketSum())
-  }, [items]);
 
   useEffect(() => {
    dispatch(sliderGetRequest())
@@ -62,6 +69,7 @@ function App() {
   const dispatch = useDispatch();
   return (
     <Router>
+    <BasketPersist />
     <Switch>
       <Route exact path='/' component={HomePage} />
       <PublicOnlyRoute exact path='/login' component={LoginPage} />

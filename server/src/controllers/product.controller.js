@@ -1,6 +1,7 @@
 const createError = require("http-errors");
 const { Product, ProductInfo } = require("../db/models");
 const klaviyo = require("../services/klaviyo.service");
+const { parseSizes, totalQuantity } = require("../utils/sizes");
 
 function uploadedName(files, field) {
   return files && files[field] && files[field][0] && files[field][0].filename;
@@ -9,7 +10,7 @@ function uploadedName(files, field) {
 module.exports.createProduct = async (req, res, next) => {
   try {
     let {
-      body: { name, price, quantity, categoryId, brand, info },
+      body: { name, price, quantity, categoryId, brand, info, sizes },
     } = req;
     const img = uploadedName(req.files, "img");
     const img2 = uploadedName(req.files, "img2");
@@ -17,14 +18,19 @@ module.exports.createProduct = async (req, res, next) => {
       const err = createError(400, "product image is required");
       return next(err);
     }
+    const parsedSizes = parseSizes(sizes);
+    const stock = parsedSizes.length
+      ? totalQuantity(parsedSizes)
+      : quantity;
     const product = await Product.create({
       name,
       price,
-      quantity,
+      quantity: stock,
       brand,
       categoryId,
       img,
       img2: img2 || null,
+      sizes: parsedSizes,
     });
     console.log(info);
     if (info) {
@@ -118,12 +124,16 @@ module.exports.updateProduct = async (req, res, next) => {
     } = req;
     const img = uploadedName(req.files, "img");
     const img2 = uploadedName(req.files, "img2");
+    const parsedSizes = parseSizes(body.sizes);
     const payload = {
       name: body.name,
       price: body.price,
-      quantity: body.quantity,
+      quantity: parsedSizes.length
+        ? totalQuantity(parsedSizes)
+        : body.quantity,
       categoryId: body.categoryId,
       brand: body.brand,
+      sizes: parsedSizes,
     };
     if (img) {
       payload.img = img;

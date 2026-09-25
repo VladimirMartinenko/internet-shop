@@ -21,6 +21,7 @@ import {
   trackKlaviyo
 } from '../../utils/klaviyo'
 import { startedCheckoutPayload } from '../../utils/klaviyoPayloads'
+import { lineCartKey } from '../../utils/productSizes'
 
 const initialValues = {
   email: '',
@@ -83,7 +84,7 @@ const Basket = () => {
       try {
         await httpClient.get(`product/${items.id}`, console.log(items.id))
       } catch (err) {
-        dispatch(basketDelete(items.id))
+        dispatch(basketDelete(lineCartKey(items)))
       }
     })
   }
@@ -129,7 +130,9 @@ const Basket = () => {
       await Promise.all(
         items.map(product =>
           httpClient.post(
-            `productToOrder/${order.data.data.id}/${product.id}?quantity=${product.count}`
+            `productToOrder/${order.data.data.id}/${product.id}?quantity=${product.count}${
+              product.size ? `&size=${encodeURIComponent(product.size)}` : ''
+            }`
           )
         )
       )

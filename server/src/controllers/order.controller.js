@@ -184,7 +184,7 @@ module.exports.trackPlacedOrder = async (req, res, next) => {
           ...profile,
           properties: orderedProductProperties(order, line),
           value: item.RowTotal,
-          uniqueId: `${order.id}:${item.ProductID}`,
+          uniqueId: `${order.id}:${item.ProductID}:${item.Size || "nosize"}`,
         });
       })
     );

@@ -13,41 +13,43 @@ function PrevArrow ({ onClick }) {
   return <div className={classes.arrowPrev} onClick={onClick} />
 }
 
+const sliderSettings = {
+  dots: true,
+  infinite: true,
+  speed: 400,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  adaptiveHeight: false,
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />
+}
+
 const ProductImageSlider = ({ product }) => {
   const images = [product.img, product.img2].filter(Boolean)
-  const slides = images.length
-    ? images
-    : [undefined]
+  const slides = images.length ? images : [undefined]
+
+  const imageSrc = filename =>
+    filename
+      ? CONSTANTS.HTTP_SERVER_URL_images + filename
+      : CONSTANTS.PRODUCT_IMAGE_PATH
 
   if (slides.length === 1) {
     return (
-      <img
-        className={classes.img}
-        src={
-          slides[0]
-            ? CONSTANTS.HTTP_SERVER_URL_images + slides[0]
-            : CONSTANTS.PRODUCT_IMAGE_PATH
-        }
-        alt={product.name}
-      />
+      <div className={classes.gallery}>
+        <img
+          className={classes.img}
+          src={imageSrc(slides[0])}
+          alt={product.name}
+        />
+      </div>
     )
-  }
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 400,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />
   }
 
   return (
     <div className={classes.gallery}>
-      <Slider {...settings}>
+      <Slider {...sliderSettings}>
         {slides.map(filename => (
-          <div key={filename}>
+          <div key={filename} className={classes.slide}>
             <img
               className={classes.img}
               src={CONSTANTS.HTTP_SERVER_URL_images + filename}
@@ -60,4 +62,10 @@ const ProductImageSlider = ({ product }) => {
   )
 }
 
-export default ProductImageSlider
+export default React.memo(ProductImageSlider, (prev, next) => {
+  return (
+    prev.product.img === next.product.img &&
+    prev.product.img2 === next.product.img2 &&
+    prev.product.name === next.product.name
+  )
+})

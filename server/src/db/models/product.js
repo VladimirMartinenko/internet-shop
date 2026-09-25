@@ -77,6 +77,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         field: "img_2",
       },
+      sizes: {
+        type: DataTypes.JSONB,
+        allowNull: false,
+        defaultValue: [],
+      },
     },
     {
       sequelize,

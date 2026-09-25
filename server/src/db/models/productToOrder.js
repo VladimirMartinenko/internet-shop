@@ -25,6 +25,10 @@ module.exports = (sequelize, DataTypes) => {
         //   notNull: true,
         // },
       },
+      size: {
+        type: DataTypes.STRING(32),
+        allowNull: true,
+      },
     },
     {
       sequelize,

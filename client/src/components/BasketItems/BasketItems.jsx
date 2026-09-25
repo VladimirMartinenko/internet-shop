@@ -7,6 +7,7 @@ import {
 } from '../../redux/actions/basketActionCreators'
 import { useDispatch, useSelector } from 'react-redux'
 import classes from './BasketItems.module.scss'
+import { lineCartKey } from '../../utils/productSizes'
 
 const BasketItems = () => {
   const { items } = useSelector(state => state.basket)
@@ -16,17 +17,18 @@ const BasketItems = () => {
   return (
     <>
       {items?.map(i => (
-        <div key={i.id} className={classes.containerMain}>
+        <div key={lineCartKey(i)} className={classes.containerMain}>
           <img
             className={classes.img}
             src={CONSTANTS.HTTP_SERVER_URL_images + i.img}
             alt={i.name}
           ></img>
           <p className={classes.text}>name : {i.name}</p>
+          {i.size && <p className={classes.text}>size : {i.size}</p>}
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
-              onClick={() => dispatch(basketPlus(i.id))}
+              onClick={() => dispatch(basketPlus(lineCartKey(i)))}
             >
               +
             </button>
@@ -35,7 +37,7 @@ const BasketItems = () => {
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
-              onClick={() => dispatch(basketMinus(i.id))}
+              onClick={() => dispatch(basketMinus(lineCartKey(i)))}
             >
               -
             </button>
@@ -45,7 +47,7 @@ const BasketItems = () => {
           <div className={classes.containerBtn}>
             <button
               className={classes.btn}
-              onClick={() => dispatch(basketDelete(i.id))}
+              onClick={() => dispatch(basketDelete(lineCartKey(i)))}
             >
               DELETE
             </button>
