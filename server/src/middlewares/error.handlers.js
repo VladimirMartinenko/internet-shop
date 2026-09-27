@@ -3,8 +3,18 @@ const { ValidationError, UniqueConstraintError } = require("sequelize");
 
 module.exports.basicEH = async (err, req, res, next) => {
   if (err instanceof UniqueConstraintError) {
+    const fields = Object.keys(err.fields || {});
+    const paths = (err.errors || []).map((item) => item.path);
+    const isPhone = fields.includes("phone") || paths.includes("phone");
     return res.status(409).send({
-      errors: [{ message: "email already registered", status: 409 }],
+      errors: [
+        {
+          message: isPhone
+            ? "phone already registered"
+            : "email already registered",
+          status: 409,
+        },
+      ],
     });
   }
   if (err instanceof ValidationError) {
