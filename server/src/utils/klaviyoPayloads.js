@@ -1,3 +1,5 @@
+const { catalogSku } = require("./sizes");
+
 function storeBaseUrl() {
   return (
     process.env.STORE_BASE_URL ||
@@ -43,40 +45,25 @@ function mapLine(line) {
   const product = line.Product || {};
   const quantity = Number(line.quantity || 1);
   const price = Number(product.price) || 0;
-  const categoryName = product.Category && product.Category.name;
-  const images = productImagePublicUrls(product);
   const size = line.size || undefined;
+  const sku = catalogSku(product.id, size);
   return {
-    ProductID: String(product.id),
-    SKU: size ? `${product.id}-${size}` : String(product.id),
-    ProductName: product.name,
+    ProductID: sku,
+    SKU: sku,
     Size: size,
     Quantity: quantity,
-    ItemPrice: price,
     RowTotal: price * quantity,
-    ProductURL: `${storeBaseUrl()}/product/${product.id}`,
-    ImageURL: images[0],
-    ImageURL2: images[1],
-    Images: images,
-    Categories: categoryName
-      ? [categoryName]
-      : product.brand
-      ? [product.brand]
-      : [],
-    Brand: product.brand,
   };
 }
 
 function placedOrderProperties(order, lines) {
   const items = lines.map(mapLine);
-  const categories = [...new Set(items.flatMap((item) => item.Categories))];
-  const brands = [...new Set(items.map((item) => item.Brand).filter(Boolean))];
   return {
     OrderId: String(order.id),
-    Categories: categories,
-    ItemNames: items.map((item) => item.ProductName),
-    Brands: brands,
-    Items: items,
+    Items: items.map(({ ProductID, SKU }) => ({
+      ProductID,
+      SKU,
+    })),
   };
 }
 
@@ -86,15 +73,6 @@ function orderedProductProperties(order, line) {
     OrderId: String(order.id),
     ProductID: item.ProductID,
     SKU: item.SKU,
-    ProductName: item.ProductName,
-    Size: item.Size,
-    Quantity: item.Quantity,
-    ProductURL: item.ProductURL,
-    ImageURL: item.ImageURL,
-    ImageURL2: item.ImageURL2,
-    Images: item.Images,
-    Categories: item.Categories,
-    ProductBrand: item.Brand,
   };
 }
 

@@ -93,6 +93,7 @@ export function identifyKlaviyo(profile) {
     phone: attributes.phone_number || phone,
   });
   callKlaviyo("identify", attributes);
+  flushIdentifyHistory();
 }
 
 const SERVER_METRICS = {
@@ -174,15 +175,78 @@ export function trackKlaviyo(eventName, properties = {}) {
   sendServerEvent(eventName, properties);
 }
 
-export function identifyKlaviyoCart(shoppingCart) {
+const PRODUCT_VIEWED_KEY = "klaviyo_product_viewed";
+const CATEGORY_VIEWED_KEY = "klaviyo_category_viewed";
+const HISTORY_LIMIT = 20;
+
+function readHistory(key) {
+  if (typeof window === "undefined") {
+    return [];
+  }
+  try {
+    const raw = localStorage.getItem(key);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+function writeHistory(key, list) {
+  if (typeof window === "undefined") {
+    return;
+  }
+  try {
+    localStorage.setItem(key, JSON.stringify(list));
+  } catch (error) {
+    // ignore
+  }
+}
+
+function prependHistory(key, entry) {
+  const next = [entry, ...readHistory(key)].slice(0, HISTORY_LIMIT);
+  writeHistory(key, next);
+  return next;
+}
+
+function identifyCustom(attributes) {
   const profile = getRememberedProfile();
   if (!profile || !profile.email) {
     return;
   }
   callKlaviyo("identify", {
     email: profile.email,
-    shopping_cart: shoppingCart,
+    ...attributes,
   });
+}
+
+function flushIdentifyHistory() {
+  const extras = {};
+  const productViewed = readHistory(PRODUCT_VIEWED_KEY);
+  const categoryViewed = readHistory(CATEGORY_VIEWED_KEY);
+  if (productViewed.length) {
+    extras.product_viewed = productViewed;
+  }
+  if (categoryViewed.length) {
+    extras.category_viewed = categoryViewed;
+  }
+  if (Object.keys(extras).length) {
+    identifyCustom(extras);
+  }
+}
+
+export function identifyKlaviyoCart(shoppingCart) {
+  identifyCustom({ shopping_cart: shoppingCart });
+}
+
+export function identifyProductViewed(entry) {
+  const product_viewed = prependHistory(PRODUCT_VIEWED_KEY, entry);
+  identifyCustom({ product_viewed });
+}
+
+export function identifyCategoryViewed(entry) {
+  const category_viewed = prependHistory(CATEGORY_VIEWED_KEY, entry);
+  identifyCustom({ category_viewed });
 }
 
 export function trackViewedItemKlaviyo(item) {

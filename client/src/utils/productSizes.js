@@ -37,6 +37,14 @@ export function availableStock(product, size) {
   return Number(product && product.quantity) || 0
 }
 
+export function catalogSku(productId, size) {
+  if (productId == null || productId === '') {
+    return ''
+  }
+  const sizeName = size != null ? String(size).trim() : ''
+  return sizeName ? `${productId}-${sizeName}` : String(productId)
+}
+
 export function cartKey(product, size) {
   const id = product && product.id
   if (!id) {

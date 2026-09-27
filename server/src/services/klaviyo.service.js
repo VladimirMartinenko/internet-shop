@@ -317,27 +317,33 @@ async function ensureCatalogCategory(category) {
   return created ? catalogId(externalId) : null;
 }
 
-function catalogItemAttributes(product, { includeExternalId } = {}) {
+function catalogItemAttributes(product, line, { includeExternalId } = {}) {
   const {
     productPublicUrl,
     productImagePublicUrls,
   } = require("../utils/klaviyoPayloads");
   const images = productImagePublicUrls(product);
+  const inStock = Number(line.qty) > 0;
+  const title = line.sizeName
+    ? `${product.name} / ${line.sizeName}`
+    : product.name;
   const attributes = {
-    title: product.name,
+    title,
     description: productDescription(product),
     url: productPublicUrl(product.id),
     price: Number(product.price) || 0,
-    published: Number(product.quantity) > 0,
+    published: inStock,
     integration_type: "$custom",
     catalog_type: "$default",
     custom_metadata: {
       brand: product.brand || "",
-      quantity: String(product.quantity ?? ""),
+      quantity: String(line.qty ?? ""),
+      parent_id: String(product.id),
+      size: line.sizeName || "",
     },
   };
   if (includeExternalId) {
-    attributes.external_id = String(product.id);
+    attributes.external_id = String(line.sku);
   }
   if (images.length) {
     attributes.image_full_url = images[0];
@@ -347,26 +353,30 @@ function catalogItemAttributes(product, { includeExternalId } = {}) {
   return attributes;
 }
 
-function catalogVariantAttributes(product, { includeExternalId } = {}) {
+function catalogVariantAttributes(product, line, { includeExternalId } = {}) {
   const {
     productPublicUrl,
     productImagePublicUrls,
   } = require("../utils/klaviyoPayloads");
   const images = productImagePublicUrls(product);
+  const inStock = Number(line.qty) > 0;
+  const title = line.sizeName
+    ? `${product.name} / ${line.sizeName}`
+    : product.name;
   const attributes = {
-    title: product.name,
+    title,
     description: productDescription(product),
-    sku: String(product.id),
+    sku: String(line.sku),
     inventory_policy: 1,
-    inventory_quantity: Number(product.quantity) || 0,
+    inventory_quantity: Number(line.qty) || 0,
     price: Number(product.price) || 0,
     url: productPublicUrl(product.id),
-    published: Number(product.quantity) > 0,
+    published: inStock,
     integration_type: "$custom",
     catalog_type: "$default",
   };
   if (includeExternalId) {
-    attributes.external_id = `${product.id}-default`;
+    attributes.external_id = `${line.sku}-default`;
   }
   if (images.length) {
     attributes.image_full_url = images[0];
@@ -376,8 +386,8 @@ function catalogVariantAttributes(product, { includeExternalId } = {}) {
   return attributes;
 }
 
-async function upsertCatalogItem(product, categoryCompoundId) {
-  const itemId = catalogId(String(product.id));
+async function upsertCatalogItem(product, categoryCompoundId, line) {
+  const itemId = catalogId(String(line.sku));
   const relationships = categoryCompoundId
     ? {
         categories: {
@@ -391,7 +401,9 @@ async function upsertCatalogItem(product, categoryCompoundId) {
     body: {
       data: {
         type: "catalog-item",
-        attributes: catalogItemAttributes(product, { includeExternalId: true }),
+        attributes: catalogItemAttributes(product, line, {
+          includeExternalId: true,
+        }),
         ...(relationships ? { relationships } : {}),
       },
     },
@@ -411,23 +423,23 @@ async function upsertCatalogItem(product, categoryCompoundId) {
       data: {
         type: "catalog-item",
         id: itemId,
-        attributes: catalogItemAttributes(product),
+        attributes: catalogItemAttributes(product, line),
         ...(relationships ? { relationships } : {}),
       },
     },
   });
 }
 
-async function upsertCatalogVariant(product) {
-  const itemId = catalogId(String(product.id));
-  const variantId = catalogId(`${product.id}-default`);
+async function upsertCatalogVariant(product, line) {
+  const itemId = catalogId(String(line.sku));
+  const variantId = catalogId(`${line.sku}-default`);
   const created = await request({
     method: "POST",
     pathname: "/api/catalog-variants",
     body: {
       data: {
         type: "catalog-variant",
-        attributes: catalogVariantAttributes(product, {
+        attributes: catalogVariantAttributes(product, line, {
           includeExternalId: true,
         }),
         relationships: {
@@ -456,40 +468,45 @@ async function upsertCatalogVariant(product) {
       data: {
         type: "catalog-variant",
         id: variantId,
-        attributes: catalogVariantAttributes(product),
+        attributes: catalogVariantAttributes(product, line),
       },
     },
   });
 }
 
-async function syncProductToCatalog(productId) {
-  if (!isConfigured()) {
-    return { skipped: true, reason: "no api key" };
+function catalogLinesForProduct(product) {
+  const { parseSizes, totalQuantity, catalogSku } = require("../utils/sizes");
+  const sizes = parseSizes(product.sizes);
+  if (!sizes.length) {
+    return [
+      {
+        sku: catalogSku(product.id),
+        sizeName: "",
+        qty: Number(product.quantity) || 0,
+      },
+    ];
   }
-  try {
-    const { Product, ProductInfo, Category } = require("../db/models");
-    const product = await Product.findByPk(productId, {
-      include: [{ model: ProductInfo }, { model: Category }],
-    });
-    if (!product) {
-      return { skipped: true, reason: "product not found" };
-    }
-    const categoryId = await ensureCatalogCategory(product.Category);
-    await upsertCatalogItem(product, categoryId);
-    await upsertCatalogVariant(product);
-    return { ok: true };
-  } catch (error) {
-    console.error(error.message);
-    return { ok: false, error: error.message };
-  }
+  const parentQty = totalQuantity(sizes);
+  return [
+    {
+      sku: catalogSku(product.id),
+      sizeName: "",
+      qty: parentQty,
+    },
+    ...sizes.map((row) => ({
+      sku: catalogSku(product.id, row.name),
+      sizeName: row.name,
+      qty: Number(row.quantity) || 0,
+    })),
+  ];
 }
 
-async function deleteProductFromCatalog(productId) {
-  if (!isConfigured() || !productId) {
-    return { skipped: true };
+async function deleteCatalogSku(sku) {
+  if (!sku) {
+    return;
   }
-  const variantId = catalogId(`${productId}-default`);
-  const itemId = catalogId(String(productId));
+  const variantId = catalogId(`${sku}-default`);
+  const itemId = catalogId(String(sku));
   await request({
     method: "DELETE",
     pathname: `/api/catalog-variants/${variantId}`,
@@ -506,6 +523,55 @@ async function deleteProductFromCatalog(productId) {
       console.error(error.message);
     }
   });
+}
+
+async function syncProductToCatalog(productId, { previousSizeNames = [] } = {}) {
+  if (!isConfigured()) {
+    return { skipped: true, reason: "no api key" };
+  }
+  try {
+    const { parseSizes, catalogSku } = require("../utils/sizes");
+    const { Product, ProductInfo, Category } = require("../db/models");
+    const product = await Product.findByPk(productId, {
+      include: [{ model: ProductInfo }, { model: Category }],
+    });
+    if (!product) {
+      return { skipped: true, reason: "product not found" };
+    }
+    const categoryId = await ensureCatalogCategory(product.Category);
+    const lines = catalogLinesForProduct(product);
+    for (const line of lines) {
+      await upsertCatalogItem(product, categoryId, line);
+      await upsertCatalogVariant(product, line);
+    }
+    const currentNames = new Set(
+      parseSizes(product.sizes).map((row) => row.name)
+    );
+    const removed = previousSizeNames.filter((name) => !currentNames.has(name));
+    for (const name of removed) {
+      await deleteCatalogSku(catalogSku(product.id, name));
+    }
+    return { ok: true };
+  } catch (error) {
+    console.error(error.message);
+    return { ok: false, error: error.message };
+  }
+}
+
+async function deleteProductFromCatalog(productId, sizeNames = []) {
+  if (!isConfigured() || !productId) {
+    return { skipped: true };
+  }
+  const { catalogSku } = require("../utils/sizes");
+  const names = Array.isArray(sizeNames) ? sizeNames : [];
+  const skus = [
+    catalogSku(productId),
+    ...names.map((name) => catalogSku(productId, name)),
+  ];
+  const unique = [...new Set(skus.filter(Boolean))];
+  for (const sku of unique) {
+    await deleteCatalogSku(sku);
+  }
   return { ok: true };
 }
 

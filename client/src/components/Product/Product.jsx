@@ -9,11 +9,13 @@ import ProductImageSlider from './ProductImageSlider'
 import { basketCreate } from '../../redux/actions/basketActionCreators'
 import {
   trackKlaviyo,
-  trackViewedItemKlaviyo
+  trackViewedItemKlaviyo,
+  identifyProductViewed
 } from '../../utils/klaviyo'
 import {
   addedToCartPayload,
   cartWithAddedItem,
+  productViewedProfileEntry,
   viewedItemPayload,
   viewedProductPayload
 } from '../../utils/klaviyoPayloads'
@@ -54,6 +56,7 @@ const Product = () => {
     }
     trackKlaviyo('Viewed Product', viewedProductPayload(products))
     trackViewedItemKlaviyo(viewedItemPayload(products))
+    identifyProductViewed(productViewedProfileEntry(products))
   }, [products && products.id])
 
   const addToCart = () => {

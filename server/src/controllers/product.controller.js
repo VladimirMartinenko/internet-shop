@@ -141,6 +141,12 @@ module.exports.updateProduct = async (req, res, next) => {
     if (img2) {
       payload.img2 = img2;
     }
+    const existing = await Product.findByPk(id);
+    if (!existing) {
+      const err = createError(404, "cant update product");
+      return next(err);
+    }
+    const previousSizeNames = parseSizes(existing.sizes).map((row) => row.name);
     const [rowsUpdatet, [updateProduct]] = await Product.update(payload, {
       where: { id },
       returning: true,
@@ -158,7 +164,7 @@ module.exports.updateProduct = async (req, res, next) => {
         })
       );
     }
-    klaviyo.syncProductToCatalog(id);
+    klaviyo.syncProductToCatalog(id, { previousSizeNames });
     res.send({ data: updateProduct });
   } catch (error) {
     next(error);
@@ -170,12 +176,18 @@ module.exports.deleteProduct = async (req, res, next) => {
     const {
       params: { id },
     } = req;
+    const product = await Product.findByPk(id);
+    if (!product) {
+      const err = createError(404, "cant delete product");
+      return next(err);
+    }
+    const sizeNames = parseSizes(product.sizes).map((row) => row.name);
     const deleteRows = await Product.destroy({ where: { id } });
     if (deleteRows != 1) {
       const err = createError(404, "cant delete product");
       return next(err);
     }
-    klaviyo.deleteProductFromCatalog(id);
+    klaviyo.deleteProductFromCatalog(id, sizeNames);
     res.send({ data: { id } });
   } catch (error) {
     next(error);

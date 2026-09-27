@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import CONSTANTS from '../../constants'
 import { useHistory } from 'react-router-dom'
 import { basketCreate } from '../../redux/actions/basketActionCreators'
-import { trackKlaviyo } from '../../utils/klaviyo'
+import { identifyCategoryViewed, trackKlaviyo } from '../../utils/klaviyo'
 import {
   addedToCartPayload,
   cartWithAddedItem,
+  categoryViewedProfileEntry,
   viewedCategoryPayload
 } from '../../utils/klaviyoPayloads'
 import classes from './ProductList.module.scss'
@@ -39,6 +40,7 @@ const ProductList = () => {
       return
     }
     trackKlaviyo('Viewed Category', viewedCategoryPayload(categoryById))
+    identifyCategoryViewed(categoryViewedProfileEntry(categoryById))
   }, [categoryById && categoryById.id])
 
   const addToCart = addedProduct => {

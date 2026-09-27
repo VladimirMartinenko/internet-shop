@@ -32,8 +32,17 @@ function hasSizes(product) {
   return parseSizes(product && product.sizes).length > 0;
 }
 
+function catalogSku(productId, size) {
+  if (productId == null || productId === "") {
+    return "";
+  }
+  const sizeName = size != null ? String(size).trim() : "";
+  return sizeName ? `${productId}-${sizeName}` : String(productId);
+}
+
 module.exports = {
   parseSizes,
   totalQuantity,
   hasSizes,
+  catalogSku,
 };

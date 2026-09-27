@@ -1,4 +1,5 @@
 import CONSTANTS from "../constants";
+import { catalogSku } from "./productSizes";
 
 function siteOrigin() {
   if (typeof window === "undefined") {
@@ -73,64 +74,45 @@ export function cartWithAddedItem(items, product) {
 export function mapCartItem(item) {
   const quantity = Number(item.count || item.quantity || 1);
   const price = Number(item.price) || 0;
-  const images = productImageUrls(item);
   const size = item.size || undefined;
+  const sku = catalogSku(item.id, size);
   return {
-    ProductID: String(item.id),
-    SKU: size ? `${item.id}-${size}` : String(item.id),
-    ProductName: item.name,
-    Size: size,
-    Quantity: quantity,
-    ItemPrice: price,
-    RowTotal: price * quantity,
-    ProductURL: productPageUrl(item.id),
-    ImageURL: images[0],
-    ImageURL2: images[1],
-    Images: images,
-    ProductCategories: item.brand ? [item.brand] : [],
+    ProductID: sku,
+    SKU: sku,
+    value: price * quantity,
+  };
+}
+
+export function productViewedProfileEntry(product) {
+  return {
+    product_id: String(product.id),
+    timestamp: new Date().toISOString(),
+  };
+}
+
+export function categoryViewedProfileEntry(category) {
+  return {
+    category_id: String(category.id),
+    timestamp: new Date().toISOString(),
   };
 }
 
 export function viewedProductPayload(product) {
-  const images = productImageUrls(product);
   return {
-    ProductName: product.name,
     ProductID: String(product.id),
-    SKU: String(product.id),
-    Categories: product.brand ? [product.brand] : [],
-    ImageURL: images[0],
-    ImageURL2: images[1],
-    Images: images,
-    URL: productPageUrl(product.id),
-    Brand: product.brand,
-    Price: Number(product.price) || 0,
     $event_id: `viewed-product:${product.id}:${Date.now()}`,
-    $value: Number(product.price) || 0,
   };
 }
 
 export function viewedItemPayload(product) {
-  const images = productImageUrls(product);
   return {
-    Title: product.name,
     ItemId: String(product.id),
-    Categories: product.brand ? [product.brand] : [],
-    ImageUrl: images[0],
-    ImageUrl2: images[1],
-    Images: images,
-    Url: productPageUrl(product.id),
-    Metadata: {
-      Brand: product.brand,
-      Price: Number(product.price) || 0,
-    },
   };
 }
 
 export function viewedCategoryPayload(category) {
   return {
-    CategoryName: category.name,
     CategoryID: String(category.id),
-    URL: `${siteOrigin()}/shop/${category.id}`,
     $event_id: `viewed-category:${category.id}:${Date.now()}`,
   };
 }
@@ -138,23 +120,13 @@ export function viewedCategoryPayload(category) {
 export function addedToCartPayload(addedProduct, items) {
   const cartItems = items.map(mapCartItem);
   const added = mapCartItem(addedProduct);
-  const value = cartItems.reduce((sum, item) => sum + item.RowTotal, 0);
+  const value = cartItems.reduce((sum, item) => sum + item.value, 0);
   return {
     $value: value,
-    AddedItemProductName: added.ProductName,
     AddedItemProductID: added.ProductID,
     AddedItemSKU: added.SKU,
-    AddedItemCategories: added.ProductCategories,
-    AddedItemImageURL: added.ImageURL,
-    AddedItemImageURL2: added.ImageURL2,
-    AddedItemImages: added.Images,
-    AddedItemURL: added.ProductURL,
-    AddedItemPrice: added.ItemPrice,
-    AddedItemQuantity: added.Quantity,
-    AddedItemSize: added.Size,
-    ItemNames: cartItems.map((item) => item.ProductName),
     CheckoutURL: `${siteOrigin()}/basket`,
-    Items: cartItems,
+    Items: cartItems.map(({ ProductID, SKU }) => ({ ProductID, SKU })),
     $event_id: `added-to-cart:${added.ProductID}:${Date.now()}`,
   };
 }
@@ -172,31 +144,19 @@ export function cartSignature(items) {
 }
 
 export function shoppingCartProfile(items) {
-  const products = (items || []).map((item) => {
-    const mapped = mapCartItem(item);
-    return {
-      sku: mapped.SKU,
-      name: mapped.ProductName,
-      quantity: mapped.Quantity,
-      size: mapped.Size || null,
-      productId: mapped.ProductID,
-      price: mapped.ItemPrice,
-    };
-  });
   return {
     timestamp: new Date().toISOString(),
-    products,
+    products: (items || []).map((item) => ({ sku: mapCartItem(item).SKU })),
   };
 }
 
 export function updatedCartPayload(items) {
   const cartItems = (items || []).map(mapCartItem);
-  const value = cartItems.reduce((sum, item) => sum + item.RowTotal, 0);
+  const value = cartItems.reduce((sum, item) => sum + item.value, 0);
   return {
     $value: value,
-    ItemNames: cartItems.map((item) => item.ProductName),
     CheckoutURL: `${siteOrigin()}/basket`,
-    Items: cartItems,
+    Items: cartItems.map(({ ProductID, SKU }) => ({ ProductID, SKU })),
     CartEmpty: cartItems.length === 0,
     $event_id: `updated-cart:${cartSignature(items)}:${Date.now()}`,
   };
@@ -206,12 +166,8 @@ export function startedCheckoutPayload(items, totalSumm) {
   const cartItems = (items || []).map(mapCartItem);
   return {
     $event_id: `${cartItems.map((item) => item.ProductID).join("-")}_${Date.now()}`,
-    $value: Number(totalSumm) || cartItems.reduce((sum, item) => sum + item.RowTotal, 0),
-    ItemNames: cartItems.map((item) => item.ProductName),
+    $value: Number(totalSumm) || cartItems.reduce((sum, item) => sum + item.value, 0),
     CheckoutURL: `${siteOrigin()}/basket`,
-    Categories: [
-      ...new Set(cartItems.flatMap((item) => item.ProductCategories)),
-    ],
-    Items: cartItems,
+    Items: cartItems.map(({ ProductID, SKU }) => ({ ProductID, SKU })),
   };
 }

@@ -1,6 +1,7 @@
 const createHttpError = require("http-errors");
 const { ProductToOrder, Product, sequelize } = require("../db/models");
 const { parseSizes, totalQuantity } = require("../utils/sizes");
+const klaviyo = require("../services/klaviyo.service");
 
 module.exports.createProductToOrder = async (req, res, next) => {
   const t = await sequelize.transaction();
@@ -73,6 +74,7 @@ module.exports.createProductToOrder = async (req, res, next) => {
     }
 
     await t.commit();
+    klaviyo.syncProductToCatalog(productId);
     res.status(201).send({ data: productToOrder });
   } catch (error) {
     await t.rollback();
