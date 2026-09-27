@@ -7,11 +7,37 @@ function siteOrigin() {
   return window.location.origin;
 }
 
+function absoluteUrl(pathOrUrl) {
+  if (!pathOrUrl) {
+    return "";
+  }
+  if (/^https?:\/\//i.test(pathOrUrl)) {
+    return pathOrUrl;
+  }
+  const origin = siteOrigin();
+  return pathOrUrl.startsWith("/") ? `${origin}${pathOrUrl}` : `${origin}/${pathOrUrl}`;
+}
+
 export function productImageUrl(img) {
   if (!img) {
-    return `${siteOrigin()}${CONSTANTS.PRODUCT_IMAGE_PATH}`;
+    return absoluteUrl(CONSTANTS.PRODUCT_IMAGE_PATH);
   }
-  return `${CONSTANTS.HTTP_SERVER_URL_images}${img}`;
+  if (/^https?:\/\//i.test(img)) {
+    return img;
+  }
+
+  const file = String(img)
+    .replace(/^\/images\//, "")
+    .replace(/^\//, "");
+  const encoded = encodeURIComponent(file);
+  const base = CONSTANTS.HTTP_SERVER_URL_images || "/images/";
+
+  if (/^https?:\/\//i.test(base)) {
+    return `${base.replace(/\/?$/, "/")}${encoded}`;
+  }
+
+  const imagesPath = base.startsWith("/") ? base : `/${base}`;
+  return `${siteOrigin()}${imagesPath.replace(/\/?$/, "/")}${encoded}`;
 }
 
 export function productImageUrls(product) {
@@ -130,6 +156,49 @@ export function addedToCartPayload(addedProduct, items) {
     CheckoutURL: `${siteOrigin()}/basket`,
     Items: cartItems,
     $event_id: `added-to-cart:${added.ProductID}:${Date.now()}`,
+  };
+}
+
+export function cartSignature(items) {
+  return (items || [])
+    .map((item) => {
+      const key =
+        item.cartKey ||
+        (item.size ? `${item.id}::${item.size}` : String(item.id));
+      return `${key}:${Number(item.count || item.quantity || 0)}`;
+    })
+    .sort()
+    .join("|");
+}
+
+export function shoppingCartProfile(items) {
+  const products = (items || []).map((item) => {
+    const mapped = mapCartItem(item);
+    return {
+      sku: mapped.SKU,
+      name: mapped.ProductName,
+      quantity: mapped.Quantity,
+      size: mapped.Size || null,
+      productId: mapped.ProductID,
+      price: mapped.ItemPrice,
+    };
+  });
+  return {
+    timestamp: new Date().toISOString(),
+    products,
+  };
+}
+
+export function updatedCartPayload(items) {
+  const cartItems = (items || []).map(mapCartItem);
+  const value = cartItems.reduce((sum, item) => sum + item.RowTotal, 0);
+  return {
+    $value: value,
+    ItemNames: cartItems.map((item) => item.ProductName),
+    CheckoutURL: `${siteOrigin()}/basket`,
+    Items: cartItems,
+    CartEmpty: cartItems.length === 0,
+    $event_id: `updated-cart:${cartSignature(items)}:${Date.now()}`,
   };
 }
 

@@ -5,6 +5,7 @@ const ALLOWED_METRICS = new Set([
   "Viewed Category",
   "Added to Cart",
   "Started Checkout",
+  "Updated Cart",
 ]);
 
 module.exports.trackOnsiteEvent = async (req, res, next) => {

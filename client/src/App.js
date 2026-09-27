@@ -9,7 +9,7 @@ import ShopPage from './pages/ShopPage/ShopPage';
 import BasketPage from './pages/BasketPage/BasketPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import AuthActionCreators from './redux/actions/authActionCreators';
 import {basketSum} from './redux/actions/basketActionCreators';
 import CONSTANTS from './constants';
@@ -20,11 +20,17 @@ import SectionPage from './pages/SectionPage/SectionPage';
 import SliderPage from './pages/SliderPage/SliderPage';
 import ProductAdminPage from './pages/ProductAdminPage/ProductAdminPage';
 import AdminOrderPage from './pages/AdminOrderPage/AdminOrderPage';
-import { identifyKlaviyo, initKlaviyo } from './utils/klaviyo';
+import { identifyKlaviyo, identifyKlaviyoCart, initKlaviyo, trackKlaviyo } from './utils/klaviyo';
+import {
+  cartSignature,
+  shoppingCartProfile,
+  updatedCartPayload
+} from './utils/klaviyoPayloads'
 
 function BasketPersist() {
   const items = useSelector(state => state.basket.items)
   const dispatch = useDispatch()
+  const prevCartRef = useRef(null)
 
   useEffect(() => {
     window.localStorage.setItem('basket', JSON.stringify(items))
@@ -33,6 +39,29 @@ function BasketPersist() {
   useEffect(() => {
     dispatch(basketSum())
   }, [items, dispatch])
+
+  useEffect(() => {
+    const nextSignature = cartSignature(items)
+    const prev = prevCartRef.current
+    identifyKlaviyoCart(shoppingCartProfile(items))
+
+    if (prev === null) {
+      prevCartRef.current = { signature: nextSignature, count: items.length }
+      return
+    }
+
+    if (prev.signature === nextSignature) {
+      return
+    }
+
+    const isFirstAdd = prev.count === 0 && items.length > 0
+    prevCartRef.current = { signature: nextSignature, count: items.length }
+    if (isFirstAdd) {
+      return
+    }
+
+    trackKlaviyo('Updated Cart', updatedCartPayload(items))
+  }, [items])
 
   return null
 }

@@ -100,6 +100,7 @@ const SERVER_METRICS = {
   "Viewed Category": true,
   "Added to Cart": true,
   "Started Checkout": true,
+  "Updated Cart": true,
 };
 
 function rememberProfile(profile) {
@@ -171,6 +172,17 @@ export function trackKlaviyo(eventName, properties = {}) {
   }
   callKlaviyo("track", eventName, properties);
   sendServerEvent(eventName, properties);
+}
+
+export function identifyKlaviyoCart(shoppingCart) {
+  const profile = getRememberedProfile();
+  if (!profile || !profile.email) {
+    return;
+  }
+  callKlaviyo("identify", {
+    email: profile.email,
+    shopping_cart: shoppingCart,
+  });
 }
 
 export function trackViewedItemKlaviyo(item) {
