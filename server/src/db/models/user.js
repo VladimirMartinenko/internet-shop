@@ -51,8 +51,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(256),
         validate: {
           notEmpty: true,
-          isAlphanumeric: true,
           notNull: true,
+          is: {
+            args: /^\d{10,15}$/,
+            msg: "phone must be 10-15 digits",
+          },
         },
       },
       password: {
@@ -60,8 +63,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(256),
         validate: {
           notEmpty: true,
-          isAlphanumeric: true,
           notNull: true,
+          len: {
+            args: [4, 256],
+            msg: "password must be at least 4 characters",
+          },
         },
       },
       role: {
