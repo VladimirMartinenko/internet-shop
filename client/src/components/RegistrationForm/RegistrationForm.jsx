@@ -16,8 +16,13 @@ const initialValues = {
 
 const RegistrationForm = () => {
   const dispatch = useDispatch()
-  const onSubmit = (values, utils) => {
-    dispatch(AuthActionCreators.signUpRequest(values))
+  const onSubmit = (values) => {
+    dispatch(
+      AuthActionCreators.signUpRequest({
+        ...values,
+        phone: String(values.phone || "").replace(/\D/g, ""),
+      })
+    )
   }
   return (
     <Formik

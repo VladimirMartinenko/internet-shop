@@ -475,7 +475,7 @@ async function upsertCatalogVariant(product, line) {
 }
 
 function catalogLinesForProduct(product) {
-  const { parseSizes, totalQuantity, catalogSku } = require("../utils/sizes");
+  const { parseSizes, catalogSku } = require("../utils/sizes");
   const sizes = parseSizes(product.sizes);
   if (!sizes.length) {
     return [
@@ -486,19 +486,11 @@ function catalogLinesForProduct(product) {
       },
     ];
   }
-  const parentQty = totalQuantity(sizes);
-  return [
-    {
-      sku: catalogSku(product.id),
-      sizeName: "",
-      qty: parentQty,
-    },
-    ...sizes.map((row) => ({
-      sku: catalogSku(product.id, row.name),
-      sizeName: row.name,
-      qty: Number(row.quantity) || 0,
-    })),
-  ];
+  return sizes.map((row) => ({
+    sku: catalogSku(product.id, row.name),
+    sizeName: row.name,
+    qty: Number(row.quantity) || 0,
+  }));
 }
 
 async function deleteCatalogSku(sku) {
@@ -550,6 +542,9 @@ async function syncProductToCatalog(productId, { previousSizeNames = [] } = {}) 
     const removed = previousSizeNames.filter((name) => !currentNames.has(name));
     for (const name of removed) {
       await deleteCatalogSku(catalogSku(product.id, name));
+    }
+    if (currentNames.size) {
+      await deleteCatalogSku(catalogSku(product.id));
     }
     return { ok: true };
   } catch (error) {

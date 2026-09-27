@@ -8,11 +8,12 @@ const RegistrationPage = () => {
   return (
     <main className={classes.containerMain}>
       <h1 className={classes.text}>REGISTRATION</h1>
-      {error &&
-        error.map((error) => (
-          error.errors.map((errors)=>
-          <p className={classes.error}>{errors.message}</p>
-        )))}
+      {Array.isArray(error) &&
+        error.map((item, index) => (
+          <p key={index} className={classes.error}>
+            {item.message || item.msg || "Registration failed"}
+          </p>
+        ))}
       <RegistrationForm />
     </main>
   );
